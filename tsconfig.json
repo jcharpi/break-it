@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["esnext", "dom", "es6", "es2017", "es2015.iterable"],
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
+    "sourceMap": true,
+    "strict": true
   },
   "extends": "expo/tsconfig.base"
 }

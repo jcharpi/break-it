@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import NavBar from './components/NavBar';
-import ProgressPage from './pages/ProgressPage';
+import WhatNextPage from './pages/WhatNextPage';
 export default function App() {
   return (
     <View style={styles.container}>
-      <ProgressPage/>
+      <WhatNextPage/>
       <StatusBar style="auto" />
     </View>
   );

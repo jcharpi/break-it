@@ -6,7 +6,7 @@ export default function NavBar() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.flexView}>
-                <Image source={helpImage} style={styles.helpImage} />
+                <Image source={helpImage} style={styles.helpImage} resizeMode="contain" />
                 <Text style={styles.title}>Progress</Text>
                 <Image source={troveImage} style={styles.troveImage} resizeMode="contain" />
             </View>
@@ -25,22 +25,21 @@ const styles = StyleSheet.create({
         marginTop: "auto",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         marginHorizontal: 20,
+        marginBottom: 8,
     },
     title: {
         color: "white",
         fontWeight: "600",
         fontSize: 22,
-        textAlign: "center",
-        marginTop: "auto",
-        marginBottom: 15
     },
     helpImage: {
-        width: 29,
-        height: 29,
+        width: 44,
+        height: 30
     },
     troveImage: {
-        width: 56.07,
-        height: 29,
+        width: 44,
+        height: 44
     }
 })
