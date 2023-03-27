@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import WhatNowPage from './pages/WhatNowPage';
+import { StyleSheet, View } from 'react-native';
+import ProgressPage from './pages/ProgressPage';
+import QuestionPage from './pages/QuestionPage';
 export default function App() {
   return (
     <View style={styles.container}>
-      <WhatNowPage/>
+      <QuestionPage/>
       <StatusBar style="auto" />
     </View>
   );

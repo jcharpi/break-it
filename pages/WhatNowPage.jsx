@@ -7,7 +7,6 @@ export default function WhatNowPage() {
 
     function beginHandler() {
         setFirstHabit(() => false)
-        console.log(firstHabit)
     }
 
     return (
