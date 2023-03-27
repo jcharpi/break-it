@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import WhatNextPage from './pages/WhatNextPage';
+import WhatNowPage from './pages/WhatNowPage';
 export default function App() {
   return (
     <View style={styles.container}>
-      <WhatNextPage/>
+      <WhatNowPage/>
       <StatusBar style="auto" />
     </View>
   );

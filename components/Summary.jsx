@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import closeImage from "../images/close.png"
+import closeImage from "../images/blackClose.png"
 export default function Summary() {
     return (
         <View style={styles.container}>
