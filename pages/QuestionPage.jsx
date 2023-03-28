@@ -9,6 +9,10 @@ export default function QuestionPage() {
             <Text style={styles.titleText}>What now?</Text>
             <View style={styles.body}>
                 <CustomSlider maximumValue={3} trackMarks={[0, 1, 2, 3]}/>
+                <CustomSlider maximumValue={2} trackMarks={[0, 1, 2]}/>
+                <CustomSlider maximumValue={2} trackMarks={[0, 1, 2]}/>
+                <CustomSlider maximumValue={100} trackMarks={[0, 100]}/>
+
             </View>
             
         </SafeAreaView>
