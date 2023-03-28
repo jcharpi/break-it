@@ -12,7 +12,12 @@ export default function QuestionPage() {
                     maximumValue={3}
                     trackMarks={[0, 1, 2, 3]}
                     step={1}
+                    minimumTrackStyle={styles.minimumTrackStyle}
+                    minimumTrackTintColor="white"
                     renderTrackMarkComponent={SliderMarker}
+                    thumbStyle={styles.thumbStyle}
+                    trackStyle={styles.trackStyle}
+                    containerStyle={styles.containerStyle}
                 />
             </View>
             
@@ -33,7 +38,22 @@ const styles = StyleSheet.create({
         marginHorizontal: "10%",
         marginTop: "10%"
     },
-    body: {
-        marginHorizontal: "10%",
+    containerStyle: {
+        marginHorizontal: 10,
+        borderRadius: 15,
     },
+    thumbStyle: {
+        backgroundColor: "#989DB0",
+        borderRadius: 15,
+        height: 30,
+        width: 30,
+    },
+    trackStyle: {
+        height: 32,
+        borderRadius: 30,
+        backgroundColor: "white",
+    },
+    minimumTrackStyle: {
+        height: 0
+    }
 })
