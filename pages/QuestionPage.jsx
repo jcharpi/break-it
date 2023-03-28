@@ -1,24 +1,14 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Slider } from "@miblanchard/react-native-slider";
 import SliderMarker from "../components/SliderMarker";
+import CustomSlider from "../components/CustomSlider";
 export default function QuestionPage() {
 
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.titleText}>What now?</Text>
             <View style={styles.body}>
-                <Slider 
-                    minimumValue={0}
-                    maximumValue={3}
-                    trackMarks={[0, 1, 2, 3]}
-                    step={1}
-                    minimumTrackStyle={styles.minimumTrackStyle}
-                    minimumTrackTintColor="white"
-                    renderTrackMarkComponent={SliderMarker}
-                    thumbStyle={styles.thumbStyle}
-                    trackStyle={styles.trackStyle}
-                    containerStyle={styles.containerStyle}
-                />
+                <CustomSlider maximumValue={3} trackMarks={[0, 1, 2, 3]}/>
             </View>
             
         </SafeAreaView>
@@ -38,22 +28,4 @@ const styles = StyleSheet.create({
         marginHorizontal: "10%",
         marginTop: "10%"
     },
-    containerStyle: {
-        marginHorizontal: 10,
-        borderRadius: 15,
-    },
-    thumbStyle: {
-        backgroundColor: "#989DB0",
-        borderRadius: 15,
-        height: 30,
-        width: 30,
-    },
-    trackStyle: {
-        height: 32,
-        borderRadius: 30,
-        backgroundColor: "white",
-    },
-    minimumTrackStyle: {
-        height: 0
-    }
 })
