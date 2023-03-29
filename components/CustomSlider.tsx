@@ -1,13 +1,23 @@
 import { StyleSheet } from "react-native"
 import { Slider } from "@miblanchard/react-native-slider"
 import SliderMarker from "./SliderMarker"
+import { useState } from "react"
+import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/types"
 
 interface sliderProps {
     maximumValue: number,
-    trackMarks: number[]
+    trackMarks: number[],
+    onValueChange: any
 }
 
 export default function CustomSlider(props: sliderProps) {
+    const [sliderValue, setSliderValue] = useState(0);
+
+    const handleValueChange: SliderOnChangeCallback = (value) => {
+        setSliderValue(value[0]);
+        props.onValueChange(value[0])
+    };
+
     return (
         <Slider 
             minimumValue={0}
@@ -17,6 +27,8 @@ export default function CustomSlider(props: sliderProps) {
             minimumTrackStyle={styles.minimumTrackStyle}
             minimumTrackTintColor="white"
             renderTrackMarkComponent={SliderMarker}
+            onValueChange={handleValueChange}
+            value={sliderValue}
             thumbStyle={styles.thumbStyle}
             trackStyle={styles.trackStyle}
             containerStyle={styles.containerStyle}
@@ -26,7 +38,8 @@ export default function CustomSlider(props: sliderProps) {
 
 const styles = StyleSheet.create({
     containerStyle: {
-        marginHorizontal: 30,
+        marginTop: 10,
+        marginHorizontal: 20,
         borderRadius: 15,
     },
     thumbStyle: {
