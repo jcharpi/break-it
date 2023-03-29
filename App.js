@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import Summary from './components/Summary';
+import EnterHabitPage from './pages/EnterHabitPage';
 import ProgressPage from './pages/ProgressPage';
 import QuestionPage from './pages/QuestionPage';
 import WhatNowPage from './pages/WhatNowPage';
