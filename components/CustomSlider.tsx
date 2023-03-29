@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native"
 import { Slider } from "@miblanchard/react-native-slider"
 import SliderMarker from "./SliderMarker"
-import { useState } from "react"
+import { useState, memo } from "react"
 import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/types"
 
 interface sliderProps {
@@ -10,7 +10,7 @@ interface sliderProps {
     onValueChange: any
 }
 
-export default function CustomSlider(props: sliderProps) {
+function CustomSlider(props: sliderProps) {
     const [sliderValue, setSliderValue] = useState(0);
 
     const handleValueChange: SliderOnChangeCallback = (value) => {
@@ -35,6 +35,9 @@ export default function CustomSlider(props: sliderProps) {
         />
     )
 }
+
+export default memo(CustomSlider)
+
 
 const styles = StyleSheet.create({
     containerStyle: {

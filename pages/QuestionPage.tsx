@@ -1,8 +1,8 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { useState } from "react";
+import { useState, memo } from "react";
 import CustomSlider from "../components/CustomSlider";
 
-export default function QuestionPage() {
+function QuestionPage() {
 
     const [firstOccurrence, setFirstOccurrence] = useState('days')
     const [frequency, setFrequency] = useState('daily')
@@ -48,6 +48,9 @@ export default function QuestionPage() {
     )
 }
 
+export default memo(QuestionPage)
+
+
 const styles = StyleSheet.create({
     container: {
         width: "100%",
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     bodyText: {
         color: "white",
         fontSize: 19,
-        fontWeight: "200",
+        fontWeight: "300",
         marginHorizontal: "7%",
         marginTop: "10%"
     },

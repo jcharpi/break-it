@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import whiteCloseImage from "../images/whiteClose.png"
-export default function WhatNowPage() {
+
+function WhatNowPage() {
 
     const [firstHabit, setFirstHabit] = useState(true)
 
@@ -54,6 +55,9 @@ export default function WhatNowPage() {
     )
 }
 
+export default memo(WhatNowPage)
+
+
 const styles = StyleSheet.create({
     container: {
         width: "100%",
@@ -81,7 +85,7 @@ const styles = StyleSheet.create({
     bodyText: {
         color: "white",
         fontSize: 20,
-        fontWeight: 300,
+        fontWeight: "300",
         marginVertical: 25
     },
     body: {
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 20,
-        fontWeight: 300,
+        fontWeight: "300",
         color: "white"
     }
 })

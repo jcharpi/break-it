@@ -1,7 +1,8 @@
 import NavBar from "../components/NavBar"
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native"
+import { Image, StyleSheet, View } from "react-native"
 import rockImage from "../images/rock.png"
 import AddButton from "../components/AddButton"
+
 export default function ProgressPage() {
     return (
         <View style={styles.container}>
@@ -13,6 +14,7 @@ export default function ProgressPage() {
         </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
