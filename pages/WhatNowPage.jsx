@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 29,
         fontWeight: "600",
-        marginHorizontal: "10%",
+        marginHorizontal: "7%",
         marginTop: "10%"
     },
     bodyText: {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         marginVertical: 25
     },
     body: {
-        marginHorizontal: "10%",
+        marginHorizontal: "7%",
     },
     button: {
         width: 200,

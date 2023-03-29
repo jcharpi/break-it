@@ -31,7 +31,7 @@ export default function QuestionPage() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.titleText}>What now?</Text>
+            <Text style={styles.titleText}>A few questions...</Text>
             <Text style={styles.bodyText}>First occurrence was <Text style={styles.valueText}>{firstOccurrence}</Text> ago</Text>
             <CustomSlider onValueChange={changeOccurrence} maximumValue={3} trackMarks={[0, 1, 2, 3]}/>
 
