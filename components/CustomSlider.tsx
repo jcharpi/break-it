@@ -4,13 +4,13 @@ import SliderMarker from "./SliderMarker"
 import { useState, memo } from "react"
 import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/types"
 
-interface sliderProps {
+interface SliderProps {
     maximumValue: number,
     trackMarks: number[],
     onValueChange: any
 }
 
-function CustomSlider(props: sliderProps) {
+function CustomSlider(props: SliderProps) {
     const [sliderValue, setSliderValue] = useState(0);
 
     const handleValueChange: SliderOnChangeCallback = (value) => {

@@ -9,7 +9,7 @@ import WhatNowPage from './pages/WhatNowPage';
 export default function App() {
   return (
     <View style={styles.container}>
-      <TrovePage/>
+      <TrovePage />
       <StatusBar style="auto" />
     </View>
   );

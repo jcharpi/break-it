@@ -8,7 +8,13 @@ import troveImage from "../images/trove.png"
 export default function ProgressPage() {
     return (
         <View style={styles.container}>
-            <NavBar leftImage={helpImage} rightImage={troveImage} title="Progress"/>
+            <NavBar 
+                leftImage={helpImage} 
+                leftImageStyle={styles.helpImage} 
+                rightImage={troveImage} 
+                rightImageStyle={styles.troveImage} 
+                title="Progress"
+            />
             <View style={styles.flexView}>
                 <Image source={rockImage}/>
                 <AddButton/>
@@ -29,5 +35,13 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems:"center",
         gap: 60
+    }, 
+    helpImage: {
+        width: 44,
+        height: 30
     },
+    troveImage: {
+        width: 44,
+        height: 44
+    }
 })

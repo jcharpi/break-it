@@ -1,10 +1,14 @@
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import NavBar from "../components/NavBar";
+import backImage from "../images/back.png"
 
 export default function TrovePage() {
     return (
         <View style={styles.container}>
-            <NavBar title="Trove"/>
+            <NavBar 
+                leftImage={backImage} 
+                leftImageStyle={styles.backImage}
+                title="Trove"/>
             <Text>Free</Text>
         </View>
     )
@@ -16,4 +20,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#586183"
     },
+    backImage: {
+        height: 30,
+        width: 44
+    }
 })
