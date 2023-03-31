@@ -4,11 +4,12 @@ import Summary from './components/Summary';
 import EnterHabitPage from './pages/EnterHabitPage';
 import ProgressPage from './pages/ProgressPage';
 import QuestionPage from './pages/QuestionPage';
+import TrovePage from './pages/TrovePage';
 import WhatNowPage from './pages/WhatNowPage';
 export default function App() {
   return (
     <View style={styles.container}>
-      <QuestionPage/>
+      <TrovePage/>
       <StatusBar style="auto" />
     </View>
   );

@@ -1,14 +1,18 @@
-import { StyleSheet, SafeAreaView, View, Text, Image } from "react-native";
-import helpImage from "../images/help.png"
-import troveImage from "../images/trove.png"
+import { StyleSheet, SafeAreaView, View, Text, Image, ImageSourcePropType } from "react-native";
 
-export default function NavBar() {
+interface Props {
+    title: string
+    leftImage?: ImageSourcePropType
+    rightImage?: ImageSourcePropType
+}
+
+export default function NavBar(props: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.flexView}>
-                <Image source={helpImage} style={styles.helpImage} resizeMode="contain" />
-                <Text style={styles.title}>Progress</Text>
-                <Image source={troveImage} style={styles.troveImage} resizeMode="contain" />
+                {props.leftImage && <Image source={props.leftImage} style={styles.helpImage} resizeMode="contain" />}
+                <Text style={styles.title}>{props.title}</Text>
+                {props.rightImage && <Image source={props.rightImage} style={styles.troveImage} resizeMode="contain" />}
             </View>
         </SafeAreaView>
     )
@@ -17,9 +21,8 @@ export default function NavBar() {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: 100,
+        height: "11%",
         backgroundColor: '#424A67',
-        
     },
     flexView: {
         marginTop: "auto",
@@ -32,7 +35,9 @@ const styles = StyleSheet.create({
     title: {
         color: "white",
         fontWeight: "600",
-        fontSize: 22,
+        fontSize: 22,  
+        flex: 1,
+        textAlign: "center"
     },
     helpImage: {
         width: 44,
