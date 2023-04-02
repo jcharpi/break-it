@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#586183"
     },
     backImage: {
-        height: 30,
+        height: 25,
         width: 44
     },
     achievementList: {
