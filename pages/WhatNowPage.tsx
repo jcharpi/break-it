@@ -1,6 +1,6 @@
 import { useState, memo } from "react";
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import whiteCloseImage from "../images/whiteClose.png"
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Icon from 'react-native-vector-icons/Ionicons'
 
 function WhatNowPage() {
 
@@ -17,9 +17,12 @@ function WhatNowPage() {
                 {
                     !firstHabit && 
 
-                    <TouchableOpacity>
-                        <Image style={styles.closeImage} source={whiteCloseImage} />
-                    </TouchableOpacity>
+                    <Icon 
+                        name='close-outline'
+                        size={44}
+                        color='white'
+                        style={styles.closeImage}
+                    />
                 }
             </View>
 
@@ -70,17 +73,14 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
     },
     closeImage: {
-        height: 22,
-        width: 22,
-        marginRight: 40,
-        marginBottom: 20
+        marginRight: 30,
     },
     titleText: {
         color: "white",
         fontSize: 29,
         fontWeight: "600",
         marginHorizontal: "7%",
-        marginTop: "10%"
+        marginTop: "10%",
     },
     bodyText: {
         color: "white",
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     button: {
         width: 200,
         height: 50,
-        marginTop: 50,
+        marginTop: 30,
         borderRadius: 50,
         borderColor: "white",
         borderWidth: 1,

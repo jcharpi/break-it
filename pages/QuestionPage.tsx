@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 import { useState, memo } from "react";
 import CustomSlider from "../components/CustomSlider";
 
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         fontSize: 19,
         fontWeight: "300",
         marginHorizontal: "7%",
-        marginTop: "10%"
+        marginTop: "16%"
     },
     valueText: {
         fontWeight: "600"

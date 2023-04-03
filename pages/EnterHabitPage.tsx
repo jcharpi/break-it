@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native"
+import { StyleSheet, Text, TextInput, SafeAreaView } from "react-native"
 import { memo } from "react"
 
 function EnterHabitPage() {
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 15,
         borderWidth: 1,
+        borderStyle: 'solid',
         fontSize: 19,
         height: 45,
         width: "80%",
