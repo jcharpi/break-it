@@ -2,17 +2,23 @@ import NavBar from "../components/NavBar"
 import { Image, StyleSheet, View } from "react-native"
 import rockImage from "../images/rock.png"
 import AddButton from "../components/AddButton"
-import helpImage from "../images/help.png"
-import troveImage from "../images/trove.png"
 
-export default function ProgressPage() {
+export default function ProgressPage({ navigation }: any) {
+    function handleHelp() {
+        navigation.navigate('WhatNowPage')
+    }
+
+    function handleTrove() {
+        navigation.navigate('TrovePage')
+    }
+    
     return (
         <View style={styles.container}>
             <NavBar 
-                leftImage={helpImage} 
-                leftImageStyle={styles.helpImage} 
-                rightImage={troveImage} 
-                rightImageStyle={styles.troveImage} 
+                handleLeftIcon={handleHelp}
+                handleRightIcon={handleTrove}
+                leftIconName='question'
+                rightIconName='mountain'
                 title="Progress"
             />
             <View style={styles.flexView}>

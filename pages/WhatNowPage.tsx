@@ -1,29 +1,19 @@
 import { useState, memo } from "react";
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Icon from 'react-native-vector-icons/Ionicons'
 
-function WhatNowPage() {
+function WhatNowPage({ navigation }: any) {
 
     const [firstHabit, setFirstHabit] = useState(true)
 
     function beginHandler() {
-        setFirstHabit(() => false)
+        navigation.navigate('ProgressPage')
+        //setFirstHabit(() => false)
     }
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.flexHeader}>
                 <Text style={styles.titleText}>What now?</Text>
-                {
-                    !firstHabit && 
-
-                    <Icon 
-                        name='close-outline'
-                        size={44}
-                        color='white'
-                        style={styles.closeImage}
-                    />
-                }
             </View>
 
             <View style={styles.body}>
@@ -49,7 +39,6 @@ function WhatNowPage() {
 
             {
                 firstHabit && 
-
                 <TouchableOpacity style={styles.button} onPress={beginHandler}>
                     <Text style={styles.buttonText}>Begin</Text>
                 </TouchableOpacity>

@@ -1,14 +1,18 @@
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import NavBar from "../components/NavBar";
-import backImage from "../images/back.png"
 import Achievement from "../components/Achievement";
 
-export default function TrovePage() {
+export default function TrovePage({ navigation }: any) {
+
+    function handleBack() {
+        navigation.navigate('ProgressPage')
+    }
+
     return (
         <View style={styles.container}>
             <NavBar 
-                leftImage={backImage} 
-                leftImageStyle={styles.backImage}
+                handleLeftIcon={handleBack}
+                leftIconName={'chevron-left'} 
                 title="Trove"
             />
             <ScrollView showsVerticalScrollIndicator={false} alwaysBounceVertical={false} contentContainerStyle={styles.achievementList}>

@@ -1,36 +1,45 @@
-import { StyleSheet, SafeAreaView, View, Text, Image, ImageSourcePropType, StyleProp, ImageStyle } from "react-native";
+import { StyleSheet, SafeAreaView, View, Text } from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 interface Props {
     title: string
-    leftImage?: ImageSourcePropType
-    leftImageStyle?: StyleProp<ImageStyle>
-    rightImage?: ImageSourcePropType
-    rightImageStyle?: StyleProp<ImageStyle>
+    leftIconName?: string
+    handleLeftIcon?: () => void
+    rightIconName?: string
+    handleRightIcon?: () => void
 }
 
 export default function NavBar(props: Props) {
+
+    function handleNothing() {}
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.flexView}>
                 {
-                    props.leftImage ? 
-                    <Image 
-                        source={props.leftImage} 
-                        style={props.leftImageStyle} 
-                        resizeMode="contain" 
-                    /> 
+                    props.leftIconName ? 
+                    <Icon
+                        style={styles.icon}
+                        onPress={props.handleLeftIcon ?? handleNothing}
+                        name={props.leftIconName} 
+                        size={30} 
+                        color='white'
+                    />
                     : 
                     <View style={styles.noImage}></View>
                 }
+
                 <Text style={styles.title}>{props.title}</Text>
 
                 {
-                    props.rightImage ? 
-                    <Image 
-                        source={props.rightImage} 
-                        style={props.rightImageStyle} 
-                        resizeMode="contain" 
-                    /> 
+                    props.rightIconName ? 
+                    <Icon
+                        style={styles.icon}
+                        onPress={props.handleRightIcon ?? handleNothing}
+                        name={props.rightIconName} 
+                        size={30} 
+                        color='white'
+                    />
                     : 
                     <View style={styles.noImage}></View>
                 }
@@ -54,13 +63,15 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginBottom: 8,
     },
-
     title: {
         color: "white",
         fontWeight: "600",
         fontSize: 22,  
     },
     noImage: {
-        width: 44
+        width: 40
+    },
+    icon: {
+        width: 40,
     }
 })
