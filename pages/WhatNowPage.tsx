@@ -1,13 +1,14 @@
-import { useState, memo } from "react";
+import { memo } from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-function WhatNowPage({ navigation }: any) {
-
-    const [firstHabit, setFirstHabit] = useState(true)
+interface WhatNowPageProps {
+    navigation?: any; // Update the type to a more specific type if possible
+    modalView?: boolean; // Update the type to a more specific type if possible
+}
+function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
     function beginHandler() {
         navigation.navigate('ProgressPage')
-        //setFirstHabit(() => false)
     }
 
     return (
@@ -38,7 +39,7 @@ function WhatNowPage({ navigation }: any) {
 
 
             {
-                firstHabit && 
+                !modalView && 
                 <Pressable style={styles.button} onPress={beginHandler}>
                     <Text style={styles.buttonText}>Begin</Text>
                 </Pressable>
