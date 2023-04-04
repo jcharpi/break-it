@@ -5,8 +5,9 @@ import QuestionPage from "../pages/QuestionPage";
 import WhatNowPage from "../pages/WhatNowPage";
 import Icon from 'react-native-vector-icons/Ionicons'
 
+const Tab = createMaterialTopTabNavigator();
+
 export default function CreateHabitLayout() {
-    const Tab = createMaterialTopTabNavigator();
 
     return (
         <Tab.Navigator 

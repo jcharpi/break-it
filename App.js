@@ -5,8 +5,9 @@ import CreateHabitLayout from './layouts/CreateHabitLayout';
 import ProgressPage from './pages/ProgressPage';
 import TrovePage from './pages/TrovePage';
 
+const Tab = createMaterialTopTabNavigator();
+
 export default function App() {
-  const Tab = createMaterialTopTabNavigator();
   const theme = useTheme();
   theme.colors.secondaryContainer = "transperent"
 
