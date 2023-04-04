@@ -1,5 +1,5 @@
 import { useState, memo } from "react";
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 function WhatNowPage({ navigation }: any) {
 
@@ -39,9 +39,9 @@ function WhatNowPage({ navigation }: any) {
 
             {
                 firstHabit && 
-                <TouchableOpacity style={styles.button} onPress={beginHandler}>
+                <Pressable style={styles.button} onPress={beginHandler}>
                     <Text style={styles.buttonText}>Begin</Text>
-                </TouchableOpacity>
+                </Pressable>
             }
         </SafeAreaView>
     )

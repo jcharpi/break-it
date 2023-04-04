@@ -1,13 +1,13 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import closeImage from "../images/blackClose.png"
 export default function Summary() {
     return (
         <View style={styles.container}>
             <View style={styles.textHeader}>
                 <Text style={[styles.titleText, styles.text]}>This Week</Text>
-                <TouchableOpacity>
+                <Pressable>
                     <Image source={closeImage} style={styles.closeImage} />
-                </TouchableOpacity>
+                </Pressable>
             </View>
             <Text style={[styles.bodyText, styles.text]}>Goal: decrease by 10%</Text>
             <Text style={[styles.bodyText, styles.text]}>Current: decreased 4%</Text>

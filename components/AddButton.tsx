@@ -1,11 +1,11 @@
-import { TouchableOpacity, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, Pressable } from "react-native";
 import addImage from "../images/add.png"
 
 export default function AddButton() {
     return (
-        <TouchableOpacity style={styles.addButton}>
+        <Pressable style={styles.addButton}>
             <Image source={addImage} style={styles.addImage} />
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 
