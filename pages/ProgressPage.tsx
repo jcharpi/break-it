@@ -59,7 +59,7 @@ export default function ProgressPage({ navigation }: any) {
                     onRequestClose={() => setWhatNowModalVisible(() => false)}
                     presentationStyle="pageSheet"
                 >
-                    <WhatNowPage modalView={true} />
+                    <WhatNowPage navigation={navigation} modalView={true} />
                 </Modal>
                 <AddButton/>
             </View>

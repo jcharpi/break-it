@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import WhatNowModalContext from "../contexts/whatNowModalContext";
 
 interface WhatNowPageProps {
-    navigation?: any; // Update the type to a more specific type if possible
+    navigation: any; // Update the type to a more specific type if possible
     modalView?: boolean; // Update the type to a more specific type if possible
     closeModal?: any
 }
@@ -17,8 +17,15 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
         setWhatNowModalVisible(() => false)
     }
 
-    function beginHandler() {
-        navigation.navigate('TrackHabitLayout', { screen: 'ProgressPage' })
+    function buttonHandler() {
+        if(modalView) {
+            closeWhatNowModal() 
+            setTimeout(() => {
+                navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
+            }, 300);
+        } else {
+            navigation.navigate('TrackHabitLayout', { screen: 'ProgressPage' })
+        }
     }
 
     return (
@@ -55,13 +62,10 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 </Text>
             </View>
 
-
-            {
-                !modalView && 
-                <Pressable style={styles.button} onPress={beginHandler}>
-                    <Text style={styles.buttonText}>Begin</Text>
-                </Pressable>
-            }
+            <Pressable style={modalView ? [styles.button, {borderColor: '#e34566'}] : styles.button} onPress={buttonHandler}>
+                <Text style={modalView ? [styles.buttonText, {color: '#e34566'}] : styles.buttonText}>{modalView ? 'End Habit' : 'Begin'}</Text>
+            </Pressable>
+            
         </SafeAreaView>
     )
 }
