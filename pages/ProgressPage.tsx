@@ -1,13 +1,16 @@
 import NavBar from "../components/NavBar"
-import { Image, Modal, StyleSheet, View } from "react-native"
+import { Image, Modal, Pressable, StyleSheet, View } from "react-native"
 import { useContext } from "react"
 import rockImage from "../images/rock.png"
 import AddButton from "../components/AddButton"
 import WhatNowPage from "./WhatNowPage"
-import ModalViewContext from "../contexts/ModalViewContext"
+import WhatNowModalContext from "../contexts/whatNowModalContext"
+import Summary from "../components/Summary"
+import SummaryModalContext from "../contexts/summaryModalContext"
 
 export default function ProgressPage({ navigation }: any) {
-    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(ModalViewContext);
+    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalContext);
+    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalContext);
 
     function handleHelp() {
         setWhatNowModalVisible(() => !whatNowModalVisible)
@@ -15,6 +18,14 @@ export default function ProgressPage({ navigation }: any) {
 
     function handleTrove() {
         navigation.navigate('TrovePage')
+    }
+
+    function openSummaryModal() {
+        setSummaryModalVisible(() => true)
+    }
+
+    function closeSummaryModal() {
+        setSummaryModalVisible(() => false)
     }
     
     return (
@@ -27,7 +38,21 @@ export default function ProgressPage({ navigation }: any) {
                 title="Progress"
             />
             <View style={styles.flexView}>
-                <Image source={rockImage}/>
+                <Pressable onPress={openSummaryModal}>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={summaryModalVisible}
+                        onRequestClose={() => setSummaryModalVisible(() => false)}
+                        presentationStyle="overFullScreen"
+                    >
+                        <View style={styles.modalContainer}>
+                            <Summary/>
+                        </View>
+                        <Pressable style={styles.modalOverlay} onPress={closeSummaryModal} />
+                    </Modal>
+                    <Image source={rockImage}/>
+                </Pressable>
                 <Modal
                     animationType="slide"
                     visible={whatNowModalVisible}
@@ -55,12 +80,16 @@ const styles = StyleSheet.create({
         alignItems:"center",
         gap: 60
     }, 
-    helpImage: {
-        width: 44,
-        height: 30
+    modalContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
     },
-    troveImage: {
-        width: 44,
-        height: 44
+    modalOverlay: {  
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
     }
 })

@@ -1,7 +1,7 @@
 import { memo, useContext } from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import ModalViewContext from "../contexts/ModalViewContext";
+import WhatNowModalContext from "../contexts/whatNowModalContext";
 
 interface WhatNowPageProps {
     navigation?: any; // Update the type to a more specific type if possible
@@ -11,9 +11,9 @@ interface WhatNowPageProps {
 
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
-    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(ModalViewContext)
+    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalContext)
     
-    function closeModal() {
+    function closeWhatNowModal() {
         setWhatNowModalVisible(() => false)
     }
 
@@ -27,7 +27,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 <Text style={styles.titleText}>What now?</Text>
                 {modalView && 
                 <Icon
-                    onPress={closeModal}
+                    onPress={closeWhatNowModal}
                     style={{marginRight: "7%"}}
                     name='times' 
                     size={30} 
@@ -41,7 +41,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    2. Each week, your rock will update! Cracks indicate progress. Tap your
+                    2. Each week your rock will update! Cracks indicate progress. Tap your
                     rock to see your week’s current progress.
                 </Text>
 

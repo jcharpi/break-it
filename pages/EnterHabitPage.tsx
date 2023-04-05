@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TextInput, SafeAreaView } from "react-native"
 import { memo } from "react"
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 function EnterHabitPage() {
     return (

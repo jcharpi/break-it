@@ -1,13 +1,27 @@
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import closeImage from "../images/blackClose.png"
+import { View, Text, StyleSheet } from "react-native";
+import { useContext } from "react";
+import SummaryModalContext from "../contexts/summaryModalContext";
+import Icon from 'react-native-vector-icons/FontAwesome5'
+
 export default function Summary() {
+
+    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalContext);
+
+    function closeSummaryModal() {
+        setSummaryModalVisible(() => false)
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.textHeader}>
                 <Text style={[styles.titleText, styles.text]}>This Week</Text>
-                <Pressable>
-                    <Image source={closeImage} style={styles.closeImage} />
-                </Pressable>
+                <Icon
+                    onPress={closeSummaryModal}
+                    style={{marginRight: "4%"}}
+                    name='times' 
+                    size={25} 
+                    color='black'
+                />
             </View>
             <Text style={[styles.bodyText, styles.text]}>Goal: decrease by 10%</Text>
             <Text style={[styles.bodyText, styles.text]}>Current: decreased 4%</Text>
@@ -23,20 +37,15 @@ const styles = StyleSheet.create({
         borderRadius: 15, 
         backgroundColor: 'white'
     },
-    closeImage: {
-        width: 18,
-        height: 18,
-        marginRight: 15
-    },
     textHeader: {
         marginTop: 15,
         flexDirection: "row",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "space-between"
     },
     text: {
         fontSize: 22,
-        marginLeft: 15,
+        marginLeft: "4%",
     },
     titleText: {
         fontWeight: "600",

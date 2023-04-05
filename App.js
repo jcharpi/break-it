@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CreateHabitLayout from './layouts/CreateHabitLayout';
 import TrackHabitLayout from './layouts/TrackHabitLayout';
-import ModalViewContext from './contexts/ModalViewContext';
+import WhatNowModalContext from './contexts/whatNowModalContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,14 +15,17 @@ export default function App() {
   theme.colors.secondaryContainer = "transperent"
 
   return (
-    <ModalViewContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
+    <WhatNowModalContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator screenOptions={{
+            headerShown: false
+          }}
+        >
           <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
           <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
-    </ModalViewContext.Provider>
+    </WhatNowModalContext.Provider>
     
   );
 }
