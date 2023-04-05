@@ -1,10 +1,15 @@
 import { Image, StyleSheet, Pressable } from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome5'
 import addImage from "../images/add.png"
 
 export default function AddButton() {
     return (
         <Pressable style={styles.addButton}>
-            <Image source={addImage} style={styles.addImage} />
+            <Icon
+                name='plus' 
+                size={33} 
+                color='#FFD645'
+            />
         </Pressable>
     )
 }
@@ -19,9 +24,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 3,
         borderColor: '#FFD645',
-    },
-    addImage: {
-        width: 33,
-        height: 33,
     },
 })

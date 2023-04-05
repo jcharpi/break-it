@@ -1,11 +1,21 @@
-import { memo } from "react";
+import { memo, useContext } from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome5'
+import ModalViewContext from "../contexts/ModalViewContext";
 
 interface WhatNowPageProps {
     navigation?: any; // Update the type to a more specific type if possible
     modalView?: boolean; // Update the type to a more specific type if possible
+    closeModal?: any
 }
+
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
+
+    const [modalVisible, setModalVisible] = useContext(ModalViewContext)
+    
+    function closeModal() {
+        setModalVisible(() => false)
+    }
 
     function beginHandler() {
         navigation.navigate('ProgressPage')
@@ -15,6 +25,14 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
         <SafeAreaView style={styles.container}>
             <View style={styles.flexHeader}>
                 <Text style={styles.titleText}>What now?</Text>
+                {modalView && 
+                <Icon
+                    onPress={closeModal}
+                    style={{marginRight: "7%"}}
+                    name='times' 
+                    size={30} 
+                    color='white'
+                />}
             </View>
 
             <View style={styles.body}>
@@ -62,14 +80,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "flex-end",
     },
-    closeImage: {
-        marginRight: 30,
-    },
     titleText: {
         color: "white",
         fontSize: 29,
         fontWeight: "600",
-        marginHorizontal: "7%",
+        marginLeft: "7%",
         marginTop: "10%",
     },
     bodyText: {
