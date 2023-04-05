@@ -19,7 +19,6 @@ export default function CreateHabitLayout() {
                     let iconName;          
                     iconName = focused ? 'ellipse' : 'ellipse-outline';
                     color = focused ? '#DDE2F5' : 'white'
-                    // You can return any component that you like here!
                     return <Icon name={iconName} size={25} color={color} />;
                 },
                 tabBarShowLabel: false,

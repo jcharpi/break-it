@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     textInput: {
         backgroundColor: 'white',
         borderRadius: 15,
-        borderWidth: 1,
+        borderWidth: 2,
         borderStyle: 'solid',
         fontSize: 19,
         height: 45,

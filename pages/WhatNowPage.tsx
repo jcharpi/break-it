@@ -11,14 +11,14 @@ interface WhatNowPageProps {
 
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
-    const [modalVisible, setModalVisible] = useContext(ModalViewContext)
+    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(ModalViewContext)
     
     function closeModal() {
-        setModalVisible(() => false)
+        setWhatNowModalVisible(() => false)
     }
 
     function beginHandler() {
-        navigation.navigate('ProgressPage')
+        navigation.navigate('TrackHabitLayout', { screen: 'ProgressPage' })
     }
 
     return (
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     bodyText: {
         color: "white",
         fontSize: 20,
-        fontWeight: "300",
+        fontWeight: "400",
         marginVertical: 25
     },
     body: {
@@ -102,14 +102,14 @@ const styles = StyleSheet.create({
         marginTop: 30,
         borderRadius: 50,
         borderColor: "white",
-        borderWidth: 1,
+        borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
         alignSelf:"center"
     },
     buttonText: {
         fontSize: 20,
-        fontWeight: "300",
+        fontWeight: "400",
         color: "white"
     }
 })

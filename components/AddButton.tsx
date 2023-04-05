@@ -1,6 +1,5 @@
-import { Image, StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import addImage from "../images/add.png"
 
 export default function AddButton() {
     return (

@@ -1,47 +1,26 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useTheme } from 'react-native-paper';
 import { useState } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CreateHabitLayout from './layouts/CreateHabitLayout';
-import ProgressPage from './pages/ProgressPage';
-import TrovePage from './pages/TrovePage';
+import TrackHabitLayout from './layouts/TrackHabitLayout';
 import ModalViewContext from './contexts/ModalViewContext';
 
-const Tab = createMaterialTopTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [whatNowModalVisible, setWhatNowModalVisible] = useState(false);
 
   const theme = useTheme();
   theme.colors.secondaryContainer = "transperent"
 
   return (
-    <ModalViewContext.Provider value={[modalVisible, setModalVisible]}>
+    <ModalViewContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
       <NavigationContainer>
-        <Tab.Navigator 
-          initialRouteName='CreateHabitLayout'
-          tabBar={() => null}
-          screenOptions={{
-            lazy: true,
-            lazyPreloadDistance: 2,
-          }}
-        >
-          <Tab.Screen
-            name="CreateHabitLayout"
-            component={CreateHabitLayout}
-            options={{ swipeEnabled: false }}
-            
-          />
-          <Tab.Screen
-            name="ProgressPage"
-            component={ProgressPage}
-          />
-          <Tab.Screen
-            name="TrovePage"
-            component={TrovePage}
-          />
-        
-        </Tab.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
+          <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
+        </Stack.Navigator>
       </NavigationContainer>
     </ModalViewContext.Provider>
     

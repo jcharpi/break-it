@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
     bodyText: {
         color: "white",
         fontSize: 19,
-        fontWeight: "300",
+        fontWeight: "400",
         marginHorizontal: "7%",
         marginTop: "16%"
     },
     valueText: {
-        fontWeight: "600"
+        fontWeight: "700"
     }
 })

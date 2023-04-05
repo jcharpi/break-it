@@ -1,16 +1,16 @@
 import NavBar from "../components/NavBar"
 import { Image, Modal, StyleSheet, View } from "react-native"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import rockImage from "../images/rock.png"
 import AddButton from "../components/AddButton"
 import WhatNowPage from "./WhatNowPage"
 import ModalViewContext from "../contexts/ModalViewContext"
 
 export default function ProgressPage({ navigation }: any) {
-    const [modalVisible, setModalVisible] = useContext(ModalViewContext);
+    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(ModalViewContext);
 
     function handleHelp() {
-        setModalVisible(() => !modalVisible)
+        setWhatNowModalVisible(() => !whatNowModalVisible)
     }
 
     function handleTrove() {
@@ -30,8 +30,8 @@ export default function ProgressPage({ navigation }: any) {
                 <Image source={rockImage}/>
                 <Modal
                     animationType="slide"
-                    visible={modalVisible}
-                    onRequestClose={() => setModalVisible(() => false)}
+                    visible={whatNowModalVisible}
+                    onRequestClose={() => setWhatNowModalVisible(() => false)}
                     presentationStyle="pageSheet"
                 >
                     <WhatNowPage modalView={true} />
