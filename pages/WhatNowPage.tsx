@@ -63,7 +63,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             </View>
 
             <Pressable style={modalView ? [styles.button, {borderColor: '#e34566'}] : styles.button} onPress={buttonHandler}>
-                <Text style={modalView ? [styles.buttonText, {color: '#e34566'}] : styles.buttonText}>{modalView ? 'End Habit' : 'Begin'}</Text>
+                <Text style={modalView ? [styles.buttonText, {color: '#e34566'}] : styles.buttonText}>{modalView ? 'Break New Habit' : 'Begin'}</Text>
             </Pressable>
             
         </SafeAreaView>
