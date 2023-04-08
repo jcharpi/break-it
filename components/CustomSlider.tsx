@@ -1,8 +1,9 @@
+import { useState, memo } from "react"
 import { StyleSheet } from "react-native"
 import { Slider } from "@miblanchard/react-native-slider"
-import SliderMarker from "./SliderMarker"
-import { useState, memo } from "react"
 import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/types"
+
+import SliderMarker from "./SliderMarker"
 
 interface SliderProps {
     maximumValue: number,
@@ -45,6 +46,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         borderRadius: 15,
     },
+    minimumTrackStyle: {
+        height: 0
+    },
     thumbStyle: {
         backgroundColor: "#989DB0",
         borderRadius: 15,
@@ -57,7 +61,4 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         marginHorizontal: -1
     },
-    minimumTrackStyle: {
-        height: 0
-    }
 })

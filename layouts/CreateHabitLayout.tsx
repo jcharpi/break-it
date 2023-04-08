@@ -1,9 +1,11 @@
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { StyleSheet } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
+import Icon from 'react-native-vector-icons/Ionicons'
+
 import EnterHabitPage from "../pages/EnterHabitPage";
 import QuestionPage from "../pages/QuestionPage";
 import WhatNowPage from "../pages/WhatNowPage";
-import Icon from 'react-native-vector-icons/Ionicons'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -43,10 +45,10 @@ const styles = StyleSheet.create({
       backgroundColor: '#586183',
       paddingBottom: '15%',
     },
+    tabBarContainer: {
+        justifyContent: 'center'
+    },
     tabBarItem: {
         width: 50, 
     },
-    tabBarContainer: {
-        justifyContent: 'center'
-    }
   });

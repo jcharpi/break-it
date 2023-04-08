@@ -1,7 +1,8 @@
 import { memo, useContext } from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import WhatNowModalContext from "../contexts/shatNowModalContext";
+import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 
 interface WhatNowPageProps {
     navigation: any; // Update the type to a more specific type if possible
@@ -11,7 +12,7 @@ interface WhatNowPageProps {
 
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
-    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalContext)
+    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
     
     function closeWhatNowModal() {
         setWhatNowModalVisible(() => false)
@@ -79,26 +80,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#586183",
     },
-    flexHeader: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "flex-end",
-    },
-    titleText: {
-        color: "white",
-        fontSize: 29,
-        fontWeight: "600",
-        marginLeft: "7%",
-        marginTop: "10%",
+    body: {
+        marginHorizontal: "7%",
     },
     bodyText: {
         color: "white",
         fontSize: 20,
         fontWeight: "400",
         marginVertical: 25
-    },
-    body: {
-        marginHorizontal: "7%",
     },
     button: {
         width: 200,
@@ -115,5 +104,17 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "400",
         color: "white"
-    }
+    },
+    flexHeader: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+    },
+    titleText: {
+        color: "white",
+        fontSize: 29,
+        fontWeight: "600",
+        marginLeft: "7%",
+        marginTop: "10%",
+    },
 })

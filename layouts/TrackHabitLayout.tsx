@@ -1,8 +1,11 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useState } from 'react';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+import SummaryModalVisibleContext from '../contexts/SummaryModalVisibleContext';
+
 import ProgressPage from '../pages/ProgressPage';
 import TrovePage from '../pages/TrovePage';
-import SummaryModalContext from '../contexts/summaryModalContext';
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -10,7 +13,7 @@ export default function TrackHabitLayout() {
     const [summaryModalVisible, setSummaryModalVisible] = useState(false);
 
     return (
-        <SummaryModalContext.Provider value={[summaryModalVisible, setSummaryModalVisible]}>
+        <SummaryModalVisibleContext.Provider value={[summaryModalVisible, setSummaryModalVisible]}>
             <Tab.Navigator 
                 initialRouteName='ProgressPage'
                 tabBar={() => null}
@@ -28,6 +31,6 @@ export default function TrackHabitLayout() {
                     component={TrovePage}
                 />
             </Tab.Navigator>
-        </SummaryModalContext.Provider>
+        </SummaryModalVisibleContext.Provider>
     )
 }

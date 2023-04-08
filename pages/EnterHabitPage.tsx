@@ -1,14 +1,23 @@
+import { memo, useCallback } from "react"
 import { StyleSheet, Text, TextInput, SafeAreaView } from "react-native"
-import { memo } from "react"
-import Icon from 'react-native-vector-icons/FontAwesome5'
 
-function EnterHabitPage() {
+function EnterHabitPage({ navigation }: any) {
+    const submitHabit = useCallback(() => {
+        navigation.navigate('QuestionPage')
+    }, [navigation]);
+
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.titleText}>What is your bad habit?</Text>
             <TextInput
                 style={styles.textInput}
                 placeholder="Enter your habit"
+                autoCapitalize="words"
+                autoCorrect={true}
+                clearButtonMode="while-editing" // iOS only
+                maxLength={30}
+                returnKeyType="next"
+                onSubmitEditing={submitHabit}
             /> 
         </SafeAreaView>
     )
@@ -26,14 +35,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    
-    titleText: {
-        color: "white",
-        fontSize: 29,
-        fontWeight: "600",
-        marginHorizontal: "7%",
-        marginBottom: "5%"
-    },
     textInput: {
         backgroundColor: 'white',
         borderRadius: 15,
@@ -44,5 +45,12 @@ const styles = StyleSheet.create({
         width: "80%",
         marginBottom: "10%",
         paddingLeft: 10,
-    }
+    },
+    titleText: {
+        color: "white",
+        fontSize: 29,
+        fontWeight: "600",
+        marginHorizontal: "7%",
+        marginBottom: "5%"
+    },
 })

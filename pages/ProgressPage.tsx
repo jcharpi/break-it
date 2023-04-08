@@ -1,32 +1,36 @@
-import NavBar from "../components/NavBar"
+import { useContext, useCallback } from "react"
 import { Image, Modal, Pressable, StyleSheet, View } from "react-native"
-import { useContext } from "react"
-import rockImage from "../images/rock.png"
+
 import AddButton from "../components/AddButton"
-import WhatNowPage from "./WhatNowPage"
-import WhatNowModalContext from "../contexts/shatNowModalContext"
+import NavBar from "../components/NavBar"
 import Summary from "../components/Summary"
-import SummaryModalContext from "../contexts/summaryModalContext"
+
+import rockImage from "../images/rock.png"
+
+import WhatNowPage from "./WhatNowPage"
+import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
+import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
+
 
 export default function ProgressPage({ navigation }: any) {
-    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalContext);
-    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalContext);
+    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext);
+    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext);
 
-    function handleHelp() {
-        setWhatNowModalVisible(() => !whatNowModalVisible)
-    }
+    const handleHelp = useCallback(() => {
+        setWhatNowModalVisible((prevState: any) => !prevState)
+    }, [setWhatNowModalVisible]);
 
-    function handleTrove() {
+    const handleTrove = useCallback(() => {
         navigation.navigate('TrovePage')
-    }
+    }, [navigation]);
 
-    function openSummaryModal() {
+    const openSummaryModal = useCallback(() => {
         setSummaryModalVisible(() => true)
-    }
+    }, [setSummaryModalVisible]);
 
-    function closeSummaryModal() {
+    const closeSummaryModal = useCallback(() => {
         setSummaryModalVisible(() => false)
-    }
+    }, [setSummaryModalVisible]);
     
     return (
         <View style={styles.container}>
@@ -53,6 +57,7 @@ export default function ProgressPage({ navigation }: any) {
                     </Modal>
                     <Image source={rockImage}/>
                 </Pressable>
+
                 <Modal
                     animationType="slide"
                     visible={whatNowModalVisible}
@@ -61,6 +66,7 @@ export default function ProgressPage({ navigation }: any) {
                 >
                     <WhatNowPage navigation={navigation} modalView={true} />
                 </Modal>
+                
                 <AddButton/>
             </View>
         </View>

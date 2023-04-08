@@ -1,6 +1,7 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import NavBar from "../components/NavBar";
+
 import Achievement from "../components/Achievement";
+import NavBar from "../components/NavBar";
 
 export default function TrovePage({ navigation }: any) {
 
@@ -34,18 +35,18 @@ export default function TrovePage({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        flex: 1,
-        backgroundColor: "#586183"
+    achievementList: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between'
     },
     backImage: {
         height: 25,
         width: 44
     },
-    achievementList: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between'
+    container: {
+        width: "100%",
+        flex: 1,
+        backgroundColor: "#586183"
     },
 })

@@ -1,6 +1,7 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import gemImage from "../images/gem.png"
 import { memo } from "react";
+import { Image, StyleSheet, Text, View } from "react-native";
+
+import gemImage from "../images/gem.png"
 
 function Achievement() {
     return (
@@ -25,14 +26,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
-    gemImage: {
-        width: 100,
-        height: 100,
-    },
     bodyText: {
         color: "white",
         fontSize: 17,
         fontWeight: "600",
         marginTop: 20
+    },
+    gemImage: {
+        width: 100,
+        height: 100,
     },
 })

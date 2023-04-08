@@ -1,11 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
 import { useContext } from "react";
-import SummaryModalContext from "../contexts/summaryModalContext";
+import { View, Text, StyleSheet } from "react-native";
+
+import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext";
+
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 export default function Summary() {
 
-    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalContext);
+    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext);
 
     function closeSummaryModal() {
         setSummaryModalVisible(() => false)
@@ -31,11 +33,20 @@ export default function Summary() {
 }
 
 const styles = StyleSheet.create({
+    bodyText: {
+        fontSize: 22,
+        fontWeight: "400",
+        lineHeight: 45,
+    },
     container: {
         width: '90%',
-        height: 220,
+        height: 190,
         borderRadius: 15, 
         backgroundColor: 'white'
+    },
+    text: {
+        fontSize: 22,
+        marginLeft: "4%",
     },
     textHeader: {
         marginTop: 15,
@@ -43,17 +54,8 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         justifyContent: "space-between"
     },
-    text: {
-        fontSize: 22,
-        marginLeft: "4%",
-    },
     titleText: {
         fontWeight: "600",
         marginBottom: 5
     },
-    bodyText: {
-        fontSize: 22,
-        fontWeight: "400",
-        lineHeight: 50,
-    }
 })

@@ -1,13 +1,14 @@
-import { SafeAreaView, StyleSheet, Text } from "react-native";
 import { useState, memo } from "react";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
+
 import CustomSlider from "../components/CustomSlider";
 
 function QuestionPage() {
 
+    const [firstGoal, setFirstGoal] = useState(0)
     const [firstOccurrence, setFirstOccurrence] = useState('days')
     const [frequency, setFrequency] = useState('daily')
     const [impact, setImpact] = useState('slight')
-    const [firstGoal, setFirstGoal] = useState(0)
 
     const occurrenceOptions = ['days', 'weeks', 'months', 'years']
     const frequencyOptions = ['daily', 'weekly', 'monthly']
@@ -32,6 +33,7 @@ function QuestionPage() {
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.titleText}>A few questions...</Text>
+            
             <Text style={styles.bodyText}>First occurrence was <Text style={styles.valueText}>{firstOccurrence}</Text> ago</Text>
             <CustomSlider onValueChange={changeOccurrence} maximumValue={3} trackMarks={[0, 1, 2, 3]}/>
 
@@ -43,7 +45,6 @@ function QuestionPage() {
 
             <Text style={styles.bodyText}>My first limit is <Text style={styles.valueText}>{firstGoal}</Text> times a week</Text>
             <CustomSlider onValueChange={changeFirstGoal} maximumValue={100} trackMarks={[0, 100]}/>
-            
         </SafeAreaView>
     )
 }
@@ -52,6 +53,13 @@ export default memo(QuestionPage)
 
 
 const styles = StyleSheet.create({
+    bodyText: {
+        color: "white",
+        fontSize: 19,
+        fontWeight: "400",
+        marginHorizontal: "7%",
+        marginTop: "16%"
+    },
     container: {
         width: "100%",
         flex: 1,
@@ -63,13 +71,6 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         marginHorizontal: "7%",
         marginTop: "10%"
-    },
-    bodyText: {
-        color: "white",
-        fontSize: 19,
-        fontWeight: "400",
-        marginHorizontal: "7%",
-        marginTop: "16%"
     },
     valueText: {
         fontWeight: "700"

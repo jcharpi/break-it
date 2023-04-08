@@ -1,4 +1,5 @@
 import { StyleSheet, SafeAreaView, View, Text } from "react-native";
+
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 interface Props {
@@ -63,15 +64,15 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginBottom: 8,
     },
+    icon: {
+        width: 40,
+    },
+    noImage: {
+        width: 40
+    },
     title: {
         color: "white",
         fontWeight: "600",
         fontSize: 22,  
     },
-    noImage: {
-        width: 40
-    },
-    icon: {
-        width: 40,
-    }
 })
