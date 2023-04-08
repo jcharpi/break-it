@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     bodyText: {
         fontSize: 22,
-        fontWeight: "200",
+        fontWeight: "400",
         lineHeight: 50,
     }
 })

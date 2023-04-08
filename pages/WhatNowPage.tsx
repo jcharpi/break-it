@@ -1,7 +1,7 @@
 import { memo, useContext } from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import WhatNowModalContext from "../contexts/whatNowModalContext";
+import WhatNowModalContext from "../contexts/shatNowModalContext";
 
 interface WhatNowPageProps {
     navigation: any; // Update the type to a more specific type if possible

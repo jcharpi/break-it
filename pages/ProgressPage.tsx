@@ -4,7 +4,7 @@ import { useContext } from "react"
 import rockImage from "../images/rock.png"
 import AddButton from "../components/AddButton"
 import WhatNowPage from "./WhatNowPage"
-import WhatNowModalContext from "../contexts/whatNowModalContext"
+import WhatNowModalContext from "../contexts/shatNowModalContext"
 import Summary from "../components/Summary"
 import SummaryModalContext from "../contexts/summaryModalContext"
 

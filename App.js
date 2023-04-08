@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CreateHabitLayout from './layouts/CreateHabitLayout';
 import TrackHabitLayout from './layouts/TrackHabitLayout';
-import WhatNowModalContext from './contexts/whatNowModalContext';
+import WhatNowModalContext from './contexts/shatNowModalContext';
 
 const Stack = createNativeStackNavigator();
 
