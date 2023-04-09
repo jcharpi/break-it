@@ -7,17 +7,25 @@ import Summary from "../components/Summary"
 
 import rockImage from "../images/rock.png"
 
-import WhatNowPage from "./WhatNowPage"
+import HabitContext from "../contexts/HabitContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
 
+import WhatNowPage from "./WhatNowPage"
+
+
+
 
 export default function ProgressPage({ navigation }: any) {
+    const [habit, setHabit] = useContext(HabitContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext);
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext);
+    const capitalizedHabit = habit.habitName.replace(/\b[a-z]/g, function(char: string) {
+        return char.toUpperCase();
+    });
 
     const handleHelp = useCallback(() => {
-        setWhatNowModalVisible((prevState: any) => !prevState)
+        setWhatNowModalVisible((prev: any) => !prev)
     }, [setWhatNowModalVisible]);
 
     const handleTrove = useCallback(() => {
@@ -39,7 +47,7 @@ export default function ProgressPage({ navigation }: any) {
                 handleRightIcon={handleTrove}
                 leftIconName='question'
                 rightIconName='mountain'
-                title="Progress"
+                title={capitalizedHabit}
             />
             <View style={styles.flexView}>
                 <Pressable onPress={openSummaryModal}>

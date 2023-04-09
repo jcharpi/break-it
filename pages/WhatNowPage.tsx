@@ -1,7 +1,9 @@
 import { memo, useContext } from "react";
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Pressable, SafeAreaView, StyleSheet, Text, View, Alert } from "react-native";
 
 import Icon from 'react-native-vector-icons/FontAwesome5'
+
+import HabitContext from "../contexts/HabitContext";
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 
 interface WhatNowPageProps {
@@ -11,7 +13,7 @@ interface WhatNowPageProps {
 }
 
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
-
+    const [habit, setHabit] = useContext(HabitContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
     
     function closeWhatNowModal() {
@@ -24,8 +26,21 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             setTimeout(() => {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
             }, 300);
+            setHabit((prev: any) => {
+                return {
+                    ...prev,
+                    habitName: ""
+                }
+            })
         } else {
-            navigation.navigate('TrackHabitLayout', { screen: 'ProgressPage' })
+            if(habit.habitName !== "") {
+                navigation.navigate('TrackHabitLayout', { screen: 'ProgressPage' })
+            } else {
+                navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' }) 
+                Alert.alert('Please enter a habit name.')
+            }
+
+            
         }
     }
 

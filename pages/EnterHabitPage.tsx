@@ -1,10 +1,24 @@
-import { memo, useCallback } from "react"
+import { memo, useCallback, useContext } from "react"
 import { StyleSheet, Text, TextInput, SafeAreaView } from "react-native"
 
+import HabitContext from "../contexts/HabitContext";
+
+
 function EnterHabitPage({ navigation }: any) {
+    const [habit, setHabit] = useContext(HabitContext)
+    
     const submitHabit = useCallback(() => {
         navigation.navigate('QuestionPage')
     }, [navigation]);
+
+    function changeHabitName (habitNameInput: string) {
+        setHabit((prev: any) => {
+            return {
+                ...prev,
+                habitName: habitNameInput
+            }
+        })
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -15,9 +29,11 @@ function EnterHabitPage({ navigation }: any) {
                 autoCapitalize="words"
                 autoCorrect={true}
                 clearButtonMode="while-editing" // iOS only
-                maxLength={30}
+                maxLength={20}
                 returnKeyType="next"
                 onSubmitEditing={submitHabit}
+                onChangeText={changeHabitName}
+                value={habit.habitName}
             /> 
         </SafeAreaView>
     )
