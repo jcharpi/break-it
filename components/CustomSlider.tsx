@@ -5,6 +5,8 @@ import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/typ
 
 import SliderMarker from "./SliderMarker"
 
+import ResetContext from "../contexts/ResetContext"
+
 interface SliderProps {
     maximumValue: number,
     onValueChange: any,
@@ -13,12 +15,19 @@ interface SliderProps {
 }
 
 function CustomSlider(props: SliderProps) {
-    const [sliderValue, setSliderValue] = useState(0);
+    const [reset, setReset] = useContext(ResetContext)
+    const [sliderValue, setSliderValue] = useState(0)
 
     const handleValueChange: SliderOnChangeCallback = (value) => {
-        setSliderValue(() => value[0]);
+        setSliderValue(() => value[0])
         props.onValueChange(value[0])
-    };
+    }
+
+    useEffect(() => {
+        if(reset) {
+            setSliderValue(() => 0)
+        }
+    }, [reset])
 
     return (
         <Slider 

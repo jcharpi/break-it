@@ -4,6 +4,7 @@ import { Pressable, SafeAreaView, StyleSheet, Text, View, Alert } from "react-na
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import HabitContext from "../contexts/HabitContext";
+import ResetContext from "../contexts/ResetContext";
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 
 interface WhatNowPageProps {
@@ -14,6 +15,7 @@ interface WhatNowPageProps {
 
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const [habit, setHabit] = useContext(HabitContext)
+    const [reset, setReset] = useContext(ResetContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
     
     function closeWhatNowModal() {
@@ -34,7 +36,9 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                     firstGoal: 0,
                 }
             })
+            setReset(() => true)
         } else {
+            setReset(() => false)
             if (habit.habitName === "") {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' }) 
                 Alert.alert('Please enter a habit name.')
@@ -81,8 +85,8 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 </Text>
             </View>
 
-            <Pressable style={modalView ? [styles.button, {borderColor: '#e34566'}] : styles.button} onPress={buttonHandler}>
-                <Text style={modalView ? [styles.buttonText, {color: '#e34566'}] : styles.buttonText}>{modalView ? 'Change Habit' : 'Begin'}</Text>
+            <Pressable style={modalView ? [styles.button, {borderColor: '#FF2300'}] : styles.button} onPress={buttonHandler}>
+                <Text style={modalView ? [styles.buttonText, {color: '#FF2300'}] : styles.buttonText}>{modalView ? 'Change Habit' : 'Begin'}</Text>
             </Pressable>
             
         </SafeAreaView>

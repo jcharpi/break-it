@@ -8,6 +8,7 @@ import TrackHabitLayout from './layouts/TrackHabitLayout';
 
 import HabitContext from './contexts/HabitContext';
 import WhatNowModalVisibleContext from './contexts/WhatNowModalVisibleContext';
+import ResetContext from './contexts/ResetContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,26 +17,30 @@ export default function App() {
     habitName: "",
     gem: "silver",
     firstGoal: 0,
-})
+  })
 
+  const [reset, setReset] = useState(false)
   const [whatNowModalVisible, setWhatNowModalVisible] = useState(false);
+
 
   const theme = useTheme();
   theme.colors.secondaryContainer = "transperent"  
 
   return (
     <HabitContext.Provider value={[habit, setHabit]}>
-      <WhatNowModalVisibleContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{
-              headerShown: false
-            }}
-          >
-            <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
-            <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </WhatNowModalVisibleContext.Provider>
+      <ResetContext.Provider value={[reset, setReset]}>
+        <WhatNowModalVisibleContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{
+                headerShown: false
+              }}
+            >
+              <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
+              <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </WhatNowModalVisibleContext.Provider>
+      </ResetContext.Provider>
     </HabitContext.Provider>
   );
 }

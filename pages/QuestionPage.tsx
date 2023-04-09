@@ -4,10 +4,11 @@ import { SafeAreaView, StyleSheet, Text } from "react-native";
 import CustomSlider from "../components/CustomSlider";
 
 import HabitContext from "../contexts/HabitContext";
-import ResetHabitContext from "../contexts/ResetHabitContext";
+import ResetContext from "../contexts/ResetContext";
 
 function QuestionPage({ navigation }: any) {
     const [habit, setHabit] = useContext(HabitContext)
+    const [reset, setReset] = useContext(ResetContext)
 
     const [firstGoal, setFirstGoal] = useState(0)
     const [firstOccurrence, setFirstOccurrence] = useState('weeks')
@@ -27,6 +28,15 @@ function QuestionPage({ navigation }: any) {
             gem: gemVal < 3 ? "silver" : gemVal > 5 ? "diamond" : "gold"
           }));
     }, [gemVal])
+    
+    useEffect(() => {
+        if(reset) {
+            changeOccurrence(0)
+            changeFrequency(0)
+            changeImpact(0)
+            setFirstGoal(() => 0)
+        }
+    }, [reset])
 
     function changeOccurrence(value: number) {
         setFirstOccurrence(() => occurrenceOptions[value] || 'weeks')
