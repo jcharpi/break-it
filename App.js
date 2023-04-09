@@ -15,7 +15,7 @@ export default function App() {
   const [habit, setHabit] = useState({
     habitName: "",
     gem: "silver",
-    firstGoal: 10,
+    firstGoal: 0,
 })
 
   const [whatNowModalVisible, setWhatNowModalVisible] = useState(false);

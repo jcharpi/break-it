@@ -26,21 +26,24 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             setTimeout(() => {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
             }, 300);
-            setHabit((prev: any) => {
+            
+            setHabit(() => {
                 return {
-                    ...prev,
-                    habitName: ""
+                    habitName: "",
+                    gem: "silver",
+                    firstGoal: 0,
                 }
             })
         } else {
-            if(habit.habitName !== "") {
-                navigation.navigate('TrackHabitLayout', { screen: 'ProgressPage' })
-            } else {
+            if (habit.habitName === "") {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' }) 
                 Alert.alert('Please enter a habit name.')
+            } else if (habit.firstGoal === 0) {
+                navigation.navigate('CreateHabitLayout', { screen: 'QuestionPage' }) 
+                Alert.alert('Please set a first goal.')
+            } else {
+                navigation.navigate('TrackHabitLayout', { screen: 'ProgressPage' })
             }
-
-            
         }
     }
 

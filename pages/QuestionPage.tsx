@@ -1,33 +1,57 @@
-import { useState, memo } from "react";
+import { useState, memo, useContext, useEffect } from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 
 import CustomSlider from "../components/CustomSlider";
 
-function QuestionPage() {
+import HabitContext from "../contexts/HabitContext";
+import ResetHabitContext from "../contexts/ResetHabitContext";
+
+function QuestionPage({ navigation }: any) {
+    const [habit, setHabit] = useContext(HabitContext)
 
     const [firstGoal, setFirstGoal] = useState(0)
-    const [firstOccurrence, setFirstOccurrence] = useState('days')
-    const [frequency, setFrequency] = useState('daily')
+    const [firstOccurrence, setFirstOccurrence] = useState('weeks')
+    const [frequency, setFrequency] = useState('monthly')
     const [impact, setImpact] = useState('slight')
 
-    const occurrenceOptions = ['days', 'weeks', 'months', 'years']
-    const frequencyOptions = ['daily', 'weekly', 'monthly']
+    const occurrenceOptions = ['weeks', 'months', 'years']
+    const frequencyOptions = ['monthly', 'weekly', 'daily']
     const impactOptions = ['slight', 'noticable', 'significant']
 
+    const gemVal = occurrenceOptions.indexOf(firstOccurrence) + 
+    frequencyOptions.indexOf(frequency) + (impactOptions.indexOf(impact) * 2)
+
+    useEffect(() => {
+        setHabit((prev: any) => ({
+            ...prev,
+            gem: gemVal < 3 ? "silver" : gemVal > 5 ? "diamond" : "gold"
+          }));
+    }, [gemVal])
+
     function changeOccurrence(value: number) {
-        setFirstOccurrence(occurrenceOptions[value] || 'days')
+        setFirstOccurrence(() => occurrenceOptions[value] || 'weeks')
     }
 
     function changeFrequency(value: number) {
-        setFrequency(frequencyOptions[value] || 'daily')
+        setFrequency(() => frequencyOptions[value] || 'monthly')
     }
 
     function changeImpact(value: number) {
-        setImpact(impactOptions[value] || 'slight')
+        setImpact(() => impactOptions[value] || 'slight')
+    }
+
+    function slidersComplete() {
+        navigation.navigate('CreateHabitLayout', { screen: 'WhatNowPage' })    
     }
 
     function changeFirstGoal(value: number) {
-        setFirstGoal(value)
+        setFirstGoal(() => value)
+        setHabit((prev: any) => {
+            return {
+                ...prev,
+                firstGoal: value
+            }
+        })
     }
 
     return (
@@ -35,7 +59,7 @@ function QuestionPage() {
             <Text style={styles.titleText}>A few questions...</Text>
             
             <Text style={styles.bodyText}>First occurrence was <Text style={styles.valueText}>{firstOccurrence}</Text> ago</Text>
-            <CustomSlider onValueChange={changeOccurrence} maximumValue={3} trackMarks={[0, 1, 2, 3]}/>
+            <CustomSlider onValueChange={changeOccurrence} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
             <Text style={styles.bodyText}>I engage in this habit <Text style={styles.valueText}>{frequency}</Text></Text>
             <CustomSlider onValueChange={changeFrequency} maximumValue={2} trackMarks={[0, 1, 2]}/>
@@ -44,7 +68,7 @@ function QuestionPage() {
             <CustomSlider onValueChange={changeImpact} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
             <Text style={styles.bodyText}>My first limit is <Text style={styles.valueText}>{firstGoal}</Text> times a week</Text>
-            <CustomSlider onValueChange={changeFirstGoal} maximumValue={100} trackMarks={[0, 100]}/>
+            <CustomSlider onValueChange={changeFirstGoal} maximumValue={100} trackMarks={[0, 100]} onSlidingComplete={slidersComplete} />
         </SafeAreaView>
     )
 }

@@ -1,4 +1,4 @@
-import { useState, memo } from "react"
+import { useState, memo, useEffect, useContext } from "react"
 import { StyleSheet } from "react-native"
 import { Slider } from "@miblanchard/react-native-slider"
 import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/types"
@@ -7,15 +7,16 @@ import SliderMarker from "./SliderMarker"
 
 interface SliderProps {
     maximumValue: number,
+    onValueChange: any,
+    onSlidingComplete?: any
     trackMarks: number[],
-    onValueChange: any
 }
 
 function CustomSlider(props: SliderProps) {
     const [sliderValue, setSliderValue] = useState(0);
 
     const handleValueChange: SliderOnChangeCallback = (value) => {
-        setSliderValue(value[0]);
+        setSliderValue(() => value[0]);
         props.onValueChange(value[0])
     };
 
@@ -33,6 +34,7 @@ function CustomSlider(props: SliderProps) {
             thumbStyle={styles.thumbStyle}
             trackStyle={styles.trackStyle}
             containerStyle={styles.containerStyle}
+            onSlidingComplete={props.onSlidingComplete ?? (() => {})}
         />
     )
 }
