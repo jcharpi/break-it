@@ -1,5 +1,6 @@
 import { memo, useContext } from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -8,8 +9,8 @@ import ResetContext from "../contexts/ResetContext";
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 
 interface WhatNowPageProps {
-    navigation: any; // Update the type to a more specific type if possible
-    modalView?: boolean; // Update the type to a more specific type if possible
+    navigation: any;
+    modalView?: boolean;
     closeModal?: any
 }
 
@@ -18,6 +19,15 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const [reset, setReset] = useContext(ResetContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
     
+    const storeData = async (habit: object) => {
+        try {
+          const jsonHabit = JSON.stringify(habit)
+          await AsyncStorage.setItem('habit', jsonHabit)
+        } catch (error) {
+          console.log(error)
+        }
+    }
+
     function closeWhatNowModal() {
         setWhatNowModalVisible(() => false)
     }
@@ -28,21 +38,26 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             setTimeout(() => {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
             }, 300);
+            setTimeout(() => {
+                setHabit(() => {
+                    return {
+                        habitName: "",
+                        gem: "silver",
+                        goal: 0,
+                    }
+                })
+            }, 500);
             
-            setHabit(() => {
-                return {
-                    habitName: "",
-                    gem: "silver",
-                    firstGoal: 0,
-                }
-            })
             setReset(() => true)
         } else {
             setReset(() => false)
+
+            storeData(habit)
+
             if (habit.habitName === "") {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' }) 
                 Alert.alert('Please enter a habit name.')
-            } else if (habit.firstGoal === 0) {
+            } else if (habit.goal === 0) {
                 navigation.navigate('CreateHabitLayout', { screen: 'QuestionPage' }) 
                 Alert.alert('Please set a first goal.')
             } else {

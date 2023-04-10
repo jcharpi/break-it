@@ -10,7 +10,7 @@ function QuestionPage({ navigation }: any) {
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
 
-    const [firstGoal, setFirstGoal] = useState(0)
+    const [goal, setGoal] = useState(0)
     const [firstOccurrence, setFirstOccurrence] = useState('weeks')
     const [frequency, setFrequency] = useState('monthly')
     const [impact, setImpact] = useState('slight')
@@ -34,7 +34,7 @@ function QuestionPage({ navigation }: any) {
             changeOccurrence(0)
             changeFrequency(0)
             changeImpact(0)
-            setFirstGoal(() => 0)
+            setGoal(() => 0)
         }
     }, [reset])
 
@@ -51,17 +51,17 @@ function QuestionPage({ navigation }: any) {
     }
 
     function slidersComplete() {
-        navigation.navigate('CreateHabitLayout', { screen: 'WhatNowPage' })    
-    }
-
-    function changeFirstGoal(value: number) {
-        setFirstGoal(() => value)
         setHabit((prev: any) => {
             return {
                 ...prev,
-                firstGoal: value
+                goal: goal
             }
         })
+        navigation.navigate('CreateHabitLayout', { screen: 'WhatNowPage' })    
+    }
+
+    function changeGoal(value: number) {
+        setGoal(() => value)
     }
 
     return (
@@ -77,8 +77,8 @@ function QuestionPage({ navigation }: any) {
             <Text style={styles.bodyText}>This habit has had a <Text style={styles.valueText}>{impact}</Text> impact</Text>
             <CustomSlider onValueChange={changeImpact} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
-            <Text style={styles.bodyText}>My first limit is <Text style={styles.valueText}>{firstGoal}</Text> times a week</Text>
-            <CustomSlider onValueChange={changeFirstGoal} maximumValue={100} trackMarks={[0, 100]} onSlidingComplete={slidersComplete} />
+            <Text style={styles.bodyText}>My first limit is <Text style={styles.valueText}>{goal}</Text> times a week</Text>
+            <CustomSlider onValueChange={changeGoal} maximumValue={100} trackMarks={[0, 100]} onSlidingComplete={slidersComplete} />
         </SafeAreaView>
     )
 }
