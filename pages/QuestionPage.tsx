@@ -26,7 +26,7 @@ function QuestionPage({ navigation }: any) {
         setHabit((prev: any) => ({
             ...prev,
             gem: gemVal < 3 ? "silver" : gemVal > 5 ? "diamond" : "gold"
-          }));
+          }))
     }, [gemVal])
     
     useEffect(() => {

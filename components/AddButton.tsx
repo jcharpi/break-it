@@ -1,10 +1,26 @@
+import { useContext } from "react";
 import { StyleSheet, Pressable } from "react-native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import OccurrenceContext from "../contexts/OccurrenceContext";
 
 export default function AddButton() {
+    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
+
+    async function addOccurrence() {
+        try {
+          const newOccurrences = occurrences + 1
+          await AsyncStorage.setItem('occurrences', newOccurrences.toString())
+          setOccurrences(newOccurrences)
+        } catch (error) {
+          console.error('Error saving occurrence:', error)
+        }
+      }
+
     return (
-        <Pressable style={styles.addButton}>
+        <Pressable onPress={addOccurrence} style={styles.addButton}>
             <Icon
                 name='plus' 
                 size={33} 

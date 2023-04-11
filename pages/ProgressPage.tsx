@@ -18,27 +18,27 @@ import WhatNowPage from "./WhatNowPage"
 
 export default function ProgressPage({ navigation }: any) {
     const [habit, setHabit] = useContext(HabitContext)
-    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext);
-    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext);
+    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
+    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
     const capitalizedHabit = habit.habitName.replace(/\b[a-z]/g, function(char: string) {
-        return char.toUpperCase();
-    });
+        return char.toUpperCase()
+    })
 
     const handleHelp = useCallback(() => {
         setWhatNowModalVisible((prev: any) => !prev)
-    }, [setWhatNowModalVisible]);
+    }, [setWhatNowModalVisible])
 
     const handleTrove = useCallback(() => {
         navigation.navigate('TrovePage')
-    }, [navigation]);
+    }, [navigation])
 
     const openSummaryModal = useCallback(() => {
         setSummaryModalVisible(() => true)
-    }, [setSummaryModalVisible]);
+    }, [setSummaryModalVisible])
 
     const closeSummaryModal = useCallback(() => {
         setSummaryModalVisible(() => false)
-    }, [setSummaryModalVisible]);
+    }, [setSummaryModalVisible])
     
     return (
         <View style={styles.container}>

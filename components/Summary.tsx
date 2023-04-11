@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 
 export default function Summary() {
 
-    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext);
+    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
 
     function closeSummaryModal() {
         setSummaryModalVisible(() => false)

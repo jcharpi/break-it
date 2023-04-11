@@ -9,8 +9,8 @@ import ResetContext from "../contexts/ResetContext";
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 
 interface WhatNowPageProps {
-    navigation: any;
-    modalView?: boolean;
+    navigation: any
+    modalView?: boolean
     closeModal?: any
 }
 
@@ -37,7 +37,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             closeWhatNowModal() 
             setTimeout(() => {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
-            }, 300);
+            }, 300)
             setTimeout(() => {
                 setHabit(() => {
                     return {
@@ -46,7 +46,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                         goal: 0,
                     }
                 })
-            }, 500);
+            }, 500)
             
             setReset(() => true)
         } else {

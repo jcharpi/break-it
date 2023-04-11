@@ -7,7 +7,7 @@ import EnterHabitPage from "../pages/EnterHabitPage";
 import QuestionPage from "../pages/QuestionPage";
 import WhatNowPage from "../pages/WhatNowPage";
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator()
 
 export default function CreateHabitLayout() {
 
@@ -18,10 +18,10 @@ export default function CreateHabitLayout() {
             tabBarPosition='bottom'
             screenOptions={{
                 tabBarIcon: ({ focused, color }) => {
-                    let iconName;          
-                    iconName = focused ? 'ellipse' : 'ellipse-outline';
+                    let iconName        
+                    iconName = focused ? 'ellipse' : 'ellipse-outline'
                     color = focused ? '#DDE2F5' : 'white'
-                    return <Icon name={iconName} size={25} color={color} />;
+                    return <Icon name={iconName} size={25} color={color} />
                 },
                 tabBarShowLabel: false,
                 tabBarStyle: styles.tabBar,

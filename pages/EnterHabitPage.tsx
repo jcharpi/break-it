@@ -9,7 +9,7 @@ function EnterHabitPage({ navigation }: any) {
     
     const submitHabit = useCallback(() => {
         navigation.navigate('QuestionPage')
-    }, [navigation]);
+    }, [navigation])
 
     function changeHabitName (habitNameInput: string) {
         setHabit((prev: any) => {

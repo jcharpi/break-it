@@ -7,10 +7,10 @@ import ProgressPage from '../pages/ProgressPage';
 import TrovePage from '../pages/TrovePage';
 
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator()
 
 export default function TrackHabitLayout() {
-    const [summaryModalVisible, setSummaryModalVisible] = useState(false);
+    const [summaryModalVisible, setSummaryModalVisible] = useState(false)
 
     return (
         <SummaryModalVisibleContext.Provider value={[summaryModalVisible, setSummaryModalVisible]}>
