@@ -12,10 +12,12 @@ import HabitContext from './contexts/HabitContext';
 import WhatNowModalVisibleContext from './contexts/WhatNowModalVisibleContext';
 import ResetContext from './contexts/ResetContext';
 import OccurrenceContext from './contexts/OccurrenceContext';
+import StartHabitDateContext from './contexts/StartHabitDateContext';
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
+  const [startHabitDate, setStartHabitDate] = useState(new Date())
   const [initialRouteName, setInitialRouteName] = useState(null)
   const [occurrences, setOccurrences] = useState(0)
   const [reset, setReset] = useState(false)
@@ -29,11 +31,11 @@ export default function App() {
   const theme = useTheme()
   theme.colors.secondaryContainer = "transparent"  
 
-
   const getHabit = async () => {
     try {
       const storedHabit = await AsyncStorage.getItem('habit')
       console.log(storedHabit)
+      console.log(startHabitDate)
       return storedHabit !== null ? (setHabit(JSON.parse(storedHabit)), true) : false
     } catch(error) {
       console.log(error)
@@ -52,7 +54,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getInitialRouteName = async () => {
       const habitExists = await getHabit()
       if (habitExists) {
         setInitialRouteName(() => "TrackHabitLayout")
@@ -60,7 +62,7 @@ export default function App() {
         setInitialRouteName(() => "CreateHabitLayout")
       }
     }
-    fetchData()
+    getInitialRouteName()
     getOccurrences()
   }, [])
 
@@ -69,25 +71,27 @@ export default function App() {
   }
 
   return (
-    <HabitContext.Provider value={[habit, setHabit]}>
-      <ResetContext.Provider value={[reset, setReset]}>
-        <OccurrenceContext.Provider value={[occurrences, setOccurrences]}>
-          <WhatNowModalVisibleContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
-            <NavigationContainer>
-              <Stack.Navigator 
-                initialRouteName={initialRouteName}
-                screenOptions={{
-                  headerShown: false
-                }}
-              >
-                <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
-                <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
-              </Stack.Navigator>
-            </NavigationContainer>
-          </WhatNowModalVisibleContext.Provider>
-        </OccurrenceContext.Provider>
-      </ResetContext.Provider>
-    </HabitContext.Provider>
+    <StartHabitDateContext.Provider value={[startHabitDate, setStartHabitDate]}>
+      <HabitContext.Provider value={[habit, setHabit]}>
+        <ResetContext.Provider value={[reset, setReset]}>
+          <OccurrenceContext.Provider value={[occurrences, setOccurrences]}>
+            <WhatNowModalVisibleContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
+              <NavigationContainer>
+                <Stack.Navigator 
+                  initialRouteName={initialRouteName}
+                  screenOptions={{
+                    headerShown: false
+                  }}
+                >
+                  <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
+                  <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
+                </Stack.Navigator>
+              </NavigationContainer>
+            </WhatNowModalVisibleContext.Provider>
+          </OccurrenceContext.Provider>
+        </ResetContext.Provider>
+      </HabitContext.Provider>
+    </StartHabitDateContext.Provider>
   )
 }
 

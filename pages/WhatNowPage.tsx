@@ -18,7 +18,6 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
-    
     const storeData = async (habit: object) => {
         try {
           const jsonHabit = JSON.stringify(habit)
