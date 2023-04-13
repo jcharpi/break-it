@@ -8,6 +8,7 @@ import HabitContext from "../contexts/HabitContext";
 import ResetContext from "../contexts/ResetContext";
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 import WeekContext from "../contexts/WeekContext";
+
 import { calculateWeeks, currentWeek } from "../weeks";
 
 interface Weeks {
@@ -24,8 +25,9 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
     const [weeks, setWeeks] = useContext(WeekContext)
-
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
+
+    
     const storeData = async (habit: object, weeks: object, currentWeek: any) => {
         try {
             const jsonHabit = JSON.stringify(habit)
@@ -33,8 +35,19 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
             const jsonWeek = JSON.stringify(weeks)
             await AsyncStorage.setItem('weeks', jsonWeek)
+            
+            await AsyncStorage.setItem('currentWeek', currentWeek)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-            await AsyncStorage.setItem('currentWeek', currentWeek(weeks))
+    const clearData = async () => {
+        try {
+            await AsyncStorage.removeItem('habit')
+            await AsyncStorage.removeItem('weeks')
+            await AsyncStorage.removeItem('currentWeek')
+            await AsyncStorage.setItem('occurrences', '0')
         } catch (error) {
             console.log(error)
         }
@@ -47,6 +60,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     function buttonHandler() {
         if(modalView) {
             closeWhatNowModal() 
+
             setWeeks({})
             setTimeout(() => {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
@@ -59,12 +73,12 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                     goal: 0,  
                 })
             }, 500)
-        
+            clearData()
             setReset(true)
         } else {
             const calculatedWeeks = calculateWeeks(new Date())
             setReset(false)
-            storeData(habit, calculatedWeeks, currentWeek)
+            storeData(habit, calculatedWeeks, currentWeek(calculatedWeeks, new Date()))
 
             if (habit.habitName === "") {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' }) 

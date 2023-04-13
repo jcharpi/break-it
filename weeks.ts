@@ -8,8 +8,6 @@ const MINUTES_IN_HOUR = 60
 const HOURS_IN_DAY = 24
 const DAYS_IN_WEEK = 7
 
-const currentDate = new Date
-
 export const calculateWeeks = (currentDate: Date) => {
     const millisecondsInWeek =
       MILLISECONDS_IN_SECOND *
@@ -32,4 +30,11 @@ export const calculateWeeks = (currentDate: Date) => {
 }
 
 
-export const currentWeek = (weeks: Weeks) => Object.keys(weeks).find(week => new Date() > weeks[week])
+export const currentWeek = (weeks: Weeks, currDate: Date) => {
+  const currentWeekKey = Object.keys(weeks).find(week => {
+    if (currDate >= weeks[week]) {
+      return week
+    }
+  })
+  return currentWeekKey
+}

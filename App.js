@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { Text } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -35,7 +35,6 @@ export default function App() {
   const getHabit = async () => {
     try {
       const storedHabit = await AsyncStorage.getItem('habit')
-      console.log(storedHabit)
       return storedHabit !== null ? (setHabit(JSON.parse(storedHabit)), true) : false
     } catch(error) {
       console.log(error)
@@ -45,31 +44,26 @@ export default function App() {
   const getWeeks = async () => {
     try {
       const storedWeeks = await AsyncStorage.getItem('weeks')
+
+      const parsedWeeks = JSON.parse(storedWeeks, (key, value) => {
+        if (typeof value === 'string' && key.startsWith('week')) {
+          return new Date(value)
+        }
+        return value
+      })
+
       if (storedWeeks !== null) {
-        console.log(storedWeeks)
-        setWeeks(storedWeeks)
+        setWeeks(parsedWeeks)
       }
     } catch(error) {
       console.log(error)
     }
   }
 
-  const getCurrentWeek = async () => {
-    try {
-      const storedCurrentWeek = await AsyncStorage.getItem('currentWeek')
-      if (storedCurrentWeek !== null) {
-        console.log(storedCurrentWeek)
-      }
-    } catch(error) {
-      console.log(error)
-    }
-  }
-  
   const getOccurrences = async () => {
     try {
       const storedOccurrences = await AsyncStorage.getItem('occurrences')
       if (storedOccurrences !== null) {
-        console.log(storedOccurrences)
         setOccurrences(parseInt(storedOccurrences))
       }
     } catch(error) {
@@ -89,7 +83,6 @@ export default function App() {
     getInitialRouteName()
     getOccurrences()
     getWeeks()
-    getCurrentWeek()
   }, [])
 
   if (!initialRouteName) {

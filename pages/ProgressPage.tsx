@@ -1,4 +1,4 @@
-import { useContext, useCallback } from "react"
+import { useContext, useCallback, useEffect } from "react"
 import { Image, Modal, Pressable, StyleSheet, View } from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
@@ -11,14 +11,19 @@ import rockImage from "../images/rock.png"
 import HabitContext from "../contexts/HabitContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
+import WeekContext from "../contexts/WeekContext"
 
 import WhatNowPage from "./WhatNowPage"
+
+import { currentWeek } from "../weeks";
 
 
 export default function ProgressPage({ navigation }: any) {
     const [habit, setHabit] = useContext(HabitContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
+    const [weeks, setWeeks] = useContext(WeekContext)
+
     const capitalizedHabit = habit.habitName.replace(/\b[a-z]/g, function(char: string) {
         return char.toUpperCase()
     })
@@ -38,17 +43,35 @@ export default function ProgressPage({ navigation }: any) {
     const closeSummaryModal = useCallback(() => {
         setSummaryModalVisible(false)
     }, [setSummaryModalVisible])
-    
+
     const getCurrentWeek = async () => {
         try {
           const storedCurrentWeek = await AsyncStorage.getItem('currentWeek')
           if (storedCurrentWeek !== null) {
-            console.log(storedCurrentWeek)
+            return storedCurrentWeek
           }
         } catch(error) {
           console.log(error)
         }
     }
+
+    const sameWeekCheck = async () => {
+        const [storedWeek, currWeekCheck] = await Promise.all([
+          getCurrentWeek(),
+          currentWeek(weeks, new Date()),
+        ])
+        return currWeekCheck === undefined ? true : storedWeek === currWeekCheck;
+    }
+
+    useEffect(() => {
+        const getCheckResult = async () => {
+            const checkResult = await sameWeekCheck();
+        }
+        
+        if (weeks !== undefined) {
+            getCheckResult();
+        }
+    }, [weeks])
 
     return (
         <View style={styles.container}>
