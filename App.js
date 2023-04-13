@@ -13,7 +13,6 @@ import WhatNowModalVisibleContext from './contexts/WhatNowModalVisibleContext';
 import ResetContext from './contexts/ResetContext';
 import OccurrenceContext from './contexts/OccurrenceContext';
 
-import { calculateWeeks, currentWeek } from './weeks'
 import WeekContext from './contexts/WeekContext';
 
 const Stack = createNativeStackNavigator()
@@ -36,6 +35,7 @@ export default function App() {
   const getHabit = async () => {
     try {
       const storedHabit = await AsyncStorage.getItem('habit')
+      console.log(storedHabit)
       return storedHabit !== null ? (setHabit(JSON.parse(storedHabit)), true) : false
     } catch(error) {
       console.log(error)
@@ -46,7 +46,19 @@ export default function App() {
     try {
       const storedWeeks = await AsyncStorage.getItem('weeks')
       if (storedWeeks !== null) {
+        console.log(storedWeeks)
         setWeeks(storedWeeks)
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  const getCurrentWeek = async () => {
+    try {
+      const storedCurrentWeek = await AsyncStorage.getItem('currentWeek')
+      if (storedCurrentWeek !== null) {
+        console.log(storedCurrentWeek)
       }
     } catch(error) {
       console.log(error)
@@ -57,6 +69,7 @@ export default function App() {
     try {
       const storedOccurrences = await AsyncStorage.getItem('occurrences')
       if (storedOccurrences !== null) {
+        console.log(storedOccurrences)
         setOccurrences(parseInt(storedOccurrences))
       }
     } catch(error) {
@@ -76,6 +89,7 @@ export default function App() {
     getInitialRouteName()
     getOccurrences()
     getWeeks()
+    getCurrentWeek()
   }, [])
 
   if (!initialRouteName) {

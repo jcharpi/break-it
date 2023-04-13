@@ -8,7 +8,6 @@ import OccurrenceContext from "../contexts/OccurrenceContext";
 
 export default function AddButton() {
     const [occurrences, setOccurrences] = useContext(OccurrenceContext)
-
     async function addOccurrence() {
         try {
           const newOccurrences = occurrences + 1

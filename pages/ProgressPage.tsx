@@ -1,5 +1,6 @@
 import { useContext, useCallback } from "react"
 import { Image, Modal, Pressable, StyleSheet, View } from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 import AddButton from "../components/AddButton"
 import NavBar from "../components/NavBar"
@@ -12,8 +13,6 @@ import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
 
 import WhatNowPage from "./WhatNowPage"
-
-
 
 
 export default function ProgressPage({ navigation }: any) {
@@ -40,6 +39,17 @@ export default function ProgressPage({ navigation }: any) {
         setSummaryModalVisible(false)
     }, [setSummaryModalVisible])
     
+    const getCurrentWeek = async () => {
+        try {
+          const storedCurrentWeek = await AsyncStorage.getItem('currentWeek')
+          if (storedCurrentWeek !== null) {
+            console.log(storedCurrentWeek)
+          }
+        } catch(error) {
+          console.log(error)
+        }
+    }
+
     return (
         <View style={styles.container}>
             <NavBar 

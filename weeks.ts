@@ -32,4 +32,4 @@ export const calculateWeeks = (currentDate: Date) => {
 }
 
 
-const currentWeek = (weeks: Weeks) => Object.keys(weeks).find(week => currentDate > weeks[week])
+export const currentWeek = (weeks: Weeks) => Object.keys(weeks).find(week => new Date() > weeks[week])
