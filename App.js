@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Text } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,16 +12,18 @@ import HabitContext from './contexts/HabitContext';
 import WhatNowModalVisibleContext from './contexts/WhatNowModalVisibleContext';
 import ResetContext from './contexts/ResetContext';
 import OccurrenceContext from './contexts/OccurrenceContext';
-import StartHabitDateContext from './contexts/StartHabitDateContext';
+
+import { calculateWeeks, currentWeek } from './weeks'
+import WeekContext from './contexts/WeekContext';
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
-  const [startHabitDate, setStartHabitDate] = useState(new Date())
   const [initialRouteName, setInitialRouteName] = useState(null)
   const [occurrences, setOccurrences] = useState(0)
   const [reset, setReset] = useState(false)
   const [whatNowModalVisible, setWhatNowModalVisible] = useState(false)
+  const [weeks, setWeeks] = useState({})
   const [habit, setHabit] = useState({
     habitName: "",
     gem: "silver",
@@ -34,19 +36,28 @@ export default function App() {
   const getHabit = async () => {
     try {
       const storedHabit = await AsyncStorage.getItem('habit')
-      console.log(storedHabit)
-      console.log(startHabitDate)
       return storedHabit !== null ? (setHabit(JSON.parse(storedHabit)), true) : false
     } catch(error) {
       console.log(error)
     }
   }
-
+  
+  const getWeeks = async () => {
+    try {
+      const storedWeeks = await AsyncStorage.getItem('weeks')
+      if (storedWeeks !== null) {
+        setWeeks(storedWeeks)
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  }
+  
   const getOccurrences = async () => {
     try {
       const storedOccurrences = await AsyncStorage.getItem('occurrences')
       if (storedOccurrences !== null) {
-        setOccurrences(() => parseInt(storedOccurrences), true)
+        setOccurrences(parseInt(storedOccurrences))
       }
     } catch(error) {
       console.log(error)
@@ -54,7 +65,6 @@ export default function App() {
   }
 
   useEffect(() => {
-    AsyncStorage.clear()
     const getInitialRouteName = async () => {
       const habitExists = await getHabit()
       if (habitExists) {
@@ -65,6 +75,7 @@ export default function App() {
     }
     getInitialRouteName()
     getOccurrences()
+    getWeeks()
   }, [])
 
   if (!initialRouteName) {
@@ -72,7 +83,7 @@ export default function App() {
   }
 
   return (
-    <StartHabitDateContext.Provider value={[startHabitDate, setStartHabitDate]}>
+    <WeekContext.Provider value={[weeks, setWeeks]}>
       <HabitContext.Provider value={[habit, setHabit]}>
         <ResetContext.Provider value={[reset, setReset]}>
           <OccurrenceContext.Provider value={[occurrences, setOccurrences]}>
@@ -92,7 +103,7 @@ export default function App() {
           </OccurrenceContext.Provider>
         </ResetContext.Provider>
       </HabitContext.Provider>
-    </StartHabitDateContext.Provider>
+    </WeekContext.Provider>
   )
 }
 
