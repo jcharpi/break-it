@@ -34,20 +34,20 @@ function QuestionPage({ navigation }: any) {
             changeOccurrence(0)
             changeFrequency(0)
             changeImpact(0)
-            setGoal(() => 0)
+            setGoal(0)
         }
     }, [reset])
 
     function changeOccurrence(value: number) {
-        setFirstOccurrence(() => occurrenceOptions[value] || 'weeks')
+        setFirstOccurrence(occurrenceOptions[value] || 'weeks')
     }
 
     function changeFrequency(value: number) {
-        setFrequency(() => frequencyOptions[value] || 'monthly')
+        setFrequency(frequencyOptions[value] || 'monthly')
     }
 
     function changeImpact(value: number) {
-        setImpact(() => impactOptions[value] || 'slight')
+        setImpact(impactOptions[value] || 'slight')
     }
 
     function slidersComplete() {
@@ -61,7 +61,7 @@ function QuestionPage({ navigation }: any) {
     }
 
     function changeGoal(value: number) {
-        setGoal(() => value)
+        setGoal(value)
     }
 
     return (

@@ -19,13 +19,13 @@ function CustomSlider(props: SliderProps) {
     const [sliderValue, setSliderValue] = useState(0)
 
     const handleValueChange: SliderOnChangeCallback = (value) => {
-        setSliderValue(() => value[0])
+        setSliderValue(value[0])
         props.onValueChange(value[0])
     }
 
     useEffect(() => {
         if(reset) {
-            setSliderValue(() => 0)
+            setSliderValue(0)
         }
     }, [reset])
 

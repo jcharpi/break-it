@@ -10,7 +10,7 @@ export default function Summary() {
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
 
     function closeSummaryModal() {
-        setSummaryModalVisible(() => false)
+        setSummaryModalVisible(false)
     }
 
     return (

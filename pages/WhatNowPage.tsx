@@ -28,7 +28,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     }
 
     function closeWhatNowModal() {
-        setWhatNowModalVisible(() => false)
+        setWhatNowModalVisible(false)
     }
 
     function buttonHandler() {
@@ -38,18 +38,16 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
             }, 300)
             setTimeout(() => {
-                setHabit(() => {
-                    return {
-                        habitName: "",
-                        gem: "silver",
-                        goal: 0,
-                    }
+                setHabit({
+                    habitName: "",
+                    gem: "silver",
+                    goal: 0,  
                 })
             }, 500)
             
-            setReset(() => true)
+            setReset(true)
         } else {
-            setReset(() => false)
+            setReset(false)
 
             storeData(habit)
 

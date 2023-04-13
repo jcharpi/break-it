@@ -33,11 +33,11 @@ export default function ProgressPage({ navigation }: any) {
     }, [navigation])
 
     const openSummaryModal = useCallback(() => {
-        setSummaryModalVisible(() => true)
+        setSummaryModalVisible(true)
     }, [setSummaryModalVisible])
 
     const closeSummaryModal = useCallback(() => {
-        setSummaryModalVisible(() => false)
+        setSummaryModalVisible(false)
     }, [setSummaryModalVisible])
     
     return (
@@ -55,7 +55,7 @@ export default function ProgressPage({ navigation }: any) {
                         animationType="slide"
                         transparent={true}
                         visible={summaryModalVisible}
-                        onRequestClose={() => setSummaryModalVisible(() => false)}
+                        onRequestClose={() => setSummaryModalVisible(false)}
                         presentationStyle="overFullScreen"
                     >
                         <View style={styles.modalContainer}>
@@ -69,7 +69,7 @@ export default function ProgressPage({ navigation }: any) {
                 <Modal
                     animationType="slide"
                     visible={whatNowModalVisible}
-                    onRequestClose={() => setWhatNowModalVisible(() => false)}
+                    onRequestClose={() => setWhatNowModalVisible(false)}
                     presentationStyle="pageSheet"
                 >
                     <WhatNowPage navigation={navigation} modalView={true} />
