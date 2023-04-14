@@ -13,7 +13,7 @@ import WhatNowModalVisibleContext from './contexts/WhatNowModalVisibleContext';
 import ResetContext from './contexts/ResetContext';
 import OccurrenceContext from './contexts/OccurrenceContext';
 
-import WeekContext from './contexts/WeekContext';
+import WeekLayoutContext from './contexts/WeekLayoutContext';
 
 const Stack = createNativeStackNavigator()
 
@@ -90,7 +90,7 @@ export default function App() {
   }
 
   return (
-    <WeekContext.Provider value={[weeks, setWeeks]}>
+    <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
       <HabitContext.Provider value={[habit, setHabit]}>
         <ResetContext.Provider value={[reset, setReset]}>
           <OccurrenceContext.Provider value={[occurrences, setOccurrences]}>
@@ -110,7 +110,7 @@ export default function App() {
           </OccurrenceContext.Provider>
         </ResetContext.Provider>
       </HabitContext.Provider>
-    </WeekContext.Provider>
+    </WeekLayoutContext.Provider>
   )
 }
 

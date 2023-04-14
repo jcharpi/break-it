@@ -11,7 +11,7 @@ import rockImage from "../images/rock.png"
 import HabitContext from "../contexts/HabitContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
-import WeekContext from "../contexts/WeekContext"
+import WeekLayoutContext from "../contexts/WeekLayoutContext"
 
 import WhatNowPage from "./WhatNowPage"
 
@@ -22,7 +22,7 @@ export default function ProgressPage({ navigation }: any) {
     const [habit, setHabit] = useContext(HabitContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
-    const [weeks, setWeeks] = useContext(WeekContext)
+    const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
     const capitalizedHabit = habit.habitName.replace(/\b[a-z]/g, function(char: string) {
         return char.toUpperCase()

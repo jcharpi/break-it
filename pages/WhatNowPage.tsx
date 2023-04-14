@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import HabitContext from "../contexts/HabitContext";
 import ResetContext from "../contexts/ResetContext";
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
-import WeekContext from "../contexts/WeekContext";
+import WeekLayoutContext from "../contexts/WeekLayoutContext";
 
 import { calculateWeeks, currentWeek } from "../weeks";
 
@@ -24,7 +24,7 @@ interface WhatNowPageProps {
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
-    const [weeks, setWeeks] = useContext(WeekContext)
+    const [weeks, setWeeks] = useContext(WeekLayoutContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
 
     
