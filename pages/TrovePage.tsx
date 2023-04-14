@@ -1,5 +1,7 @@
+// REACT COMPONENTS
 import { View, StyleSheet, ScrollView } from "react-native";
 
+// CUSTOM COMPONENTS
 import Achievement from "../components/Achievement";
 import NavBar from "../components/NavBar";
 

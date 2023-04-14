@@ -1,5 +1,7 @@
+// REACT COMPONENTS
 import { StyleSheet, View } from "react-native";
 
+// Circle breakpoints for sliders
 export default function TabBarMarker() {
     return (
         <View style={styles.marker}></View>

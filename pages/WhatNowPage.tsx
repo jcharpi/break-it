@@ -1,20 +1,20 @@
+// REACT HOOKS, COMPONENTS, & LIBRARIES
 import { memo, useContext } from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
+// CONTEXTS
 import HabitContext from "../contexts/HabitContext";
 import ResetContext from "../contexts/ResetContext";
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 import WeekLayoutContext from "../contexts/WeekLayoutContext";
+import CurrentWeekContext from "../contexts/CurrentWeekContext";
 
-import { calculateWeeks, currentWeek } from "../weeks";
+// BACKEND FUNCTIONS
+import { calculateWeeks, calculateCurrentWeek } from "../weeks";
 
-interface Weeks {
-    [key: string]: Date;
-}
-
+// DETERMINES IF MODAL VIEW OR NOT
 interface WhatNowPageProps {
     navigation: any
     modalView?: boolean
@@ -22,13 +22,15 @@ interface WhatNowPageProps {
 }
 
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
+    // CONTEXTS
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
+    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
 
-    
-    const storeData = async (habit: object, weeks: object, currentWeek: any) => {
+    // SAVE DATA TO ASYNCSTORAGE
+    const storeData = async (habit: object, weeks: object, currWeek: any) => {
         try {
             const jsonHabit = JSON.stringify(habit)
             await AsyncStorage.setItem('habit', jsonHabit)
@@ -36,12 +38,13 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             const jsonWeek = JSON.stringify(weeks)
             await AsyncStorage.setItem('weeks', jsonWeek)
             
-            await AsyncStorage.setItem('currentWeek', currentWeek)
+            await AsyncStorage.setItem('currentWeek', currWeek)
         } catch (error) {
             console.log(error)
         }
     }
 
+    // CLEAR DATA FROM ASYNCSTORAGE
     const clearData = async () => {
         try {
             await AsyncStorage.removeItem('habit')
@@ -53,6 +56,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
         }
     }
 
+    // EVENT FUNCTIONS
     function closeWhatNowModal() {
         setWhatNowModalVisible(false)
     }
@@ -61,11 +65,13 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
         if(modalView) {
             closeWhatNowModal() 
 
-            setWeeks({})
+            // Navigate with delay for better visual experience
             setTimeout(() => {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
             }, 300)
 
+            // Clearing habit with delay prevents habit title from visually 
+            // disappering before going to EnterHabitPage
             setTimeout(() => {
                 setHabit({
                     habitName: "",
@@ -73,13 +79,22 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                     goal: 0,  
                 })
             }, 500)
+
+            // Resets habit to prepare for new one
             clearData()
             setReset(true)
+            setWeeks({})
+            setCurrentWeek('')
         } else {
             const calculatedWeeks = calculateWeeks(new Date())
-            setReset(false)
-            storeData(habit, calculatedWeeks, currentWeek(calculatedWeeks, new Date()))
+            const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
 
+            // Begin habit button was pressed => set data
+            setReset(false)
+            setCurrentWeek(currWeek)
+            storeData(habit, calculatedWeeks, currWeek)
+
+            // Redirects for invalid input
             if (habit.habitName === "") {
                 navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' }) 
                 Alert.alert('Please enter a habit name.')
@@ -127,7 +142,9 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             </View>
 
             <Pressable style={modalView ? [styles.button, {borderColor: '#FF2300'}] : styles.button} onPress={buttonHandler}>
-                <Text style={modalView ? [styles.buttonText, {color: '#FF2300'}] : styles.buttonText}>{modalView ? 'Change Habit' : 'Begin'}</Text>
+                <Text style={modalView ? [styles.buttonText, {color: '#FF2300'}] : styles.buttonText}>
+                    {modalView ? 'Change Habit' : 'Begin'}
+                </Text>
             </Pressable>
             
         </SafeAreaView>

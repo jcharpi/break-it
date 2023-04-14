@@ -1,9 +1,10 @@
+// REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useContext } from "react";
 import { StyleSheet, Pressable } from "react-native";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import Icon from 'react-native-vector-icons/FontAwesome5'
+
+// CONTEXTS
 import OccurrenceContext from "../contexts/OccurrenceContext";
 
 export default function AddButton() {

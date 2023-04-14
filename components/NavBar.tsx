@@ -1,5 +1,5 @@
+// REACT HOOKS & COMPONENTS
 import { StyleSheet, SafeAreaView, View, Text } from "react-native";
-
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 interface Props {
@@ -42,7 +42,7 @@ export default function NavBar(props: Props) {
                         color='white'
                     />
                     : 
-                    <View style={styles.noImage}></View>
+                    <View style={styles.noImage}></View> // Ensures center spacing of title on navbar
                 }
             </View>
         </SafeAreaView>

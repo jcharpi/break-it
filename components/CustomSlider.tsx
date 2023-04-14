@@ -1,10 +1,11 @@
+// REACT HOOKS & COMPONENTS
 import { useState, memo, useEffect, useContext } from "react"
 import { StyleSheet } from "react-native"
 import { Slider } from "@miblanchard/react-native-slider"
 import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/types"
-
 import SliderMarker from "./SliderMarker"
 
+// CONTEXTS
 import ResetContext from "../contexts/ResetContext"
 
 interface SliderProps {

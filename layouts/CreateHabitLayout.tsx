@@ -1,8 +1,9 @@
+// REACT HOOKS & COMPONENTS
 import { StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-
 import Icon from 'react-native-vector-icons/Ionicons'
 
+// PAGES
 import EnterHabitPage from "../pages/EnterHabitPage";
 import QuestionPage from "../pages/QuestionPage";
 import WhatNowPage from "../pages/WhatNowPage";
@@ -10,7 +11,6 @@ import WhatNowPage from "../pages/WhatNowPage";
 const Tab = createMaterialTopTabNavigator()
 
 export default function CreateHabitLayout() {
-
     return (
         <Tab.Navigator 
             initialRouteName='Enter Habit' 

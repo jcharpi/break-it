@@ -1,27 +1,35 @@
+// REACT HOOKS & COMPONENTS
 import { useState, memo, useContext, useEffect } from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 
+// CUSTOM COMPONENTS
 import CustomSlider from "../components/CustomSlider";
 
+// CONTEXTS
 import HabitContext from "../contexts/HabitContext";
 import ResetContext from "../contexts/ResetContext";
 
 function QuestionPage({ navigation }: any) {
+    // CONTEXTS
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
 
+    // SLIDER STATES
     const [goal, setGoal] = useState(0)
     const [firstOccurrence, setFirstOccurrence] = useState('weeks')
     const [frequency, setFrequency] = useState('monthly')
     const [impact, setImpact] = useState('slight')
 
+    // SLIDER OPTIONS
     const occurrenceOptions = ['weeks', 'months', 'years']
     const frequencyOptions = ['monthly', 'weekly', 'daily']
     const impactOptions = ['slight', 'noticable', 'significant']
 
+    // CALCULATED GEM
     const gemVal = occurrenceOptions.indexOf(firstOccurrence) + 
     frequencyOptions.indexOf(frequency) + (impactOptions.indexOf(impact) * 2)
 
+    // Update gem val based on slider values
     useEffect(() => {
         setHabit((prev: any) => ({
             ...prev,
@@ -29,6 +37,7 @@ function QuestionPage({ navigation }: any) {
           }))
     }, [gemVal])
     
+    // reset slider on reset state
     useEffect(() => {
         if(reset) {
             changeOccurrence(0)
@@ -38,6 +47,7 @@ function QuestionPage({ navigation }: any) {
         }
     }, [reset])
 
+    // SLIDER CHANGES
     function changeOccurrence(value: number) {
         setFirstOccurrence(occurrenceOptions[value] || 'weeks')
     }
@@ -50,6 +60,7 @@ function QuestionPage({ navigation }: any) {
         setImpact(impactOptions[value] || 'slight')
     }
 
+    // UPDATE HABIT STATE VAR
     function slidersComplete() {
         setHabit((prev: any) => {
             return {
@@ -60,6 +71,7 @@ function QuestionPage({ navigation }: any) {
         navigation.navigate('CreateHabitLayout', { screen: 'WhatNowPage' })    
     }
 
+    // SET FIRST GOAL
     function changeGoal(value: number) {
         setGoal(value)
     }

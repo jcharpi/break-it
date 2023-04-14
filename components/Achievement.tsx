@@ -1,6 +1,8 @@
+// REACT HOOKS & COMPONENTS
 import { memo } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
+// CUSTOM IMAGES
 import gemImage from "../images/gem.png"
 
 function Achievement() {

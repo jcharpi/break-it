@@ -8,13 +8,14 @@ const MINUTES_IN_HOUR = 60
 const HOURS_IN_DAY = 24
 const DAYS_IN_WEEK = 7
 
+// Sets 9 weeks from current date
 export const calculateWeeks = (currentDate: Date) => {
     const millisecondsInWeek =
       MILLISECONDS_IN_SECOND * 
-      SECONDS_IN_MINUTE *
-      MINUTES_IN_HOUR *
-      HOURS_IN_DAY *
-      DAYS_IN_WEEK
+      SECONDS_IN_MINUTE //*
+      // MINUTES_IN_HOUR *
+      // HOURS_IN_DAY *
+      // DAYS_IN_WEEK
   
     return {
       week1: currentDate,
@@ -29,8 +30,8 @@ export const calculateWeeks = (currentDate: Date) => {
     }
 }
 
-
-export const currentWeek = (weeks: Weeks, currDate: Date) => {
+// Calculate week that should be used based on current date to compare w/ last stored current week
+export const calculateCurrentWeek = (weeks: Weeks, currDate: Date) => {
   let lastWeekKey = undefined
   Object.keys(weeks).forEach((week) => {
     if (currDate >= weeks[week]) {

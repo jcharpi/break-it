@@ -1,10 +1,13 @@
+// REACT HOOKS & COMPONENTS
 import { useState } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import SummaryModalVisibleContext from '../contexts/SummaryModalVisibleContext';
-
+// PAGES
 import ProgressPage from '../pages/ProgressPage';
 import TrovePage from '../pages/TrovePage';
+
+// CONTEXTS
+import SummaryModalVisibleContext from '../contexts/SummaryModalVisibleContext';
 
 
 const Tab = createMaterialTopTabNavigator()
