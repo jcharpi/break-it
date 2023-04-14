@@ -60,12 +60,17 @@ export default function ProgressPage({ navigation }: any) {
           getCurrentWeek(),
           currentWeek(weeks, new Date()),
         ])
+        console.log(weeks)
+        console.log(new Date())
+        console.log(`storedWeek: ${storedWeek}`)
+        console.log(`currCheckWeek: ${currWeekCheck}`)
         return currWeekCheck === undefined ? true : storedWeek === currWeekCheck;
     }
 
     useEffect(() => {
         const getCheckResult = async () => {
             const checkResult = await sameWeekCheck();
+            console.log(checkResult)
         }
         
         if (weeks !== undefined) {
