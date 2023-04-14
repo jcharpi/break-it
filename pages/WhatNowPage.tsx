@@ -10,6 +10,7 @@ import ResetContext from "../contexts/ResetContext";
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 import WeekLayoutContext from "../contexts/WeekLayoutContext";
 import CurrentWeekContext from "../contexts/CurrentWeekContext";
+import OccurrenceContext from "../contexts/OccurrenceContext";
 
 // BACKEND FUNCTIONS
 import { calculateWeeks, calculateCurrentWeek } from "../weeks";
@@ -28,6 +29,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
+    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
 
     // SAVE DATA TO ASYNCSTORAGE
     const storeData = async (habit: object, weeks: object, currWeek: any) => {
@@ -84,6 +86,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             clearData()
             setReset(true)
             setWeeks({})
+            setOccurrences(0)
             setCurrentWeek('')
         } else {
             const calculatedWeeks = calculateWeeks(new Date())

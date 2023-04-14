@@ -5,20 +5,27 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 
 // CONTEXTS
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext";
+import CurrentWeekContext from "../contexts/CurrentWeekContext";
+import OccurrenceContext from "../contexts/OccurrenceContext";
+import HabitContext from "../contexts/HabitContext";
 
 
 export default function Summary() {
-
+    // CONTEXTS
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
+    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
+    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
+    const [habit, setHabit] = useContext(HabitContext)
 
+    const weekNumber = currentWeek.charAt(currentWeek.length - 1)
+    console.log(weekNumber)
     function closeSummaryModal() {
         setSummaryModalVisible(false)
     }
-
     return (
         <View style={styles.container}>
             <View style={styles.textHeader}>
-                <Text style={[styles.titleText, styles.text]}>This Week</Text>
+                <Text style={[styles.titleText, styles.text]}>{`Week ${weekNumber}`}</Text>
                 <Icon
                     onPress={closeSummaryModal}
                     style={{marginRight: "4%"}}
@@ -27,9 +34,9 @@ export default function Summary() {
                     color='black'
                 />
             </View>
-            <Text style={[styles.bodyText, styles.text]}>Goal: decrease by 10%</Text>
-            <Text style={[styles.bodyText, styles.text]}>Current: decreased 4%</Text>
-            <Text style={[styles.bodyText, styles.text]}>5 weeks remaining!</Text>
+            <Text style={[styles.bodyText, styles.text]}>Goal: {habit.goal} occurrences</Text>
+            <Text style={[styles.bodyText, styles.text]}>Current: {occurrences} occurrences</Text>
+            <Text style={[styles.bodyText, styles.text]}>{`${9-weekNumber} weeks remaining!`}</Text>
         </View>
     )
 }

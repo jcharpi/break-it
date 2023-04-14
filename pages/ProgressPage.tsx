@@ -1,6 +1,7 @@
-// REACT HOOKS & COMPONENTS
+// REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useContext, useEffect } from "react"
 import { Image, Modal, Pressable, StyleSheet, View } from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // CUSTOM COMPONENTS & MODALS
 import AddButton from "../components/AddButton"
@@ -16,6 +17,7 @@ import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
+import OccurrenceContext from "../contexts/OccurrenceContext"
 
 // PAGES
 import WhatNowPage from "./WhatNowPage"
@@ -31,7 +33,17 @@ export default function ProgressPage({ navigation }: any) {
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
+    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
 
+    // CHECK
+    const currWeekCheck = calculateCurrentWeek(weeks, new Date())
+    const storeCurrentWeek = async (week: any) => {
+        try {
+            await AsyncStorage.setItem('currentWeek', week)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     // NAVBAR FUNCTIONS
     const capitalizedHabit = habit.habitName.replace(/\b[a-z]/g, function(char: string) {
         return char.toUpperCase()
@@ -56,23 +68,28 @@ export default function ProgressPage({ navigation }: any) {
     // WEEK UPDATE
     // using sameWeekCheck in the useEffect to compare last 
     // stored currentWeek and what currentWeek SHOULD be
-    const sameWeekCheck = async () => {
-        const currWeekCheck = calculateCurrentWeek(weeks, new Date())
+    const sameWeekCheck = () => {
         console.log(`storedWeek: ${currentWeek}`)
         console.log(weeks)
         console.log(`currCheckWeek: ${currWeekCheck}`)
-        return currWeekCheck === undefined ? true : currentWeek === currWeekCheck;
+        const result = currWeekCheck === undefined ? true : currentWeek === currWeekCheck;
+        if(!result) {
+            setCurrentWeek(currWeekCheck)
+            setOccurrences(0)
+            if(currWeekCheck !== undefined) {
+                AsyncStorage.setItem('currentWeek', currWeekCheck)
+            }
+        }
     }
-
+    
     useEffect(() => {
-        const getCheckResult = async () => {
-            const checkResult = await sameWeekCheck();
-            console.log(checkResult)
+        const getCheckResult = () => {
+            sameWeekCheck()
         }
         
         // Waits for state values to update from AsyncStorage
         if (weeks !== undefined && currentWeek !== undefined) {
-            getCheckResult();
+            getCheckResult()
         }
     }, [weeks, currentWeek])
 
