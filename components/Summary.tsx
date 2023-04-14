@@ -18,7 +18,6 @@ export default function Summary() {
     const [habit, setHabit] = useContext(HabitContext)
 
     const weekNumber = currentWeek.charAt(currentWeek.length - 1)
-    console.log(weekNumber)
     function closeSummaryModal() {
         setSummaryModalVisible(false)
     }
