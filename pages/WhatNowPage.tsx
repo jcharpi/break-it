@@ -141,8 +141,8 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 </Text>
             </View>
 
-            <Pressable style={modalView ? [styles.button, {borderColor: '#FF2300'}] : styles.button} onPress={buttonHandler}>
-                <Text style={modalView ? [styles.buttonText, {color: '#FF2300'}] : styles.buttonText}>
+            <Pressable style={modalView ? [styles.button, {borderColor: '#ff8383'}] : styles.button} onPress={buttonHandler}>
+                <Text style={modalView ? [styles.buttonText, {color: '#ff8383'}] : styles.buttonText}>
                     {modalView ? 'Change Habit' : 'Begin'}
                 </Text>
             </Pressable>
