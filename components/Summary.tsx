@@ -22,6 +22,7 @@ export default function Summary() {
     function closeSummaryModal() {
         setSummaryModalVisible(false)
     }
+
     return (
         <View style={styles.container}>
             <View style={styles.textHeader}>
@@ -36,7 +37,13 @@ export default function Summary() {
             </View>
             <Text style={[styles.bodyText, styles.text]}>Goal: {habit.goal} occurrences</Text>
             <Text style={[styles.bodyText, styles.text]}>Current: {occurrences} occurrences</Text>
-            <Text style={[styles.bodyText, styles.text]}>{`${9-weekNumber} weeks remaining!`}</Text>
+            
+            <Text style={[styles.bodyText, styles.text]}>
+                {parseInt(weekNumber) === 9 ? `This is the last week!` : `${9-weekNumber} weeks remaining!`}
+            </Text>
+            
+            
+            
         </View>
     )
 }

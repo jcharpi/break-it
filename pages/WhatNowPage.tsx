@@ -1,6 +1,6 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { memo, useContext } from "react";
-import { Pressable, SafeAreaView, StyleSheet, Text, View, Alert } from "react-native";
+import { Pressable, SafeAreaView, StyleSheet, Text, View, Alert, Platform, StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
         width: "100%",
         flex: 1,
         backgroundColor: "#586183",
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
     },
     body: {
         marginHorizontal: "7%",

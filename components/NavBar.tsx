@@ -1,5 +1,5 @@
 // REACT HOOKS & COMPONENTS
-import { StyleSheet, SafeAreaView, View, Text } from "react-native";
+import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 interface Props {
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "12%",
         backgroundColor: '#424A67',
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
     },
     flexView: {
         marginTop: "auto",

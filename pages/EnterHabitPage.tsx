@@ -1,6 +1,6 @@
 // REACT HOOKS & COMPONENTS
 import { memo, useContext } from "react"
-import { StyleSheet, Text, TextInput, SafeAreaView } from "react-native"
+import { StyleSheet, Text, TextInput, SafeAreaView, Platform, StatusBar } from "react-native"
 
 // CONTEXTS
 import HabitContext from "../contexts/HabitContext";
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#586183",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
     },
     textInput: {
         backgroundColor: 'white',

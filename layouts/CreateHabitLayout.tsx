@@ -30,6 +30,7 @@ export default function CreateHabitLayout() {
                 tabBarIndicatorStyle: { opacity: 0 },
                 swipeEnabled: false,
                 tabBarGap: 2,
+                tabBarAndroidRipple: {color: 'transparent'} 
             }}
         >
             <Tab.Screen name='EnterHabitPage' component={EnterHabitPage} />

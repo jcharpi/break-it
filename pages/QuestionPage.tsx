@@ -1,6 +1,6 @@
 // REACT HOOKS & COMPONENTS
 import { useState, memo, useContext, useEffect } from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView, StyleSheet, Text, Platform, StatusBar } from "react-native";
 
 // CUSTOM COMPONENTS
 import CustomSlider from "../components/CustomSlider";
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
         width: "100%",
         flex: 1,
         backgroundColor: "#586183",
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
     },
     titleText: {
         color: "white",
