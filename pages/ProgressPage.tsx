@@ -24,7 +24,7 @@ import GoalDecrementContext from "../contexts/GoalDecrementContext"
 import WhatNowPage from "./WhatNowPage"
 
 // FUNCTIONS
-import { calculateCurrentWeek, calculateGoal } from "../weeks";
+import { calculateCurrentWeek, calculateGoal, getWeekNumber } from "../weeks";
 
 
 export default function ProgressPage({ navigation }: any) {
@@ -40,7 +40,7 @@ export default function ProgressPage({ navigation }: any) {
 
     // CUSTOM FUNCTIONS
     const currWeekCheck = calculateCurrentWeek(weeks, new Date())
-    const weekNumber = currentWeek === undefined ? 1 : currentWeek.charAt(currentWeek.length - 1)
+    const weekNumber = currentWeek === undefined ? 1 : getWeekNumber(currentWeek)
     const goal = calculateGoal(habit.goal, weekDecrement, weekNumber)
 
     // NAVBAR FUNCTIONS

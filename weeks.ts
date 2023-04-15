@@ -11,8 +11,8 @@ const DAYS_IN_WEEK = 7
 // Sets 9 weeks from current date
 export const calculateWeeks = (currentDate: Date) => {
     const millisecondsInWeek =
-      MILLISECONDS_IN_SECOND * 
-      SECONDS_IN_MINUTE //*
+      MILLISECONDS_IN_SECOND * 30//* 
+      //SECONDS_IN_MINUTE *
       // MINUTES_IN_HOUR *
       // HOURS_IN_DAY *
       // DAYS_IN_WEEK
@@ -51,4 +51,8 @@ export const getPerWeekDecrement = (firstGoal: number, totalWeeks: number) => {
 export const calculateGoal = (firstGoal: number, perWeekDecrement: number, week: number) => {
   const nextGoal = firstGoal - (perWeekDecrement * (week - 1))
   return nextGoal < 0 ? 0 : nextGoal
+}
+
+export const getWeekNumber = (currentWeek: string) => {
+  return parseInt(currentWeek.charAt(currentWeek.length - 1)) + 1
 }

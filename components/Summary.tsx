@@ -7,7 +7,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext";
 import CurrentWeekContext from "../contexts/CurrentWeekContext";
 import OccurrenceContext from "../contexts/OccurrenceContext";
-import HabitContext from "../contexts/HabitContext";
+
+// CUSTOM FUNCTIONS
+import { getWeekNumber } from "../weeks";
 
 interface Props {
     goal: number
@@ -15,12 +17,11 @@ interface Props {
 
 export default function Summary(props: Props) {
     // CONTEXTS
-    const [habit, setHabit] = useContext(HabitContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [occurrences, setOccurrences] = useContext(OccurrenceContext)
 
-    const weekNumber = parseInt(currentWeek.charAt(currentWeek.length - 1)) + 1
+    const weekNumber = getWeekNumber(currentWeek)
     function closeSummaryModal() {
         setSummaryModalVisible(false)
     }
