@@ -1,5 +1,5 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext";
 import CurrentWeekContext from "../contexts/CurrentWeekContext";
 import OccurrenceContext from "../contexts/OccurrenceContext";
+import HabitContext from "../contexts/HabitContext";
 
 interface Props {
     goal: number
@@ -14,19 +15,24 @@ interface Props {
 
 export default function Summary(props: Props) {
     // CONTEXTS
+    const [habit, setHabit] = useContext(HabitContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [occurrences, setOccurrences] = useContext(OccurrenceContext)
 
-    const weekNumber = currentWeek.charAt(currentWeek.length - 1)
+    const weekNumber = parseInt(currentWeek.charAt(currentWeek.length - 1)) + 1
     function closeSummaryModal() {
         setSummaryModalVisible(false)
     }
 
     return (
         <View style={styles.container}>
+
             <View style={styles.textHeader}>
-                <Text style={[styles.titleText, styles.text]}>{`Week ${weekNumber}`}</Text>
+                <Text style={[styles.titleText, styles.text]}>
+                    {weekNumber === 10 ? `Congratulations 🥳` : `Week ${weekNumber}`}
+                </Text>
+
                 <Icon
                     onPress={closeSummaryModal}
                     style={{marginRight: "4%"}}
@@ -35,16 +41,25 @@ export default function Summary(props: Props) {
                     color='black'
                 />
             </View>
-            <Text style={[styles.bodyText, styles.text]}>Goal: {props.goal} occurrences</Text>
-            <Text style={[styles.bodyText, styles.text]}>Current: <Text style={{color: occurrences < props.goal ? 'green': 'red', fontWeight: `600`}}>
-                    {occurrences}
-            </Text> occurrences</Text>
-            
-            <Text style={[styles.bodyText, styles.text]}>
-                {parseInt(weekNumber) === 9 ? `This is the last week!` : `${9-weekNumber} weeks remaining!`}
-            </Text>
-            
-            
+
+            {
+            weekNumber === 10 ?           
+            <View>
+                <Text style={[styles.bodyText, styles.text]}>You have broken your habit!</Text>
+                <Text style={[styles.bodyText, styles.text]}>Ready to break another one?</Text>
+            </View>
+            : 
+            <View>
+                <Text style={[styles.bodyText, styles.text]}>Goal: {props.goal} occurrences</Text>
+                <Text style={[styles.bodyText, styles.text]}>Current: <Text style={{color: occurrences < props.goal ? 'green': 'red', fontWeight: `600`}}>
+                        {occurrences}
+                </Text> occurrences</Text>
+                
+                <Text style={[styles.bodyText, styles.text]}>
+                    {weekNumber === 9 ? `This is the last week!` : `${9-weekNumber} weeks remaining!`}
+                </Text>
+            </View>
+            }
             
         </View>
     )
