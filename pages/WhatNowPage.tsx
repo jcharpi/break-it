@@ -11,9 +11,10 @@ import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
 import WeekLayoutContext from "../contexts/WeekLayoutContext";
 import CurrentWeekContext from "../contexts/CurrentWeekContext";
 import OccurrenceContext from "../contexts/OccurrenceContext";
+import GoalDecrementContext from "../contexts/GoalDecrementContext";
 
 // BACKEND FUNCTIONS
-import { calculateWeeks, calculateCurrentWeek } from "../weeks";
+import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../weeks";
 
 // DETERMINES IF MODAL VIEW OR NOT
 interface WhatNowPageProps {
@@ -24,15 +25,22 @@ interface WhatNowPageProps {
 
 function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     // CONTEXTS
+    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
-    const [weeks, setWeeks] = useContext(WeekLayoutContext)
-    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
     const [occurrences, setOccurrences] = useContext(OccurrenceContext)
+    const [weeks, setWeeks] = useContext(WeekLayoutContext)
+    const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
+    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
+
+    interface Habit {
+        habitName: string,
+        gem: string,
+        goal: number,
+    }
 
     // SAVE DATA TO ASYNCSTORAGE
-    const storeData = async (habit: object, weeks: object, currWeek: any) => {
+    const storeData = async (habit: Habit, weeks: object, currWeek: any, goalDecrement: number) => {
         try {
             const jsonHabit = JSON.stringify(habit)
             await AsyncStorage.setItem('habit', jsonHabit)
@@ -41,6 +49,8 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             await AsyncStorage.setItem('weeks', jsonWeek)
             
             await AsyncStorage.setItem('currentWeek', currWeek)
+
+            await AsyncStorage.setItem('goalDecrement', goalDecrement.toString())
         } catch (error) {
             console.log(error)
         }
@@ -52,6 +62,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             await AsyncStorage.removeItem('habit')
             await AsyncStorage.removeItem('weeks')
             await AsyncStorage.removeItem('currentWeek')
+            await AsyncStorage.removeItem('goalDecrement')
             await AsyncStorage.setItem('occurrences', '0')
         } catch (error) {
             console.log(error)
@@ -86,16 +97,19 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             clearData()
             setReset(true)
             setWeeks({})
+            setWeekDecrement(1)
             setOccurrences(0)
             setCurrentWeek('')
         } else {
             const calculatedWeeks = calculateWeeks(new Date())
             const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
+            const goalDecrement = getPerWeekDecrement(habit.goal, 9)  
 
             // Begin habit button was pressed => set data
             setReset(false)
             setCurrentWeek(currWeek)
-            storeData(habit, calculatedWeeks, currWeek)
+            setWeekDecrement(goalDecrement)
+            storeData(habit, calculatedWeeks, currWeek, goalDecrement)
 
             // Redirects for invalid input
             if (habit.habitName === "") {

@@ -18,12 +18,13 @@ import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import OccurrenceContext from "../contexts/OccurrenceContext"
+import GoalDecrementContext from "../contexts/GoalDecrementContext"
 
 // PAGES
 import WhatNowPage from "./WhatNowPage"
 
 // FUNCTIONS
-import { calculateCurrentWeek } from "../weeks";
+import { calculateCurrentWeek, calculateGoal } from "../weeks";
 
 
 export default function ProgressPage({ navigation }: any) {
@@ -34,16 +35,14 @@ export default function ProgressPage({ navigation }: any) {
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [occurrences, setOccurrences] = useContext(OccurrenceContext)
+    const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
 
-    // CHECK
+
+    // CUSTOM FUNCTIONS
     const currWeekCheck = calculateCurrentWeek(weeks, new Date())
-    const storeCurrentWeek = async (week: any) => {
-        try {
-            await AsyncStorage.setItem('currentWeek', week)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const weekNumber = currentWeek === undefined ? 1 : currentWeek.charAt(currentWeek.length - 1)
+    const goal = calculateGoal(habit.goal, weekDecrement, weekNumber)
+
     // NAVBAR FUNCTIONS
     const capitalizedHabit = habit.habitName.replace(/\b[a-z]/g, function(char: string) {
         return char.toUpperCase()
@@ -81,15 +80,11 @@ export default function ProgressPage({ navigation }: any) {
             }
         }
     }
-    
+
     useEffect(() => {
-        const getCheckResult = () => {
-            sameWeekCheck()
-        }
-        
         // Waits for state values to update from AsyncStorage
         if (weeks !== undefined && currentWeek !== undefined) {
-            getCheckResult()
+            sameWeekCheck()
         }
     }, [weeks, currentWeek])
 
@@ -113,7 +108,7 @@ export default function ProgressPage({ navigation }: any) {
                         presentationStyle="overFullScreen"
                     >
                         <View style={styles.modalContainer}>
-                            <Summary/>
+                            <Summary goal={goal}/>
                         </View>
                         <Pressable style={styles.modalOverlay} onPress={closeSummaryModal} />
                     </Modal>

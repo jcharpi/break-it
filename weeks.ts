@@ -37,6 +37,17 @@ export const calculateCurrentWeek = (weeks: Weeks, currDate: Date) => {
     if (currDate >= weeks[week]) {
       lastWeekKey = week
     }
-  });
+  })
   return lastWeekKey
-};
+}
+
+// Get amount to decrement goal each week
+export const getPerWeekDecrement = (firstGoal: number, totalWeeks: number) => {
+  return firstGoal < totalWeeks ? 1 : Math.ceil(firstGoal/totalWeeks)
+}
+
+// Calculate next goal for each week
+export const calculateGoal = (firstGoal: number, perWeekDecrement: number, week: number) => {
+  const nextGoal = firstGoal - (perWeekDecrement * (week - 1))
+  return nextGoal < 0 ? 0 : nextGoal
+}
