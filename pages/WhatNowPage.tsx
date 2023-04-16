@@ -14,7 +14,7 @@ import OccurrenceContext from "../contexts/OccurrenceContext";
 import GoalDecrementContext from "../contexts/GoalDecrementContext";
 
 // BACKEND FUNCTIONS
-import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../weeks";
+import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement, clearData } from "../functions";
 
 // DETERMINES IF MODAL VIEW OR NOT
 interface WhatNowPageProps {
@@ -56,19 +56,6 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
         }
     }
 
-    // CLEAR DATA FROM ASYNCSTORAGE
-    const clearData = async () => {
-        try {
-            await AsyncStorage.removeItem('habit')
-            await AsyncStorage.removeItem('weeks')
-            await AsyncStorage.removeItem('currentWeek')
-            await AsyncStorage.removeItem('goalDecrement')
-            await AsyncStorage.setItem('occurrences', '0')
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     // EVENT FUNCTIONS
     function closeWhatNowModal() {
         setWhatNowModalVisible(false)
@@ -78,28 +65,8 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
         if(modalView) {
             closeWhatNowModal() 
 
-            // Navigate with delay for better visual experience
-            setTimeout(() => {
-                navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
-            }, 300)
-
-            // Clearing habit with delay prevents habit title from visually 
-            // disappering before going to EnterHabitPage
-            setTimeout(() => {
-                setHabit({
-                    habitName: "",
-                    gem: "silver",
-                    goal: 0,  
-                })
-            }, 500)
-
             // Resets habit to prepare for new one
-            clearData()
-            setReset(true)
-            setWeeks({})
-            setWeekDecrement(1)
-            setOccurrences(0)
-            setCurrentWeek('')
+            clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
         } else {
             const calculatedWeeks = calculateWeeks(new Date())
             const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())

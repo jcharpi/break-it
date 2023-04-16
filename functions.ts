@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 interface Weeks {
     [key: string]: Date;
 }
@@ -55,4 +57,38 @@ export const calculateGoal = (firstGoal: number, perWeekDecrement: number, week:
 
 export const getWeekNumber = (currentWeek: string) => {
   return parseInt(currentWeek.charAt(currentWeek.length - 1)) + 1
+}
+
+
+export const clearData = async (navigation: any, setHabit: any, setReset: any, setWeeks: any, setWeekDecrement: any, setOccurrences: any, setCurrentWeek: any) => {
+    try {
+        await AsyncStorage.removeItem('habit')
+        await AsyncStorage.removeItem('weeks')
+        await AsyncStorage.removeItem('currentWeek')
+        await AsyncStorage.removeItem('goalDecrement')
+        await AsyncStorage.setItem('occurrences', '0')
+        
+        // Navigate with delay for better visual experience
+        setTimeout(() => {
+            navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
+        }, 300)
+
+        // Clearing habit with delay prevents habit title from visually 
+        // disappering before going to EnterHabitPage
+        setTimeout(() => {
+            setHabit({
+                habitName: "",
+                gem: "silver",
+                goal: 0,  
+            })
+        }, 500)
+
+        setReset(true)
+        setWeeks({})
+        setWeekDecrement(1)
+        setOccurrences(0)
+        setCurrentWeek('')
+    } catch (error) {
+        console.log(error)
+    }
 }

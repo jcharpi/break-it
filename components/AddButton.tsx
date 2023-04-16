@@ -6,9 +6,16 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 
 // CONTEXTS
 import OccurrenceContext from "../contexts/OccurrenceContext";
+import CurrentWeekContext from "../contexts/CurrentWeekContext";
 
-export default function AddButton() {
+interface Props {
+    clearData: any
+}
+export default function AddButton(props: Props) {
+    // CONTEXTS
     const [occurrences, setOccurrences] = useContext(OccurrenceContext)
+    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
+
     async function addOccurrence() {
         try {
           const newOccurrences = occurrences + 1
@@ -17,12 +24,15 @@ export default function AddButton() {
         } catch (error) {
           console.error('Error saving occurrence:', error)
         }
-      }
-
+    }
+    
     return (
-        <Pressable onPress={addOccurrence} style={styles.addButton}>
+        <Pressable 
+            onPress={currentWeek === 'week9' ? props.clearData : addOccurrence} 
+            style={styles.addButton}
+        >
             <Icon
-                name='plus' 
+                name={currentWeek === 'week9' ? 'redo-alt' : 'plus'}
                 size={33} 
                 color='#FFD645'
             />

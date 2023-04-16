@@ -12,30 +12,31 @@ import Summary from "../components/Summary"
 import rockImage from "../images/rock.png"
 
 // CONTEXTS
-import HabitContext from "../contexts/HabitContext"
-import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
-import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
-import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-import OccurrenceContext from "../contexts/OccurrenceContext"
 import GoalDecrementContext from "../contexts/GoalDecrementContext"
+import HabitContext from "../contexts/HabitContext"
+import OccurrenceContext from "../contexts/OccurrenceContext"
+import ResetContext from "../contexts/ResetContext"
+import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
+import WeekLayoutContext from "../contexts/WeekLayoutContext"
+import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
 
 // PAGES
 import WhatNowPage from "./WhatNowPage"
 
 // FUNCTIONS
-import { calculateCurrentWeek, calculateGoal, getWeekNumber } from "../weeks";
-
+import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../functions";
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
+    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
+    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
+    const [reset, setReset] = useContext(ResetContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
+    const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
-    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
-    const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
 
 
     // CUSTOM FUNCTIONS
@@ -64,6 +65,9 @@ export default function ProgressPage({ navigation }: any) {
         setSummaryModalVisible(false)
     }
 
+    const resetHabit = () => {
+        clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
+    }
     // WEEK UPDATE
     // using sameWeekCheck in the useEffect to compare last 
     // stored currentWeek and what currentWeek SHOULD be
@@ -126,7 +130,7 @@ export default function ProgressPage({ navigation }: any) {
                     <WhatNowPage navigation={navigation} modalView={true} />
                 </Modal>
                 
-                <AddButton/>
+                <AddButton clearData={resetHabit}/>
             </View>
         </View>
     )

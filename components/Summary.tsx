@@ -9,7 +9,7 @@ import CurrentWeekContext from "../contexts/CurrentWeekContext";
 import OccurrenceContext from "../contexts/OccurrenceContext";
 
 // CUSTOM FUNCTIONS
-import { getWeekNumber } from "../weeks";
+import { getWeekNumber } from "../functions";
 
 interface Props {
     goal: number
