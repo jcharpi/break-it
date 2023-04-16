@@ -20,6 +20,7 @@ export default function TrackHabitLayout() {
             <Tab.Navigator 
                 initialRouteName='ProgressPage'
                 tabBar={() => null}
+                backBehavior='none'
                 screenOptions={{
                     lazy: true,
                     lazyPreloadDistance: 2,
