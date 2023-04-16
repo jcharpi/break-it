@@ -70,7 +70,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
         } else {
             const calculatedWeeks = calculateWeeks(new Date())
             const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
-            const goalDecrement = getPerWeekDecrement(habit.goal, 9)  
+            const goalDecrement = getPerWeekDecrement(habit.goal, 8)  
 
             // Begin habit button was pressed => set data
             setReset(false)

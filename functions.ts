@@ -87,7 +87,10 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
         setWeeks({})
         setWeekDecrement(1)
         setOccurrences(0)
-        setCurrentWeek('')
+        setTimeout(() => {
+          setCurrentWeek('')
+        }, 500)
+
     } catch (error) {
         console.log(error)
     }

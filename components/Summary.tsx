@@ -52,7 +52,7 @@ export default function Summary(props: Props) {
             : 
             <View>
                 <Text style={[styles.bodyText, styles.text]}>Goal: {props.goal} occurrences</Text>
-                <Text style={[styles.bodyText, styles.text]}>Current: <Text style={{color: occurrences < props.goal ? 'green': 'red', fontWeight: `600`}}>
+                <Text style={[styles.bodyText, styles.text]}>Current: <Text style={{color: occurrences <= props.goal ? 'green': 'red', fontWeight: `600`}}>
                         {occurrences}
                 </Text> occurrences</Text>
                 

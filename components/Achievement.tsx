@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 17,
         fontWeight: "600",
-        marginTop: 20
+        marginVertical: 20
     },
     gemImage: {
         width: 100,

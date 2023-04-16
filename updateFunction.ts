@@ -1,4 +1,4 @@
-const WEEKS_TO_BREAK: number = 8
+const WEEKS_TO_BREAK: number = 7
 const firstGoal: number = 54
 const occurrences: number = 10
 
