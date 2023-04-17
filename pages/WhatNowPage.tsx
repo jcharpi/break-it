@@ -108,15 +108,16 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
             <View style={styles.body}>
                 <Text style={styles.bodyText}>
+                    Your rock represents your bad habit! 
                     Each time you act on your habit, hit the plus button.
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    Your rock represents your bad habit! Tap your rock to see your week’s current progress.
+                    Tap your rock to see your week’s current progress.
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    After you have successfully broken your habit, you will get a gem as a 
+                    After you have broken your habit, you will get a gem as a 
                     reward, which can be viewed in your treasure trove!
                 </Text>
 
