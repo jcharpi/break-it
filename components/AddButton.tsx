@@ -1,6 +1,6 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useContext } from "react";
-import { StyleSheet, Pressable } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -27,7 +27,7 @@ export default function AddButton(props: Props) {
     }
     
     return (
-        <Pressable 
+        <TouchableOpacity 
             onPress={currentWeek === 'week9' ? props.clearData : addOccurrence} 
             style={styles.addButton}
         >
@@ -36,7 +36,7 @@ export default function AddButton(props: Props) {
                 size={33} 
                 color='#FFD645'
             />
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 

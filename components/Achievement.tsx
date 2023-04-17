@@ -3,17 +3,39 @@ import { memo } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 // CUSTOM IMAGES
-import gemImage from "../images/gem.png"
+import gemImage from "../images/gem.png";
+import silver from "../images/silver.png";
+import gold from "../images/gold.png";
+import diamond from "../images/diamond.png";
 
-function Achievement() {
+interface Props {
+    gem: string
+    habitName: string
+}
+
+function Achievement(props: Props) {
+
+    function getGemImage() {
+        switch (props.gem) {
+            case "silver":
+                return silver;
+            case "gold":
+                return gold;
+            case "diamond":
+                return diamond;
+            default:
+                return silver;
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Image 
-                source={gemImage} 
+                source={getGemImage()} 
                 style={styles.gemImage} 
                 resizeMode="contain" 
             />
-            <Text style={styles.bodyText}>Bad Habit Name</Text>
+            <Text style={styles.bodyText}>{props.habitName}</Text>
         </View>
     )
 }
@@ -23,19 +45,19 @@ export default memo(Achievement)
 
 const styles = StyleSheet.create({
     container: {
-        margin: 30,
+        margin: 35,
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
     },
     bodyText: {
         color: "white",
-        fontSize: 17,
+        fontSize: 20,
         fontWeight: "600",
-        marginVertical: 20
+        marginVertical: 10
     },
     gemImage: {
-        width: 100,
-        height: 100,
+        width: 110,
+        height: 110,
     },
 })

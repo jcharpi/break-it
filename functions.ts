@@ -13,7 +13,7 @@ const DAYS_IN_WEEK = 7
 // Sets 9 weeks from current date
 export const calculateWeeks = (currentDate: Date) => {
     const millisecondsInWeek =
-      MILLISECONDS_IN_SECOND * 30//* 
+      MILLISECONDS_IN_SECOND * 5//* 
       //SECONDS_IN_MINUTE *
       // MINUTES_IN_HOUR *
       // HOURS_IN_DAY *
@@ -81,7 +81,7 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
                 gem: "silver",
                 goal: 0,  
             })
-        }, 500)
+        }, 370)
 
         setReset(true)
         setWeeks({})

@@ -15,6 +15,7 @@ import GoalDecrementContext from "../contexts/GoalDecrementContext";
 
 // BACKEND FUNCTIONS
 import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement, clearData } from "../functions";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 // DETERMINES IF MODAL VIEW OR NOT
 interface WhatNowPageProps {
@@ -70,7 +71,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
         } else {
             const calculatedWeeks = calculateWeeks(new Date())
             const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
-            const goalDecrement = getPerWeekDecrement(habit.goal, 8)  
+            const goalDecrement = getPerWeekDecrement(habit.goal, 9)  
 
             // Begin habit button was pressed => set data
             setReset(false)
@@ -125,11 +126,11 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 </Text>
             </View>
 
-            <Pressable style={modalView ? [styles.button, {borderColor: '#ff8383'}] : styles.button} onPress={buttonHandler}>
+            <TouchableOpacity style={modalView ? [styles.button, {borderColor: '#ff8383'}] : styles.button} onPress={buttonHandler}>
                 <Text style={modalView ? [styles.buttonText, {color: '#ff8383'}] : styles.buttonText}>
                     {modalView ? 'Change Habit' : 'Begin'}
                 </Text>
-            </Pressable>
+            </TouchableOpacity>
             
         </SafeAreaView>
     )

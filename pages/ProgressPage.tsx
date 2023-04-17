@@ -20,6 +20,7 @@ import ResetContext from "../contexts/ResetContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
+import AchievementContext from "../contexts/AchievementContext"
 
 // PAGES
 import WhatNowPage from "./WhatNowPage"
@@ -29,6 +30,7 @@ import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from ".
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
+    const [achievements, setAchievements] = useContext(AchievementContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [occurrences, setOccurrences] = useContext(OccurrenceContext)
@@ -45,9 +47,9 @@ export default function ProgressPage({ navigation }: any) {
     const goal = calculateGoal(habit.goal, weekDecrement, weekNumber)
 
     // NAVBAR FUNCTIONS
-    const capitalizedHabit = habit.habitName.replace(/\b[a-z]/g, function(char: string) {
+    const capitalizedHabit = habit.habitName.replace(/(^|\s)([a-z])/g, function(char: string) {
         return char.toUpperCase()
-    })
+    }).trim()
 
     const handleHelp = () => {
         setWhatNowModalVisible((prev: any) => !prev)
@@ -65,16 +67,25 @@ export default function ProgressPage({ navigation }: any) {
         setSummaryModalVisible(false)
     }
 
-    const resetHabit = () => {
+    const resetHabit = async () => {
+        const newAchievements = [
+            ...achievements,
+            { gem: habit.gem, habitName: capitalizedHabit }
+        ]
+
+        try {
+            const jsonAchievements = JSON.stringify(newAchievements)
+            await AsyncStorage.setItem('achievements', jsonAchievements)
+          } catch (error) {
+            console.log(error)
+        }
+        setAchievements(newAchievements)
         clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
     }
     // WEEK UPDATE
     // using sameWeekCheck in the useEffect to compare last 
     // stored currentWeek and what currentWeek SHOULD be
     const sameWeekCheck = () => {
-        console.log(`storedWeek: ${currentWeek}`)
-        console.log(weeks)
-        console.log(`currCheckWeek: ${currWeekCheck}`)
         const result = currWeekCheck === undefined ? true : currentWeek === currWeekCheck;
         if(!result) {
             setCurrentWeek(currWeekCheck)
@@ -112,10 +123,10 @@ export default function ProgressPage({ navigation }: any) {
                         onRequestClose={() => setSummaryModalVisible(false)}
                         presentationStyle="overFullScreen"
                     >
-                        <View style={styles.modalContainer}>
+                        <Pressable onPress={closeSummaryModal} style={styles.modalContainer}>
                             <Summary goal={goal}/>
-                        </View>
-                        <Pressable style={styles.modalOverlay} onPress={closeSummaryModal} />
+                        </Pressable>
+
                     </Modal>
                     <Image source={rockImage}/>
                 </Pressable>
@@ -154,12 +165,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        
     },
-    modalOverlay: {  
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-    }
 })

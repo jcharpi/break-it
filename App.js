@@ -18,11 +18,14 @@ import OccurrenceContext from './contexts/OccurrenceContext';
 import WeekLayoutContext from './contexts/WeekLayoutContext';
 import CurrentWeekContext from './contexts/CurrentWeekContext';
 import GoalDecrementContext from './contexts/GoalDecrementContext';
+import Achievement from './components/Achievement';
+import AchievementContext from './contexts/AchievementContext';
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
   // CONTEXTS
+  const [achievements, setAchievements] = useState([])
   const [currentWeek, setCurrentWeek] = useState()
   const [goalDecrement, setGoalDecrement] = useState(1)
   const [habit, setHabit] = useState({
@@ -40,11 +43,21 @@ export default function App() {
   theme.colors.secondaryContainer = "transparent"  
 
   // SET HABITS TO ASYNCSTORAGE VALUES ON PAGE LOAD
+  const getAchievements = async () => {
+    try {
+      const storedAchievements = await AsyncStorage.getItem('achievements')
+      if (storedAchievements !== null) {
+        setAchievements(JSON.parse(storedAchievements))
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
   const getGoalDecrement = async () => {
     try {
       const storedGoalDecrement = await AsyncStorage.getItem('goalDecrement')
       if (storedGoalDecrement !== null) {
-        console.log(storedGoalDecrement)
         setGoalDecrement(parseInt(storedGoalDecrement))
       }
     } catch(error) {
@@ -103,6 +116,7 @@ export default function App() {
   }
 
   useEffect(() => {
+    AsyncStorage.clear()
     const getInitialRouteName = async () => {
       const habitExists = await getHabit()
       if (habitExists) {
@@ -112,11 +126,12 @@ export default function App() {
       }
     }
 
+    getAchievements()
+    getCurrentWeek()
+    getGoalDecrement()
     getInitialRouteName()
     getOccurrences()
     getWeeks()
-    getCurrentWeek()
-    getGoalDecrement()
   }, [])
 
   if (!initialRouteName) {
@@ -124,31 +139,33 @@ export default function App() {
   }
 
   return (
-    <GoalDecrementContext.Provider value={[goalDecrement, setGoalDecrement]}>
+    <AchievementContext.Provider value={[achievements, setAchievements]}>
       <CurrentWeekContext.Provider value={[currentWeek, setCurrentWeek]}>
-        <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
+        <GoalDecrementContext.Provider value={[goalDecrement, setGoalDecrement]}>
           <HabitContext.Provider value={[habit, setHabit]}>
-            <ResetContext.Provider value={[reset, setReset]}>
-              <OccurrenceContext.Provider value={[occurrences, setOccurrences]}>
-                <WhatNowModalVisibleContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
-                  <NavigationContainer>
-                    <Stack.Navigator 
-                      initialRouteName={initialRouteName}
-                      screenOptions={{
-                        headerShown: false
-                      }}
-                    >
-                      <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
-                      <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
-                    </Stack.Navigator>
-                  </NavigationContainer>
-                </WhatNowModalVisibleContext.Provider>
-              </OccurrenceContext.Provider>
-            </ResetContext.Provider>
+            <OccurrenceContext.Provider value={[occurrences, setOccurrences]}>
+              <ResetContext.Provider value={[reset, setReset]}>
+                <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
+                  <WhatNowModalVisibleContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
+                    <NavigationContainer>
+                        <Stack.Navigator 
+                          initialRouteName={initialRouteName}
+                          screenOptions={{
+                            headerShown: false
+                          }}
+                        >
+                          <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
+                          <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
+                        </Stack.Navigator>
+                      </NavigationContainer>
+                  </WhatNowModalVisibleContext.Provider>
+                </WeekLayoutContext.Provider>
+              </ResetContext.Provider>
+            </OccurrenceContext.Provider>
           </HabitContext.Provider>
-        </WeekLayoutContext.Provider>
+        </GoalDecrementContext.Provider>
       </CurrentWeekContext.Provider>
-    </GoalDecrementContext.Provider>
+    </AchievementContext.Provider>
   )
 }
 
