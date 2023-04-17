@@ -1,5 +1,5 @@
 // REACT HOOKS & COMPONENTS
-import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar } from "react-native";
+import { StyleSheet, SafeAreaView, View, Text, Platform, StatusBar, Pressable } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 interface Props {
@@ -19,13 +19,16 @@ export default function NavBar(props: Props) {
             <View style={styles.flexView}>
                 {
                     props.leftIconName ? 
-                    <Icon
-                        style={styles.icon}
-                        onPress={props.handleLeftIcon ?? handleNothing}
-                        name={props.leftIconName} 
-                        size={30} 
-                        color='white'
-                    />
+                    <Pressable onPress={props.handleLeftIcon ?? handleNothing}
+                    >
+                        <Icon
+                            style={styles.icon}
+                            name={props.leftIconName} 
+                            size={30} 
+                            color='white'
+                        />
+                    </Pressable>
+                    
                     : 
                     <View style={styles.noImage}></View>
                 }
@@ -34,13 +37,15 @@ export default function NavBar(props: Props) {
 
                 {
                     props.rightIconName ? 
-                    <Icon
-                        style={styles.icon}
-                        onPress={props.handleRightIcon ?? handleNothing}
-                        name={props.rightIconName} 
-                        size={30} 
-                        color='white'
-                    />
+                    <Pressable onPress={props.handleRightIcon ?? handleNothing}
+                    >
+                        <Icon
+                            style={styles.icon}
+                            name={props.rightIconName} 
+                            size={30} 
+                            color='white'
+                        />
+                    </Pressable>
                     : 
                     <View style={styles.noImage}></View> // Ensures center spacing of title on navbar
                 }

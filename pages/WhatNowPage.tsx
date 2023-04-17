@@ -108,21 +108,20 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
             <View style={styles.body}>
                 <Text style={styles.bodyText}>
-                1. Each time you act on your habit, hit the + button.
+                    Each time you act on your habit, hit the plus button.
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    2. Each week your rock will update! Cracks indicate progress. Tap your
-                    rock to see your week’s current progress.
+                    Your rock represents your bad habit! Tap your rock to see your week’s current progress.
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    3. After you have successfully broken your habit, you will get a gem as a 
+                    After you have successfully broken your habit, you will get a gem as a 
                     reward, which can be viewed in your treasure trove!
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    4. Show off your trove and enter a new habit!
+                    Show off your trove and enter a new habit!
                 </Text>
             </View>
 

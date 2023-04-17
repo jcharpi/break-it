@@ -1,6 +1,6 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 // CONTEXTS
@@ -34,13 +34,15 @@ export default function Summary(props: Props) {
                     {weekNumber === 10 ? `Congratulations 🥳` : `Week ${weekNumber}`}
                 </Text>
 
-                <Icon
-                    onPress={closeSummaryModal}
-                    style={{marginRight: "4%"}}
-                    name='times' 
-                    size={25} 
-                    color='black'
-                />
+                <TouchableOpacity onPress={closeSummaryModal}
+>
+                    <Icon
+                        style={{marginRight: "4%"}}
+                        name='times' 
+                        size={25} 
+                        color='black'
+                    />
+                </TouchableOpacity>
             </View>
 
             {
