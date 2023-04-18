@@ -18,7 +18,6 @@ import OccurrenceContext from './contexts/OccurrenceContext';
 import WeekLayoutContext from './contexts/WeekLayoutContext';
 import CurrentWeekContext from './contexts/CurrentWeekContext';
 import GoalDecrementContext from './contexts/GoalDecrementContext';
-import Achievement from './components/Achievement';
 import AchievementContext from './contexts/AchievementContext';
 
 const Stack = createNativeStackNavigator()
@@ -151,11 +150,27 @@ export default function App() {
                         <Stack.Navigator 
                           initialRouteName={initialRouteName}
                           screenOptions={{
-                            headerShown: false
+                            headerShown: false,
                           }}
                         >
-                          <Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} options={{gestureEnabled: false}}/>
-                          <Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} options={{gestureEnabled: false}}/>
+                          <Stack.Screen 
+                            name="CreateHabitLayout" 
+                            component={CreateHabitLayout} 
+                            options={{
+                              animation: 'fade',
+                              animationDuration: 500,
+                              gestureEnabled: false,
+                            }}
+                          />
+                          <Stack.Screen 
+                            name="TrackHabitLayout" 
+                            component={TrackHabitLayout} 
+                            options={{
+                              animation: 'fade',
+                              animationDuration: 500,
+                              gestureEnabled: false,
+                            }}
+                          />
                         </Stack.Navigator>
                       </NavigationContainer>
                   </WhatNowModalVisibleContext.Provider>

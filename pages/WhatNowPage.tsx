@@ -1,6 +1,6 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { memo, useContext } from "react";
-import { Pressable, SafeAreaView, StyleSheet, Text, View, Alert, Platform, StatusBar } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Alert, Platform, StatusBar, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -15,7 +15,6 @@ import GoalDecrementContext from "../contexts/GoalDecrementContext";
 
 // BACKEND FUNCTIONS
 import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement, clearData } from "../functions";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 // DETERMINES IF MODAL VIEW OR NOT
 interface WhatNowPageProps {
@@ -97,13 +96,15 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             <View style={styles.flexHeader}>
                 <Text style={styles.titleText}>What now?</Text>
                 {modalView && 
-                <Icon
-                    onPress={closeWhatNowModal}
-                    style={{marginRight: "7%"}}
-                    name='times' 
-                    size={30} 
-                    color='white'
-                />}
+                <TouchableOpacity onPress={closeWhatNowModal}>
+                    <Icon
+                        style={{marginRight: "7%"}}
+                        name='times' 
+                        size={30} 
+                        color='white'
+                    />
+                </TouchableOpacity>
+                }
             </View>
 
             <View style={styles.body}>
