@@ -5,6 +5,7 @@ import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/typ
 import SliderMarker from "./SliderMarker"
 
 // CONTEXTS
+import ActiveSliderContext from "../contexts/ActiveSliderContext"
 import ResetContext from "../contexts/ResetContext"
 
 // STYLE
@@ -18,12 +19,22 @@ interface SliderProps {
 }
 
 function CustomSlider(props: SliderProps) {
+    const [activeSlider, setActiveSlider] = useContext(ActiveSliderContext)
     const [reset, setReset] = useContext(ResetContext)
     const [sliderValue, setSliderValue] = useState(0)
 
     const handleValueChange: SliderOnChangeCallback = (value) => {
         setSliderValue(value[0])
         props.onValueChange(value[0])
+    }
+
+    function sliderComplete () {
+        if(props.onSlidingComplete === null) {
+            setActiveSlider(false)
+        } else {
+            props.onSlidingComplete()
+            setActiveSlider(false)
+        }
     }
 
     useEffect(() => {
@@ -46,7 +57,8 @@ function CustomSlider(props: SliderProps) {
             thumbStyle={styles.thumbStyle}
             trackStyle={styles.trackStyle}
             containerStyle={styles.sliderContainer}
-            onSlidingComplete={props.onSlidingComplete ?? (() => {})}
+            onSlidingStart={() => setActiveSlider(true)}
+            onSlidingComplete={sliderComplete}
         />
     )
 }
