@@ -2,32 +2,31 @@
 import { memo, useContext, useState } from "react"
 import { SafeAreaView, Text, View, Alert, TouchableOpacity } from "react-native"
 import { Button } from "react-native-paper"
-import AsyncStorage from "@react-native-async-storage/async-storage"
 import Icon from "react-native-vector-icons/FontAwesome5"
 
 // CONTEXTS
 import HabitContext from "../contexts/HabitContext"
 import ResetContext from "../contexts/ResetContext"
-import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
+import HelpModalVisibleContext from "../contexts/HelpModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import OccurrenceContext from "../contexts/OccurrenceContext"
 import GoalDecrementContext from "../contexts/GoalDecrementContext"
 
 // BACKEND FUNCTIONS
-import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement, clearData } from "../functions"
+import { clearData } from "../functions"
 
 // STYLE
 import styles from "../styles"
 
 // DETERMINES IF MODAL VIEW OR NOT
-interface WhatNowPageProps {
+interface HelpPageProps {
     navigation: any
     modalView?: boolean
     closeModal?: any
 }
 
-function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
+function HelpPage({ navigation, modalView }: HelpPageProps) {
     // CONTEXTS
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
@@ -35,13 +34,13 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const [occurrences, setOccurrences] = useContext(OccurrenceContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
     const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
-    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
+    const [HelpModalVisible, setHelpModalVisible] = useContext(HelpModalVisibleContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
 
     // EVENT FUNCTIONS
-    function closeWhatNowModal() {
-        setWhatNowModalVisible(false)
+    function closeHelpModal() {
+        setHelpModalVisible(false)
     }
 
     function buttonHandler() {
@@ -53,7 +52,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 },
                 {
                     text: "OK", onPress: () => {
-                        closeWhatNowModal() 
+                        closeHelpModal() 
 
                         // Resets habit to prepare for new one
                         clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
@@ -71,7 +70,7 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
             <View style={styles.helpFlexHeader}>
                 <Text style={styles.titleText}>{modalView ? "Help" : "Welcome!"}</Text>
                 {modalView && 
-                <TouchableOpacity onPress={closeWhatNowModal}>
+                <TouchableOpacity onPress={closeHelpModal}>
                     <Icon
                         style={{marginRight: "7%"}}
                         name="times" 
@@ -102,21 +101,25 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 </Text>
             </View>
 
-            <Button 
-                mode="elevated" 
-                onPressIn={() => setButtonPressed(true)}
-                onPressOut={() => setButtonPressed(false)}
-                onPress={buttonHandler}
-                buttonColor={modalView ? "#dd1e00" : "white"}
-                textColor={modalView ? "white" : "#586183"}
-                labelStyle={styles.helpButtonText}
-                contentStyle={styles.helpButtonContainer}
-                style={buttonPressed ? [styles.helpButtonPressed, {marginTop: 83}] : [styles.helpButton, {marginTop: 80}]}
-            >
-                {modalView ? "Change Habit" : "Next"}
-            </Button>
+            {
+                modalView && 
+                <Button 
+                    mode="elevated" 
+                    onPressIn={() => setButtonPressed(true)}
+                    onPressOut={() => setButtonPressed(false)}
+                    onPress={buttonHandler}
+                    buttonColor={"#dd1e00"}
+                    textColor={"white"}
+                    labelStyle={styles.helpButtonText}
+                    contentStyle={styles.helpButtonContainer}
+                    style={buttonPressed ? [styles.helpButtonPressed, {marginTop: 83}] : [styles.helpButton, {marginTop: 80}]}
+                >
+                    Change Habit
+                </Button>
+            }
+            
         </SafeAreaView>
     )
 }
 
-export default memo(WhatNowPage)
+export default memo(HelpPage)

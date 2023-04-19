@@ -56,13 +56,13 @@ export default StyleSheet.create({
     addButton: {
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.4,
-        shadowRadius: 3,
+        shadowRadius: 8,
     },
     addButtonPressed: {
         marginTop: 3,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,
-        shadowRadius: 8,
+        shadowRadius: 3,
     },
 
 
@@ -200,7 +200,7 @@ export default StyleSheet.create({
         alignSelf: "center",
         borderRadius: 15,
         justifyContent: "center",
-        marginTop: 50,
+        marginTop: 61,
     },
     helpButtonContainer: {
         height: 45,
@@ -210,7 +210,7 @@ export default StyleSheet.create({
         alignSelf: "center",
         borderRadius: 15,
         justifyContent: "center",
-        marginTop: 53,
+        marginTop: 64,
     },
     helpButtonText: {
         fontSize: 20,
@@ -274,7 +274,7 @@ export default StyleSheet.create({
     // CREATE HABIT LAYOUT
     createTabBar: {
         backgroundColor: "#586183",
-        paddingBottom: "15%",
+        paddingBottom: "10%",
     },
     createTabBarContainer: {
         justifyContent: "center",

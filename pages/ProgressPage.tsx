@@ -19,11 +19,11 @@ import OccurrenceContext from "../contexts/OccurrenceContext"
 import ResetContext from "../contexts/ResetContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
-import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
+import HelpModalVisibleContext from "../contexts/HelpModalVisibleContext"
 import AchievementContext from "../contexts/AchievementContext"
 
 // PAGES
-import WhatNowPage from "./WhatNowPage"
+import HelpPage from "./HelpPage"
 
 // STYLE
 import styles from "../styles"
@@ -40,7 +40,7 @@ export default function ProgressPage({ navigation }: any) {
     const [reset, setReset] = useContext(ResetContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
-    const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
+    const [HelpModalVisible, setHelpModalVisible] = useContext(HelpModalVisibleContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
 
@@ -55,7 +55,7 @@ export default function ProgressPage({ navigation }: any) {
     }).trim()
 
     const handleHelp = () => {
-        setWhatNowModalVisible((prev: any) => !prev)
+        setHelpModalVisible((prev: any) => !prev)
     }
 
     const handleTrove = () => {
@@ -139,12 +139,12 @@ export default function ProgressPage({ navigation }: any) {
                 {/* WHAT NOW MODAL */}
                 <Modal
                     animationType="slide"
-                    visible={whatNowModalVisible}
-                    onRequestClose={() => setWhatNowModalVisible(false)}
+                    visible={HelpModalVisible}
+                    onRequestClose={() => setHelpModalVisible(false)}
                     presentationStyle="pageSheet"
                     statusBarTranslucent={true}
                 >
-                    <WhatNowPage navigation={navigation} modalView={true} />
+                    <HelpPage navigation={navigation} modalView={true} />
                 </Modal>
                 
                 <AddButton clearData={resetHabit}/>

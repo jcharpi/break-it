@@ -1,6 +1,6 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useContext } from "react"
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity } from "react-native"
 import Icon from "react-native-vector-icons/FontAwesome5"
 
 // CONTEXTS

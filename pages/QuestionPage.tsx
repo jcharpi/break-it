@@ -124,13 +124,6 @@ function QuestionPage({ navigation }: any) {
         const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
         const goalDecrement = getPerWeekDecrement(habit.goal, 8)  
 
-        // Begin habit button was pressed => set data
-        setCurrentWeek(currWeek)
-        setFirstLoad(false)
-        setReset(false)
-        setWeekDecrement(goalDecrement)
-        storeData(habit, calculatedWeeks, currWeek, goalDecrement)
-
         // Redirects for invalid input
         if (habit.habitName === "") {
             navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" }) 
@@ -139,6 +132,12 @@ function QuestionPage({ navigation }: any) {
             navigation.navigate("CreateHabitLayout", { screen: "QuestionPage" }) 
             Alert.alert("Please set a first goal.")
         } else {
+            // Begin habit button was pressed => set data
+            setCurrentWeek(currWeek)
+            setFirstLoad(false)
+            setReset(false)
+            setWeekDecrement(goalDecrement)
+            storeData(habit, calculatedWeeks, currWeek, goalDecrement)
             navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
         }
         
@@ -169,7 +168,10 @@ function QuestionPage({ navigation }: any) {
                 textColor={"#586183"}
                 labelStyle={styles.helpButtonText}
                 contentStyle={styles.helpButtonContainer}
-                style={buttonPressed ? styles.helpButtonPressed : styles.helpButton}
+                style={[
+                    buttonPressed ? styles.helpButtonPressed : styles.helpButton, 
+                    firstLoad ? {} : {marginTop: 80} 
+                ]}
             >
                 Begin
             </Button>

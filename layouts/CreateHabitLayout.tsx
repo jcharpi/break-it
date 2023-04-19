@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons"
 // PAGES
 import EnterHabitPage from "../pages/EnterHabitPage"
 import QuestionPage from "../pages/QuestionPage"
-import WhatNowPage from "../pages/WhatNowPage"
+import HelpPage from "../pages/HelpPage"
 
 // CONTEXTS
 import FirstLoadContext from "../contexts/FirstLoadContext"
@@ -21,7 +21,7 @@ export default function CreateHabitLayout() {
 
     return (
         <Tab.Navigator 
-            initialRouteName="WhatNowPage" 
+            initialRouteName="HelpPage" 
             tabBar={firstLoad ? undefined : () => null}
             backBehavior="history" 
             tabBarPosition="bottom"
@@ -41,18 +41,30 @@ export default function CreateHabitLayout() {
                     tabBarIndicatorStyle: { opacity: 0 },
                     tabBarGap: 2,
                     tabBarAndroidRipple: {color: "transparent"},
-                    swipeEnabled: false,
                 } 
                 : 
                 {
                     tabBarAndroidRipple: {color: "transparent"},
-                    swipeEnabled: false, 
                 }
             }
         >
-            <Tab.Screen name="WhatNowPage" component={WhatNowPage} />
-            <Tab.Screen name="EnterHabitPage" component={EnterHabitPage} />
-            <Tab.Screen name="QuestionPage"component={QuestionPage} />
+            <Tab.Screen 
+                name="HelpPage" 
+                component={HelpPage} 
+                options={{swipeEnabled: true}}
+            />
+            <Tab.Screen 
+                name="EnterHabitPage" 
+                component={EnterHabitPage} 
+                options={
+                    {swipeEnabled: firstLoad ? true : false}
+                }
+            />
+            <Tab.Screen 
+                name="QuestionPage"
+                component={QuestionPage} 
+                options={{swipeEnabled: false}}
+            />
         </Tab.Navigator>
     )
 }

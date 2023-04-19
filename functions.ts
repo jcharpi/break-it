@@ -71,7 +71,7 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
         // Navigate with delay for better visual experience
         setTimeout(() => {
             navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
-        }, 300)
+        }, 200)
 
         // Clearing habit with delay prevents habit title from visually 
         // disappering before going to EnterHabitPage
@@ -81,7 +81,7 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
                 gem: "silver",
                 goal: 0,  
             })
-        }, 370)
+        }, 210)
 
         setReset(true)
         setWeeks({})
@@ -89,7 +89,7 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
         setOccurrences(0)
         setTimeout(() => {
           setCurrentWeek('')
-        }, 500)
+        }, 400)
 
     } catch (error) {
         console.log(error)

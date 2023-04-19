@@ -11,7 +11,7 @@ import TrackHabitLayout from "./layouts/TrackHabitLayout"
 
 // CONTEXTS
 import HabitContext from "./contexts/HabitContext"
-import WhatNowModalVisibleContext from "./contexts/WhatNowModalVisibleContext"
+import HelpModalVisibleContext from "./contexts/HelpModalVisibleContext"
 import ResetContext from "./contexts/ResetContext"
 import OccurrenceContext from "./contexts/OccurrenceContext"
 import WeekLayoutContext from "./contexts/WeekLayoutContext"
@@ -37,7 +37,7 @@ export default function App() {
   const [occurrences, setOccurrences] = useState(0)
   const [reset, setReset] = useState(false)
   const [weeks, setWeeks] = useState({})
-  const [whatNowModalVisible, setWhatNowModalVisible] = useState(false)
+  const [HelpModalVisible, setHelpModalVisible] = useState(false)
 
   const theme = useTheme()
   theme.colors.secondaryContainer = "transparent"  
@@ -159,35 +159,28 @@ export default function App() {
               <OccurrenceContext.Provider value={[occurrences, setOccurrences]}>
                 <ResetContext.Provider value={[reset, setReset]}>
                   <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
-                    <WhatNowModalVisibleContext.Provider value={[whatNowModalVisible, setWhatNowModalVisible]}>
+                    <HelpModalVisibleContext.Provider value={[HelpModalVisible, setHelpModalVisible]}>
                       <NavigationContainer>
                           <Stack.Navigator 
                             initialRouteName={initialRouteName}
                             screenOptions={{
                               headerShown: false,
+                              animation: "fade",
+                              animationDuration: 500,
+                              gestureEnabled: false,
                             }}
                           >
                             <Stack.Screen 
                               name="CreateHabitLayout" 
                               component={CreateHabitLayout} 
-                              options={{
-                                animation: "fade",
-                                animationDuration: 500,
-                                gestureEnabled: false,
-                              }}
                             />
                             <Stack.Screen 
                               name="TrackHabitLayout" 
-                              component={TrackHabitLayout} 
-                              options={{
-                                animation: "fade",
-                                animationDuration: 500,
-                                gestureEnabled: false,
-                              }}
+                              component={TrackHabitLayout}  
                             />
                           </Stack.Navigator>
                         </NavigationContainer>
-                    </WhatNowModalVisibleContext.Provider>
+                    </HelpModalVisibleContext.Provider>
                   </WeekLayoutContext.Provider>
                 </ResetContext.Provider>
               </OccurrenceContext.Provider>
