@@ -35,7 +35,7 @@ export default function AddButton(props: Props) {
             onPressIn={() => setButtonPressed(true)}
             onPressOut={() => setButtonPressed(false)}
             onPress={currentWeek === "week9" ? props.clearData : addOccurrence} 
-            style={buttonPressed ? styles.addButtonPressed : styles.addButton}
+            style={buttonPressed ? [styles.addButtonPressed, styles.addButtonShared] : [styles.addButton, styles.addButtonShared]}
         >
             <Icon
                 name={currentWeek === "week9" ? "redo-alt" : "plus"}

@@ -1,13 +1,16 @@
 // REACT HOOKS & COMPONENTS
-import { useState, memo, useContext, useEffect } from "react";
-import { SafeAreaView, StyleSheet, Text, Platform, StatusBar } from "react-native";
+import { useState, memo, useContext, useEffect } from "react"
+import { SafeAreaView, Text } from "react-native";
 
 // CUSTOM COMPONENTS
-import CustomSlider from "../components/CustomSlider";
+import CustomSlider from "../components/CustomSlider"
 
 // CONTEXTS
-import HabitContext from "../contexts/HabitContext";
-import ResetContext from "../contexts/ResetContext";
+import HabitContext from "../contexts/HabitContext"
+import ResetContext from "../contexts/ResetContext"
+
+// STYLE
+import styles from "../styles"
 
 function QuestionPage({ navigation }: any) {
     // CONTEXTS
@@ -16,14 +19,14 @@ function QuestionPage({ navigation }: any) {
 
     // SLIDER STATES
     const [goal, setGoal] = useState(0)
-    const [firstOccurrence, setFirstOccurrence] = useState('weeks')
-    const [frequency, setFrequency] = useState('monthly')
-    const [impact, setImpact] = useState('slight')
+    const [firstOccurrence, setFirstOccurrence] = useState("weeks")
+    const [frequency, setFrequency] = useState("monthly")
+    const [impact, setImpact] = useState("slight")
 
     // SLIDER OPTIONS
-    const occurrenceOptions = ['weeks', 'months', 'years']
-    const frequencyOptions = ['monthly', 'weekly', 'daily']
-    const impactOptions = ['slight', 'noticable', 'significant']
+    const occurrenceOptions = ["weeks", "months", "years"]
+    const frequencyOptions = ["monthly", "weekly", "daily"]
+    const impactOptions = ["slight", "noticable", "significant"]
 
     // CALCULATED GEM
     const gemVal = occurrenceOptions.indexOf(firstOccurrence) + 
@@ -49,15 +52,15 @@ function QuestionPage({ navigation }: any) {
 
     // SLIDER CHANGES
     function changeOccurrence(value: number) {
-        setFirstOccurrence(occurrenceOptions[value] || 'weeks')
+        setFirstOccurrence(occurrenceOptions[value] || "weeks")
     }
 
     function changeFrequency(value: number) {
-        setFrequency(frequencyOptions[value] || 'monthly')
+        setFrequency(frequencyOptions[value] || "monthly")
     }
 
     function changeImpact(value: number) {
-        setImpact(impactOptions[value] || 'slight')
+        setImpact(impactOptions[value] || "slight")
     }
 
     // UPDATE HABIT STATE VAR
@@ -68,7 +71,7 @@ function QuestionPage({ navigation }: any) {
                 goal: goal
             }
         })
-        navigation.navigate('CreateHabitLayout', { screen: 'WhatNowPage' })    
+        navigation.navigate("CreateHabitLayout", { screen: "WhatNowPage" })    
     }
 
     // SET FIRST GOAL
@@ -77,51 +80,22 @@ function QuestionPage({ navigation }: any) {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.questionContainer}>
             <Text style={styles.titleText}>A few questions...</Text>
             
-            <Text style={styles.bodyText}>First occurrence was <Text style={styles.valueText}>{firstOccurrence}</Text> ago</Text>
+            <Text style={styles.bodyText}>First occurrence was <Text style={styles.questionValue}>{firstOccurrence}</Text> ago</Text>
             <CustomSlider onValueChange={changeOccurrence} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
-            <Text style={styles.bodyText}>I engage in this habit <Text style={styles.valueText}>{frequency}</Text></Text>
+            <Text style={styles.bodyText}>I engage in this habit <Text style={styles.questionValue}>{frequency}</Text></Text>
             <CustomSlider onValueChange={changeFrequency} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
-            <Text style={styles.bodyText}>This habit has had a <Text style={styles.valueText}>{impact}</Text> impact</Text>
+            <Text style={styles.bodyText}>This habit has had a <Text style={styles.questionValue}>{impact}</Text> impact</Text>
             <CustomSlider onValueChange={changeImpact} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
-            <Text style={styles.bodyText}>My first limit is <Text style={styles.valueText}>{goal}</Text> times a week</Text>
+            <Text style={styles.bodyText}>My first limit is <Text style={styles.questionValue}>{goal}</Text> times a week</Text>
             <CustomSlider onValueChange={changeGoal} maximumValue={100} trackMarks={[0, 100]} onSlidingComplete={slidersComplete} />
         </SafeAreaView>
     )
 }
 
 export default memo(QuestionPage)
-
-
-const styles = StyleSheet.create({
-    bodyText: {
-        color: "white",
-        fontSize: 19,
-        fontWeight: "400",
-        marginHorizontal: "7%",
-        marginTop: "16%"
-    },
-    container: {
-        width: "100%",
-        flex: 1,
-        backgroundColor: "#586183",
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
-    },
-    titleText: {
-        color: "white",
-        fontSize: 29,
-        fontWeight: "600",
-        marginHorizontal: "7%",
-        marginTop: "10%",
-        shadowOffset: { width: 1, height: 3 },
-        shadowOpacity: 0.2,
-    },
-    valueText: {
-        fontWeight: "700",
-    }
-})

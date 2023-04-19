@@ -1,6 +1,6 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useContext, useEffect } from "react"
-import { Image, Modal, Pressable, StyleSheet, View } from "react-native"
+import { Image, Modal, Pressable, View } from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // CUSTOM COMPONENTS & MODALS
@@ -24,6 +24,9 @@ import AchievementContext from "../contexts/AchievementContext"
 
 // PAGES
 import WhatNowPage from "./WhatNowPage"
+
+// STYLE
+import styles from "../styles"
 
 // FUNCTIONS
 import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../functions";
@@ -56,7 +59,7 @@ export default function ProgressPage({ navigation }: any) {
     }
 
     const handleTrove = () => {
-        navigation.navigate('TrovePage')
+        navigation.navigate("TrovePage")
     }
 
     const openSummaryModal = () => {
@@ -75,7 +78,7 @@ export default function ProgressPage({ navigation }: any) {
 
         try {
             const jsonAchievements = JSON.stringify(newAchievements)
-            await AsyncStorage.setItem('achievements', jsonAchievements)
+            await AsyncStorage.setItem("achievements", jsonAchievements)
           } catch (error) {
             console.log(error)
         }
@@ -92,8 +95,8 @@ export default function ProgressPage({ navigation }: any) {
             setCurrentWeek(currWeekCheck)
             setOccurrences(0)
             if(currWeekCheck !== undefined) {
-                AsyncStorage.setItem('currentWeek', currWeekCheck)
-                AsyncStorage.setItem('occurrences', '0')
+                AsyncStorage.setItem("currentWeek", currWeekCheck)
+                AsyncStorage.setItem("occurrences", "0")
             }
         }
     }
@@ -106,15 +109,15 @@ export default function ProgressPage({ navigation }: any) {
     }, [weeks, currentWeek])
 
     return (
-        <View style={styles.container}>
+        <View style={styles.progressContainer}>
             <NavBar 
                 handleLeftIcon={handleHelp}
                 handleRightIcon={handleTrove}
-                leftIconName='question'
-                rightIconName='mountain'
+                leftIconName="question"
+                rightIconName="mountain"
                 title={capitalizedHabit}
             />
-            <View style={styles.flexView}>
+            <View style={styles.progressFlexView}>
                 <Pressable onPress={openSummaryModal}>
                     {/* SUMMARY OVERLAY */}
                     <Modal
@@ -124,7 +127,7 @@ export default function ProgressPage({ navigation }: any) {
                         onRequestClose={() => setSummaryModalVisible(false)}
                         presentationStyle="overFullScreen"
                     >
-                        <Pressable onPress={closeSummaryModal} style={styles.modalContainer}>
+                        <Pressable onPress={closeSummaryModal} style={styles.progressModalContainer}>
                             <Summary goal={goal}/>
                         </Pressable>
 
@@ -148,24 +151,3 @@ export default function ProgressPage({ navigation }: any) {
         </View>
     )
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        flex: 1,
-        backgroundColor: "#586183"
-    },
-    flexView: {
-        marginTop: "40%",
-        flexDirection: "column",
-        alignItems:"center",
-        gap: 60
-    }, 
-    modalContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        
-    },
-})

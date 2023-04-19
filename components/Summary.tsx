@@ -33,7 +33,7 @@ export default function Summary(props: Props) {
         <View style={styles.summaryContainer}>
 
             <View style={styles.summaryHeader}>
-                <Text style={styles.summaryTitle}>
+                <Text style={[styles.summaryTitle, styles.summaryText]}>
                     {weekNumber === 10 ? "Congratulations 🥳" : `Week ${weekNumber}`}
                 </Text>
 

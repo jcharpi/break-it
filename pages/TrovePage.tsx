@@ -1,31 +1,34 @@
 // REACT COMPONENTS & HOOKS
-import { View, StyleSheet, ScrollView, Text } from "react-native";
-import { useContext } from "react";
+import { View, ScrollView, Text } from "react-native"
+import { useContext } from "react"
 
 // CUSTOM COMPONENTS
-import Achievement from "../components/Achievement";
-import NavBar from "../components/NavBar";
+import Achievement from "../components/Achievement"
+import NavBar from "../components/NavBar"
 
 // CONTEXTS
-import AchievementContext from "../contexts/AchievementContext";
+import AchievementContext from "../contexts/AchievementContext"
+
+// STYLE
+import styles from "../styles"
 
 export default function TrovePage({ navigation }: any) {
     const [achievements, setAchievements] = useContext(AchievementContext)
 
     function handleBack() {
-        navigation.navigate('ProgressPage')
+        navigation.navigate("ProgressPage")
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.troveContainer}>
             <NavBar 
                 handleLeftIcon={handleBack}
-                leftIconName={'chevron-left'} 
+                leftIconName={"chevron-left"} 
                 title="Trove"
             />
-            {achievements.length === 0 && <Text style={styles.bodyText}>No treasure here yet!</Text>}
+            {achievements.length === 0 && <Text style={styles.troveBody}>No treasure here yet!</Text>}
 
-            <ScrollView showsVerticalScrollIndicator={false} alwaysBounceVertical={false} contentContainerStyle={styles.achievementList}>
+            <ScrollView showsVerticalScrollIndicator={false} alwaysBounceVertical={false} contentContainerStyle={styles.troveAchievementList}>
                 {achievements.map((achievement: any, index: number) => {
                     return (
                         <Achievement 
@@ -39,27 +42,3 @@ export default function TrovePage({ navigation }: any) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    achievementList: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between'
-    },
-    backImage: {
-        height: 25,
-        width: 44
-    },
-    container: {
-        width: "100%",
-        flex: 1,
-        backgroundColor: "#586183"
-    },
-    bodyText: {
-        color: "white",
-        fontSize: 22,
-        textAlign: "center",
-        fontWeight: "600",
-        marginVertical: 25
-    },
-})

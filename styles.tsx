@@ -2,60 +2,79 @@ import { StyleSheet } from "react-native";
 import { Platform, StatusBar } from "react-native";
 
 export default StyleSheet.create({
-    // ACHIEVEMENT
-    achievementContainer: {
-        margin: 35,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+    // UNIVERSAL
+    bodyText: {
+        color: "white",
+        fontSize: 19,
+        fontWeight: "400",
+        marginHorizontal: "7%",
+        marginTop: "13%"
     },
+    titleText: {
+        color: "white",
+        fontSize: 29,
+        fontWeight: "600",
+        marginHorizontal: "7%",
+        marginTop: "10%",
+        shadowOffset: { width: 1, height: 3 },
+        shadowOpacity: 0.2,
+    },
+
+
+
+    // ACHIEVEMENT
     achievementBody: {
         color: "white",
         fontSize: 20,
         fontWeight: "600",
         marginVertical: 10
     },
+    achievementContainer: {
+        margin: 35,
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+    },
     gemImage: {
         width: 110,
         height: 110,
     },
 
+
+
     // ADD BUTTON
-    addButton: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: "white",
-        justifyContent: "center",
+    addButtonShared: {
         alignItems: "center",
-        borderWidth: 3,
+        backgroundColor: "white",
         borderColor: "#FFD645",
-        shadowOffset: { width: 1, height: 3 },
-        shadowOpacity: 0.5,
+        borderWidth: 3,
+        borderRadius: 50,
+        height: 100,
+        justifyContent: "center",
+        width: 100,
+    },
+    addButton: {
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.4,
+        shadowRadius: 3,
     },
     addButtonPressed: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: "white",
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 3,
-        borderColor: "#FFD645",
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.5,
         marginTop: 3,
-        marginLeft: 1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
     },
 
+
+
     // CUSTOM SLIDER
-    sliderContainer: {
-        marginTop: 10,
-        marginHorizontal: 20,
-        borderRadius: 15,
-    },
     minimumTrackStyle: {
         height: 0
+    },
+    sliderContainer: {
+        borderRadius: 15,
+        marginHorizontal: 20,
+        marginTop: 10,
     },
     thumbStyle: {
         backgroundColor: "#989DB0",
@@ -64,74 +83,202 @@ export default StyleSheet.create({
         width: 30,
     },
     trackStyle: {
-        height: 32,
-        borderRadius: 30,
         backgroundColor: "white",
-        marginHorizontal: -1
+        borderRadius: 30,
+        height: 32,
+        marginHorizontal: -1,
     },
+
+
 
     // NAVBAR
     navContainer: {
-        width: "100%",
-        height: "12%",
         backgroundColor: "#424A67",
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+        height: "12%",
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        width: "100%",
     },
     navFlex: {
-        marginTop: "auto",
+        alignItems: "center",
         flexDirection: "row",
         flex: 1,
         justifyContent: "space-between",
-        alignItems: "center",
         marginHorizontal: 20,
         marginBottom: 8,
+        marginTop: "auto",
     },
     navIcon: {
         width: 40,
     },
     navNoImage: {
-        width: 40
+        width: 40,
     },
     navTitle: {
         color: "white",
+        fontSize: 22,
         fontWeight: "600",
-        fontSize: 22,  
     },
 
     // SLIDER MARKER
     markerContainer: {
-        width: 15,
-        height: 15,
-        borderRadius: 15,
         backgroundColor: "#DDE2F5",
-        marginLeft: 7
+        borderRadius: 15,
+        height: 15,
+        marginLeft: 7,
+        width: 15,
     },
 
+
+
     // SUMMARY
-    summaryTitle: {
-        fontWeight: "600",
-        marginBottom: 5
-    },
     summaryBody: {
         fontSize: 22,
         fontWeight: "400",
         lineHeight: 45,
     },
+    summaryContainer: {
+        backgroundColor: "white",
+        borderRadius: 15,
+        height: 190,
+        width: "90%",
+    },
+    summaryHeader: {
+        alignItems: "flex-start",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 15,
+    },
     summaryText: {
         fontSize: 22,
         marginLeft: "4%",
     },
-    summaryContainer: {
-        width: "90%",
-        height: 190,
-        borderRadius: 15, 
-        backgroundColor: "white"
-    },
-    summaryHeader: {
-        marginTop: 15,
-        flexDirection: "row",
-        alignItems: "flex-start",
-        justifyContent: "space-between"
+    summaryTitle: {
+        fontWeight: "600",
+        marginBottom: 5,
     },
 
+
+
+    // ENTER HABIT PAGE
+    enterContainer: {
+        alignItems: "center",
+        backgroundColor: "#586183",
+        flexDirection: "column",
+        flex: 1,
+        justifyContent: "center",
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        width: "100%",
+    },
+    enterTextInput: {
+        backgroundColor: "white",
+        borderRadius: 15,
+        borderWidth: 2,
+        fontSize: 19,
+        height: 45,
+        marginVertical: "4%",
+        paddingLeft: 10,
+        width: "80%",
+    },
+
+
+
+    // QUESTION PAGE
+    questionContainer: {
+        backgroundColor: "#586183",
+        flex: 1,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        width: "100%",
+    },
+    questionValue: {
+        fontWeight: "700",
+    },
+
+
+    // HELP PAGE
+    helpButton: {
+        alignSelf: "center",
+        borderRadius: 15,
+        justifyContent: "center",
+        marginTop: 60,
+    },
+    helpButtonContainer: {
+        height: 45,
+        width: 300,
+    },
+    helpButtonPressed: {
+        alignSelf: "center",
+        borderRadius: 15,
+        justifyContent: "center",
+        marginTop: 63,
+    },
+    helpButtonText: {
+        fontSize: 20,
+        fontWeight: "600",
+    },
+    helpContainer: {
+        backgroundColor: "#586183",
+        flex: 1,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        width: "100%",
+    },
+    helpFlexHeader: {
+        alignItems: "flex-end",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+
+
+
+    // PROGRESS PAGE
+    progressContainer: {
+        backgroundColor: "#586183",
+        flex: 1,
+        width: "100%",
+    },
+    progressFlexView: {
+        alignItems: "center",
+        flexDirection: "column",
+        gap: 60,
+        marginTop: "40%",
+    },
+    progressModalContainer: {
+        alignItems: "center",
+        flex: 1,
+        justifyContent: "center",
+    },
+
+
+
+    // TROVE PAGE
+    troveAchievementList: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
+    },
+    troveBody: {
+        color: "white",
+        fontSize: 22,
+        fontWeight: "600",
+        marginVertical: 25,
+        textAlign: "center",
+    },
+    troveContainer: {
+        backgroundColor: "#586183",
+        flex: 1,
+        width: "100%",
+    },
+
+
+
+    // CREATE HABIT LAYOUT
+    createTabBar: {
+        backgroundColor: "#586183",
+        paddingBottom: "15%",
+    },
+    createTabBarContainer: {
+        justifyContent: "center",
+    },
+    createTabBarItem: {
+        width: 50, 
+    },
 })

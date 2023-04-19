@@ -1,21 +1,24 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
-import { memo, useContext, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View, Alert, Platform, StatusBar, TouchableOpacity } from "react-native";
-import { Button } from "react-native-paper";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import { memo, useContext, useState } from "react"
+import { SafeAreaView, Text, View, Alert, TouchableOpacity } from "react-native"
+import { Button } from "react-native-paper"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import Icon from "react-native-vector-icons/FontAwesome5"
 
 // CONTEXTS
-import HabitContext from "../contexts/HabitContext";
-import ResetContext from "../contexts/ResetContext";
-import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext";
-import WeekLayoutContext from "../contexts/WeekLayoutContext";
-import CurrentWeekContext from "../contexts/CurrentWeekContext";
-import OccurrenceContext from "../contexts/OccurrenceContext";
-import GoalDecrementContext from "../contexts/GoalDecrementContext";
+import HabitContext from "../contexts/HabitContext"
+import ResetContext from "../contexts/ResetContext"
+import WhatNowModalVisibleContext from "../contexts/WhatNowModalVisibleContext"
+import WeekLayoutContext from "../contexts/WeekLayoutContext"
+import CurrentWeekContext from "../contexts/CurrentWeekContext"
+import OccurrenceContext from "../contexts/OccurrenceContext"
+import GoalDecrementContext from "../contexts/GoalDecrementContext"
 
 // BACKEND FUNCTIONS
-import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement, clearData } from "../functions";
+import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement, clearData } from "../functions"
+
+// STYLE
+import styles from "../styles"
 
 // DETERMINES IF MODAL VIEW OR NOT
 interface WhatNowPageProps {
@@ -46,14 +49,14 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const storeData = async (habit: Habit, weeks: object, currWeek: any, goalDecrement: number) => {
         try {
             const jsonHabit = JSON.stringify(habit)
-            await AsyncStorage.setItem('habit', jsonHabit)
+            await AsyncStorage.setItem("habit", jsonHabit)
 
             const jsonWeek = JSON.stringify(weeks)
-            await AsyncStorage.setItem('weeks', jsonWeek)
+            await AsyncStorage.setItem("weeks", jsonWeek)
             
-            await AsyncStorage.setItem('currentWeek', currWeek)
+            await AsyncStorage.setItem("currentWeek", currWeek)
 
-            await AsyncStorage.setItem('goalDecrement', goalDecrement.toString())
+            await AsyncStorage.setItem("goalDecrement", goalDecrement.toString())
         } catch (error) {
             console.log(error)
         }
@@ -66,14 +69,13 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
     function buttonHandler() {
         if(modalView) {
-            Alert.alert('Change Habit', 'All progress made on your current habit will be lost!', [
+            Alert.alert("Change Habit", "All progress made on your current habit will be lost!", [
                 {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
+                    text: "Cancel",
+                    style: "cancel",
                 },
                 {
-                    text: 'OK', onPress: () => {
+                    text: "OK", onPress: () => {
                         closeWhatNowModal() 
 
                         // Resets habit to prepare for new one
@@ -95,34 +97,34 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
             // Redirects for invalid input
             if (habit.habitName === "") {
-                navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' }) 
-                Alert.alert('Please enter a habit name.')
+                navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" }) 
+                Alert.alert("Please enter a habit name.")
             } else if (habit.goal === 0) {
-                navigation.navigate('CreateHabitLayout', { screen: 'QuestionPage' }) 
-                Alert.alert('Please set a first goal.')
+                navigation.navigate("CreateHabitLayout", { screen: "QuestionPage" }) 
+                Alert.alert("Please set a first goal.")
             } else {
-                navigation.navigate('TrackHabitLayout', { screen: 'ProgressPage' })
+                navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
             }
         }
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.flexHeader}>
+        <SafeAreaView style={styles.helpContainer}>
+            <View style={styles.helpFlexHeader}>
                 <Text style={styles.titleText}>What now?</Text>
                 {modalView && 
                 <TouchableOpacity onPress={closeWhatNowModal}>
                     <Icon
                         style={{marginRight: "7%"}}
-                        name='times' 
+                        name="times" 
                         size={30} 
-                        color='white'
+                        color="white"
                     />
                 </TouchableOpacity>
                 }
             </View>
 
-            <View style={styles.body}>
+            <View>
                 <Text style={styles.bodyText}>
                     Your rock represents your bad habit! 
                     Each time you act on your habit, hit the plus button.
@@ -147,70 +149,16 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 onPressIn={() => setButtonPressed(true)}
                 onPressOut={() => setButtonPressed(false)}
                 onPress={buttonHandler}
-                buttonColor={modalView ? '#dd1e00' : 'white'}
-                textColor={modalView ? 'white' : '#586183'}
-                labelStyle={styles.buttonText}
-                contentStyle={styles.buttonContainer}
-                style={buttonPressed ? styles.buttonPressed : styles.button}
+                buttonColor={modalView ? "#dd1e00" : "white"}
+                textColor={modalView ? "white" : "#586183"}
+                labelStyle={styles.helpButtonText}
+                contentStyle={styles.helpButtonContainer}
+                style={buttonPressed ? styles.helpButtonPressed : styles.helpButton}
             >
-                {modalView ? 'Change Habit' : 'Begin'}
+                {modalView ? "Change Habit" : "Begin"}
             </Button>
         </SafeAreaView>
     )
 }
 
 export default memo(WhatNowPage)
-
-
-const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        flex: 1,
-        backgroundColor: "#586183",
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
-    },
-    body: {
-        marginHorizontal: "7%",
-    },
-    bodyText: {
-        color: "white",
-        fontSize: 20,
-        fontWeight: "400",
-        marginVertical: 25
-    },
-    buttonContainer: {
-        height: 45,
-        width: 300,
-    },
-    button: {
-        alignSelf: "center",
-        borderRadius: 15,
-        marginTop: 30,
-        justifyContent: "center",
-    },
-    buttonPressed: {
-        alignSelf: "center",
-        borderRadius: 15,
-        marginTop: 33,
-        marginLeft: 1,
-        justifyContent: "center",
-    },
-    buttonText: {
-        fontSize: 20,
-        fontWeight: "600",
-    },
-    flexHeader: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "flex-end",
-    },
-    titleText: {
-        color: "white",
-        fontSize: 29,
-        fontWeight: "600",
-        marginLeft: "7%",
-        marginTop: "10%",
-        shadowOffset: { width: 1, height: 3 },
-        shadowOpacity: 0.2,
-    },
-})
