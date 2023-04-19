@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Text } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // REACT HOOKS & COMPONENTS
-import { useTheme } from 'react-native-paper';
+import { ActivityIndicator, useTheme } from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // PAGE LAYOUTS
@@ -134,7 +133,7 @@ export default function App() {
   }, [])
 
   if (!initialRouteName) {
-    return <Text style={{textAlign: 'center'}}>Loading...</Text> // TODO: Replace w/ loading component or icon
+    return <ActivityIndicator animating={true} color={"white"}/>
   }
 
   return (

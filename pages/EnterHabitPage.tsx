@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 15,
         borderWidth: 2,
-        borderStyle: 'solid',
         fontSize: 19,
         height: 45,
         width: "80%",
@@ -70,6 +69,8 @@ const styles = StyleSheet.create({
         fontSize: 29,
         fontWeight: "600",
         marginHorizontal: "7%",
-        marginBottom: "5%"
+        marginBottom: "5%",
+        shadowOffset: { width: 1, height: 3 },
+        shadowOpacity: 0.2,
     },
 })

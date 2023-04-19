@@ -82,6 +82,7 @@ export default function ProgressPage({ navigation }: any) {
         setAchievements(newAchievements)
         clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
     }
+    
     // WEEK UPDATE
     // using sameWeekCheck in the useEffect to compare last 
     // stored currentWeek and what currentWeek SHOULD be

@@ -1,12 +1,14 @@
 // REACT HOOKS & COMPONENTS
-import { memo } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { memo } from "react"
+import { Image, Text, View } from "react-native"
 
 // CUSTOM IMAGES
-import gemImage from "../images/gem.png";
-import silver from "../images/silver.png";
-import gold from "../images/gold.png";
-import diamond from "../images/diamond.png";
+import silver from "../images/silver.png"
+import gold from "../images/gold.png"
+import diamond from "../images/diamond.png"
+
+// STYLE
+import styles from "../styles"
 
 interface Props {
     gem: string
@@ -29,35 +31,15 @@ function Achievement(props: Props) {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.achievementContainer}>
             <Image 
                 source={getGemImage()} 
                 style={styles.gemImage} 
                 resizeMode="contain" 
             />
-            <Text style={styles.bodyText}>{props.habitName}</Text>
+            <Text style={styles.achievementBody}>{props.habitName}</Text>
         </View>
     )
 }
 
 export default memo(Achievement)
-
-
-const styles = StyleSheet.create({
-    container: {
-        margin: 35,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    bodyText: {
-        color: "white",
-        fontSize: 20,
-        fontWeight: "600",
-        marginVertical: 10
-    },
-    gemImage: {
-        width: 110,
-        height: 110,
-    },
-})

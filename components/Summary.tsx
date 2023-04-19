@@ -1,15 +1,18 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
-import { useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import { useContext } from "react"
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import Icon from "react-native-vector-icons/FontAwesome5"
 
 // CONTEXTS
-import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext";
-import CurrentWeekContext from "../contexts/CurrentWeekContext";
-import OccurrenceContext from "../contexts/OccurrenceContext";
+import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
+import CurrentWeekContext from "../contexts/CurrentWeekContext"
+import OccurrenceContext from "../contexts/OccurrenceContext"
 
 // CUSTOM FUNCTIONS
-import { getWeekNumber } from "../functions";
+import { getWeekNumber } from "../functions"
+
+// STYLE
+import styles from "../styles"
 
 interface Props {
     goal: number
@@ -27,20 +30,20 @@ export default function Summary(props: Props) {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.summaryContainer}>
 
-            <View style={styles.textHeader}>
-                <Text style={[styles.titleText, styles.text]}>
-                    {weekNumber === 10 ? `Congratulations 🥳` : `Week ${weekNumber}`}
+            <View style={styles.summaryHeader}>
+                <Text style={styles.summaryTitle}>
+                    {weekNumber === 10 ? "Congratulations 🥳" : `Week ${weekNumber}`}
                 </Text>
 
                 <TouchableOpacity onPress={closeSummaryModal}
 >
                     <Icon
                         style={{marginRight: "4%"}}
-                        name='times' 
+                        name="times" 
                         size={25} 
-                        color='black'
+                        color="black"
                     />
                 </TouchableOpacity>
             </View>
@@ -48,18 +51,18 @@ export default function Summary(props: Props) {
             {
             weekNumber === 10 ?           
             <View>
-                <Text style={[styles.bodyText, styles.text]}>You have broken your habit!</Text>
-                <Text style={[styles.bodyText, styles.text]}>Ready to break another one?</Text>
+                <Text style={[styles.summaryBody, styles.summaryText]}>You have broken your habit!</Text>
+                <Text style={[styles.summaryBody, styles.summaryText]}>Ready to break another one?</Text>
             </View>
             : 
             <View>
-                <Text style={[styles.bodyText, styles.text]}>Goal: {props.goal} occurrences</Text>
-                <Text style={[styles.bodyText, styles.text]}>Current: <Text style={{color: occurrences <= props.goal ? 'green': 'red', fontWeight: `600`}}>
+                <Text style={[styles.summaryBody, styles.summaryText]}>Goal: {props.goal} occurrences</Text>
+                <Text style={[styles.summaryBody, styles.summaryText]}>Current: <Text style={{color: occurrences <= props.goal ? "green": "red", fontWeight: "600"}}>
                         {occurrences}
                 </Text> occurrences</Text>
                 
-                <Text style={[styles.bodyText, styles.text]}>
-                    {weekNumber === 9 ? `This is the last week!` : `${9-weekNumber} weeks remaining!`}
+                <Text style={[styles.summaryBody, styles.summaryText]}>
+                    {weekNumber === 9 ? "This is the last week!" : `${9-weekNumber} weeks remaining!`}
                 </Text>
             </View>
             }
@@ -67,31 +70,3 @@ export default function Summary(props: Props) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    bodyText: {
-        fontSize: 22,
-        fontWeight: "400",
-        lineHeight: 45,
-    },
-    container: {
-        width: '90%',
-        height: 190,
-        borderRadius: 15, 
-        backgroundColor: 'white'
-    },
-    text: {
-        fontSize: 22,
-        marginLeft: "4%",
-    },
-    textHeader: {
-        marginTop: 15,
-        flexDirection: "row",
-        alignItems: "flex-start",
-        justifyContent: "space-between"
-    },
-    titleText: {
-        fontWeight: "600",
-        marginBottom: 5
-    },
-})

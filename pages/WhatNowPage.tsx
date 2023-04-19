@@ -1,6 +1,7 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
-import { memo, useContext } from "react";
+import { memo, useContext, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View, Alert, Platform, StatusBar, TouchableOpacity } from "react-native";
+import { Button } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -33,6 +34,8 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
     const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
     const [whatNowModalVisible, setWhatNowModalVisible] = useContext(WhatNowModalVisibleContext)
 
+    const [buttonPressed, setButtonPressed] = useState(false)
+
     interface Habit {
         habitName: string,
         gem: string,
@@ -63,10 +66,22 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
     function buttonHandler() {
         if(modalView) {
-            closeWhatNowModal() 
+            Alert.alert('Change Habit', 'All progress made on your current habit will be lost!', [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK', onPress: () => {
+                        closeWhatNowModal() 
 
-            // Resets habit to prepare for new one
-            clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
+                        // Resets habit to prepare for new one
+                        clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
+                    },
+                    style: "destructive"
+                },
+            ])
         } else {
             const calculatedWeeks = calculateWeeks(new Date())
             const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
@@ -127,12 +142,19 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 </Text>
             </View>
 
-            <TouchableOpacity style={modalView ? [styles.button, {borderColor: '#ff8383'}] : styles.button} onPress={buttonHandler}>
-                <Text style={modalView ? [styles.buttonText, {color: '#ff8383'}] : styles.buttonText}>
-                    {modalView ? 'Change Habit' : 'Begin'}
-                </Text>
-            </TouchableOpacity>
-            
+            <Button 
+                mode="elevated" 
+                onPressIn={() => setButtonPressed(true)}
+                onPressOut={() => setButtonPressed(false)}
+                onPress={buttonHandler}
+                buttonColor={modalView ? '#dd1e00' : 'white'}
+                textColor={modalView ? 'white' : '#586183'}
+                labelStyle={styles.buttonText}
+                contentStyle={styles.buttonContainer}
+                style={buttonPressed ? styles.buttonPressed : styles.button}
+            >
+                {modalView ? 'Change Habit' : 'Begin'}
+            </Button>
         </SafeAreaView>
     )
 }
@@ -156,21 +178,26 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         marginVertical: 25
     },
+    buttonContainer: {
+        height: 45,
+        width: 300,
+    },
     button: {
-        width: 200,
-        height: 50,
+        alignSelf: "center",
+        borderRadius: 15,
         marginTop: 30,
-        borderRadius: 50,
-        borderColor: "white",
-        borderWidth: 2,
         justifyContent: "center",
-        alignItems: "center",
-        alignSelf:"center"
+    },
+    buttonPressed: {
+        alignSelf: "center",
+        borderRadius: 15,
+        marginTop: 33,
+        marginLeft: 1,
+        justifyContent: "center",
     },
     buttonText: {
         fontSize: 20,
-        fontWeight: "400",
-        color: "white"
+        fontWeight: "600",
     },
     flexHeader: {
         flexDirection: "row",
@@ -183,5 +210,7 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         marginLeft: "7%",
         marginTop: "10%",
+        shadowOffset: { width: 1, height: 3 },
+        shadowOpacity: 0.2,
     },
 })

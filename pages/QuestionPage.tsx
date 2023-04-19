@@ -117,9 +117,11 @@ const styles = StyleSheet.create({
         fontSize: 29,
         fontWeight: "600",
         marginHorizontal: "7%",
-        marginTop: "10%"
+        marginTop: "10%",
+        shadowOffset: { width: 1, height: 3 },
+        shadowOpacity: 0.2,
     },
     valueText: {
-        fontWeight: "700"
+        fontWeight: "700",
     }
 })

@@ -1,12 +1,14 @@
 // REACT HOOKS & COMPONENTS
 import { useState, memo, useEffect, useContext } from "react"
-import { StyleSheet } from "react-native"
 import { Slider } from "@miblanchard/react-native-slider"
 import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/types"
 import SliderMarker from "./SliderMarker"
 
 // CONTEXTS
 import ResetContext from "../contexts/ResetContext"
+
+// STYLE
+import styles from "../styles"
 
 interface SliderProps {
     maximumValue: number,
@@ -43,34 +45,10 @@ function CustomSlider(props: SliderProps) {
             value={sliderValue}
             thumbStyle={styles.thumbStyle}
             trackStyle={styles.trackStyle}
-            containerStyle={styles.containerStyle}
+            containerStyle={styles.sliderContainer}
             onSlidingComplete={props.onSlidingComplete ?? (() => {})}
         />
     )
 }
 
 export default memo(CustomSlider)
-
-
-const styles = StyleSheet.create({
-    containerStyle: {
-        marginTop: 10,
-        marginHorizontal: 20,
-        borderRadius: 15,
-    },
-    minimumTrackStyle: {
-        height: 0
-    },
-    thumbStyle: {
-        backgroundColor: "#989DB0",
-        borderRadius: 15,
-        height: 30,
-        width: 30,
-    },
-    trackStyle: {
-        height: 32,
-        borderRadius: 30,
-        backgroundColor: "white",
-        marginHorizontal: -1
-    },
-})
