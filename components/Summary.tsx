@@ -1,7 +1,7 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useContext } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
-import Icon from "react-native-vector-icons/FontAwesome5"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
@@ -41,7 +41,7 @@ export default function Summary(props: Props) {
 >
                     <Icon
                         style={{marginRight: "4%"}}
-                        name="times" 
+                        name="close-thick" 
                         size={25} 
                         color="black"
                     />

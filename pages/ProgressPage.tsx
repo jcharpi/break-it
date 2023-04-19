@@ -83,7 +83,6 @@ export default function ProgressPage({ navigation }: any) {
             console.log(error)
         }
         setAchievements(newAchievements)
-        
         clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
     }
     
@@ -114,10 +113,11 @@ export default function ProgressPage({ navigation }: any) {
             <NavBar 
                 handleLeftIcon={handleHelp}
                 handleRightIcon={handleTrove}
-                leftIconName="question"
-                rightIconName="mountain"
+                leftIconName="help"
+                rightIconName="treasure-chest"
                 title={capitalizedHabit}
             />
+
             <View style={styles.progressFlexView}>
                 <Pressable onPress={openSummaryModal}>
                     {/* SUMMARY OVERLAY */}

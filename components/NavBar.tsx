@@ -1,6 +1,6 @@
 // REACT HOOKS & COMPONENTS
 import { SafeAreaView, View, Text, Pressable } from "react-native"
-import Icon from "react-native-vector-icons/FontAwesome5"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // STYLE
 import styles from "../styles"
@@ -27,7 +27,7 @@ export default function NavBar(props: Props) {
                         <Icon
                             style={styles.navIcon}
                             name={props.leftIconName} 
-                            size={30} 
+                            size={37} 
                             color="white"
                         />
                     </Pressable>
@@ -45,7 +45,7 @@ export default function NavBar(props: Props) {
                         <Icon
                             style={styles.navIcon}
                             name={props.rightIconName} 
-                            size={30} 
+                            size={37} 
                             color="white"
                         />
                     </Pressable>

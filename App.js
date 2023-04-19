@@ -127,7 +127,6 @@ export default function App() {
   }
 
   useEffect(() => {
-    AsyncStorage.clear()
     const getInitialRouteName = async () => {
       const habitExists = await getHabit()
       if (habitExists) {

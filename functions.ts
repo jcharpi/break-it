@@ -81,7 +81,7 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
                 gem: "silver",
                 goal: 0,  
             })
-        }, 210)
+        }, 230)
 
         setReset(true)
         setWeeks({})

@@ -2,7 +2,7 @@
 import { memo, useContext, useState } from "react"
 import { SafeAreaView, Text, View, Alert, TouchableOpacity } from "react-native"
 import { Button } from "react-native-paper"
-import Icon from "react-native-vector-icons/FontAwesome5"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
 import HabitContext from "../contexts/HabitContext"
@@ -73,7 +73,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
                 <TouchableOpacity onPress={closeHelpModal}>
                     <Icon
                         style={{marginRight: "7%"}}
-                        name="times" 
+                        name="close-thick" 
                         size={30} 
                         color="white"
                     />

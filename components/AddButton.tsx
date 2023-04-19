@@ -2,7 +2,7 @@
 import { useContext, useState } from "react"
 import { Pressable } from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import Icon from "react-native-vector-icons/FontAwesome5"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
 import OccurrenceContext from "../contexts/OccurrenceContext"
@@ -38,8 +38,8 @@ export default function AddButton(props: Props) {
             style={buttonPressed ? [styles.addButtonPressed, styles.addButtonShared] : [styles.addButton, styles.addButtonShared]}
         >
             <Icon
-                name={currentWeek === "week9" ? "redo-alt" : "plus"}
-                size={33} 
+                name={currentWeek === "week9" ? "redo" : "plus"}
+                size={48} 
                 color="#FFD645"
             />
         </Pressable>
