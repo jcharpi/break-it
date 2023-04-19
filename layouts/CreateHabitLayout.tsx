@@ -51,16 +51,19 @@ export default function CreateHabitLayout() {
                     }
                 }
             >
-                <Tab.Screen 
-                    name="HelpPage" 
-                    component={HelpPage} 
-                    options={{swipeEnabled: true}}
-                />
+                {
+                    firstLoad && 
+                    <Tab.Screen 
+                        name="HelpPage" 
+                        component={HelpPage} 
+                        options={{swipeEnabled: true}}
+                    />
+                }
                 <Tab.Screen 
                     name="EnterHabitPage" 
                     component={EnterHabitPage} 
                     options={
-                        {swipeEnabled: firstLoad ? true : false}
+                        {swipeEnabled: true}
                     }
                 />
                 <Tab.Screen 
