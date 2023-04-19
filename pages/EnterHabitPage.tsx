@@ -6,7 +6,7 @@ import { Text, TextInput, SafeAreaView } from "react-native"
 import styles from "../styles"
 
 // CONTEXTS
-import HabitContext from "../contexts/HabitContext";
+import HabitContext from "../contexts/HabitContext"
 
 function EnterHabitPage({ navigation }: any) {
     // CONTEXTS
@@ -35,7 +35,7 @@ function EnterHabitPage({ navigation }: any) {
                 placeholder="Enter your habit"
                 clearButtonMode="while-editing"
                 maxLength={20}
-                returnKeyType="next"
+                returnKeyType="done"
                 onSubmitEditing={submitHabit}
                 onChangeText={changeHabitName}
                 value={habit.habitName}

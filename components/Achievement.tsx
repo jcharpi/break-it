@@ -20,13 +20,13 @@ function Achievement(props: Props) {
     function getGemImage() {
         switch (props.gem) {
             case "silver":
-                return silver;
+                return silver
             case "gold":
-                return gold;
+                return gold
             case "diamond":
-                return diamond;
+                return diamond
             default:
-                return silver;
+                return silver
         }
     }
 

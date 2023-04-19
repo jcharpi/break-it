@@ -29,7 +29,7 @@ import HelpPage from "./HelpPage"
 import styles from "../styles"
 
 // FUNCTIONS
-import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../functions";
+import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../functions"
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
@@ -90,7 +90,7 @@ export default function ProgressPage({ navigation }: any) {
     // using sameWeekCheck in the useEffect to compare last 
     // stored currentWeek and what currentWeek SHOULD be
     const sameWeekCheck = () => {
-        const result = currWeekCheck === undefined ? true : currentWeek === currWeekCheck;
+        const result = currWeekCheck === undefined ? true : currentWeek === currWeekCheck
         if(!result) {
             setCurrentWeek(currWeekCheck)
             setOccurrences(0)

@@ -1,12 +1,13 @@
 // REACT HOOKS & COMPONENTS
 import { useState, memo, useContext, useEffect } from "react"
-import { SafeAreaView, Text } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaView, Text } from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // CUSTOM COMPONENTS
 import CustomSlider from "../components/CustomSlider"
 
 // CONTEXTS
+import ActiveSliderContext from "../contexts/ActiveSliderContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import FirstLoadContext from "../contexts/FirstLoadContext"
 import HabitContext from "../contexts/HabitContext"
@@ -18,8 +19,8 @@ import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../fu
 
 // STYLE
 import styles from "../styles"
-import { Button } from "react-native-paper";
-import { Alert } from "react-native";
+import { Button } from "react-native-paper"
+import { Alert } from "react-native"
 
 function QuestionPage({ navigation }: any) {
     interface Habit {
@@ -29,6 +30,7 @@ function QuestionPage({ navigation }: any) {
     }
 
     // CONTEXTS
+    const [activeSlider, setActiveSlider] = useContext(ActiveSliderContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [firstLoad, setFirstLoad] = useContext(FirstLoadContext)
     const [habit, setHabit] = useContext(HabitContext)
@@ -85,13 +87,14 @@ function QuestionPage({ navigation }: any) {
     }
 
     // UPDATE HABIT STATE VAR
-    function slidersComplete() {
+    function slidersComplete(value: number) {
         setHabit((prev: any) => {
             return {
                 ...prev,
-                goal: goal
+                goal: value
             }
         })
+        setActiveSlider(false)
     }
 
     // SET FIRST GOAL
@@ -138,7 +141,10 @@ function QuestionPage({ navigation }: any) {
             setReset(false)
             setWeekDecrement(goalDecrement)
             storeData(habit, calculatedWeeks, currWeek, goalDecrement)
-            navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
+
+            setTimeout(() => {
+                navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
+            }, 300)
         }
         
     }

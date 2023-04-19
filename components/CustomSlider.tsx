@@ -28,15 +28,6 @@ function CustomSlider(props: SliderProps) {
         props.onValueChange(value[0])
     }
 
-    function sliderComplete () {
-        if(props.onSlidingComplete === null) {
-            setActiveSlider(false)
-        } else {
-            props.onSlidingComplete()
-            setActiveSlider(false)
-        }
-    }
-
     useEffect(() => {
         if(reset) {
             setSliderValue(0)
@@ -58,7 +49,7 @@ function CustomSlider(props: SliderProps) {
             trackStyle={styles.trackStyle}
             containerStyle={styles.sliderContainer}
             onSlidingStart={() => setActiveSlider(true)}
-            onSlidingComplete={sliderComplete}
+            onSlidingComplete={props.onSlidingComplete}
         />
     )
 }
