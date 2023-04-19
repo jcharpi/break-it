@@ -1,21 +1,42 @@
 // REACT HOOKS & COMPONENTS
 import { useState, memo, useContext, useEffect } from "react"
 import { SafeAreaView, Text } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // CUSTOM COMPONENTS
 import CustomSlider from "../components/CustomSlider"
 
 // CONTEXTS
+import CurrentWeekContext from "../contexts/CurrentWeekContext"
+import FirstLoadContext from "../contexts/FirstLoadContext"
 import HabitContext from "../contexts/HabitContext"
 import ResetContext from "../contexts/ResetContext"
+import GoalDecrementContext from "../contexts/GoalDecrementContext"
+
+// BACKEND FUNCTIONS
+import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../functions"
 
 // STYLE
 import styles from "../styles"
+import { Button } from "react-native-paper";
+import { Alert } from "react-native";
 
 function QuestionPage({ navigation }: any) {
+    interface Habit {
+        habitName: string,
+        gem: string,
+        goal: number,
+    }
+
     // CONTEXTS
+    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
+    const [firstLoad, setFirstLoad] = useContext(FirstLoadContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
+    const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
+
+    const [buttonPressed, setButtonPressed] = useState(false)
+
 
     // SLIDER STATES
     const [goal, setGoal] = useState(0)
@@ -71,12 +92,56 @@ function QuestionPage({ navigation }: any) {
                 goal: goal
             }
         })
-        navigation.navigate("CreateHabitLayout", { screen: "WhatNowPage" })    
     }
 
     // SET FIRST GOAL
     function changeGoal(value: number) {
         setGoal(value)
+    }
+
+    // BUTTON FUNCTIONS
+    const storeData = async (habit: Habit, weeks: object, currWeek: any, goalDecrement: number) => {
+        try {
+            const jsonHabit = JSON.stringify(habit)
+            await AsyncStorage.setItem("habit", jsonHabit)
+
+            const jsonWeek = JSON.stringify(weeks)
+            await AsyncStorage.setItem("weeks", jsonWeek)
+            
+            await AsyncStorage.setItem("currentWeek", currWeek)
+
+            await AsyncStorage.setItem("goalDecrement", goalDecrement.toString())
+
+            await AsyncStorage.setItem("firstLoad", "false")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    function buttonHandler() {
+        const calculatedWeeks = calculateWeeks(new Date())
+        const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
+        const goalDecrement = getPerWeekDecrement(habit.goal, 8)  
+
+        // Begin habit button was pressed => set data
+        setCurrentWeek(currWeek)
+        setFirstLoad(false)
+        setReset(false)
+        setWeekDecrement(goalDecrement)
+        storeData(habit, calculatedWeeks, currWeek, goalDecrement)
+
+        // Redirects for invalid input
+        if (habit.habitName === "") {
+            navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" }) 
+            Alert.alert("Please enter a habit name.")
+        } else if (habit.goal === 0) {
+            navigation.navigate("CreateHabitLayout", { screen: "QuestionPage" }) 
+            Alert.alert("Please set a first goal.")
+        } else {
+            navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
+        }
+        
     }
 
     return (
@@ -94,6 +159,20 @@ function QuestionPage({ navigation }: any) {
 
             <Text style={styles.bodyText}>My first limit is <Text style={styles.questionValue}>{goal}</Text> times a week</Text>
             <CustomSlider onValueChange={changeGoal} maximumValue={100} trackMarks={[0, 100]} onSlidingComplete={slidersComplete} />
+        
+            <Button 
+                mode="elevated" 
+                onPressIn={() => setButtonPressed(true)}
+                onPressOut={() => setButtonPressed(false)}
+                onPress={buttonHandler}
+                buttonColor={"white"}
+                textColor={"#586183"}
+                labelStyle={styles.helpButtonText}
+                contentStyle={styles.helpButtonContainer}
+                style={buttonPressed ? styles.helpButtonPressed : styles.helpButton}
+            >
+                Begin
+            </Button>
         </SafeAreaView>
     )
 }

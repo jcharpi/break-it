@@ -8,7 +8,7 @@ export default StyleSheet.create({
         fontSize: 19,
         fontWeight: "400",
         marginHorizontal: "7%",
-        marginTop: "13%"
+        marginTop: "12%"
     },
     titleText: {
         color: "white",
@@ -176,6 +176,7 @@ export default StyleSheet.create({
         fontSize: 19,
         height: 45,
         marginVertical: "4%",
+        marginBottom: 100,
         paddingLeft: 10,
         width: "80%",
     },
@@ -199,17 +200,17 @@ export default StyleSheet.create({
         alignSelf: "center",
         borderRadius: 15,
         justifyContent: "center",
-        marginTop: 60,
+        marginTop: 50,
     },
     helpButtonContainer: {
         height: 45,
-        width: 300,
+        width: 250,
     },
     helpButtonPressed: {
         alignSelf: "center",
         borderRadius: 15,
         justifyContent: "center",
-        marginTop: 63,
+        marginTop: 53,
     },
     helpButtonText: {
         fontSize: 20,

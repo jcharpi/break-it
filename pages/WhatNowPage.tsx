@@ -39,29 +39,6 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
 
     const [buttonPressed, setButtonPressed] = useState(false)
 
-    interface Habit {
-        habitName: string,
-        gem: string,
-        goal: number,
-    }
-
-    // SAVE DATA TO ASYNCSTORAGE
-    const storeData = async (habit: Habit, weeks: object, currWeek: any, goalDecrement: number) => {
-        try {
-            const jsonHabit = JSON.stringify(habit)
-            await AsyncStorage.setItem("habit", jsonHabit)
-
-            const jsonWeek = JSON.stringify(weeks)
-            await AsyncStorage.setItem("weeks", jsonWeek)
-            
-            await AsyncStorage.setItem("currentWeek", currWeek)
-
-            await AsyncStorage.setItem("goalDecrement", goalDecrement.toString())
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     // EVENT FUNCTIONS
     function closeWhatNowModal() {
         setWhatNowModalVisible(false)
@@ -85,33 +62,14 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 },
             ])
         } else {
-            const calculatedWeeks = calculateWeeks(new Date())
-            const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
-            const goalDecrement = getPerWeekDecrement(habit.goal, 9)  
-
-            // Begin habit button was pressed => set data
-            setReset(false)
-            setCurrentWeek(currWeek)
-            setWeekDecrement(goalDecrement)
-            storeData(habit, calculatedWeeks, currWeek, goalDecrement)
-
-            // Redirects for invalid input
-            if (habit.habitName === "") {
-                navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" }) 
-                Alert.alert("Please enter a habit name.")
-            } else if (habit.goal === 0) {
-                navigation.navigate("CreateHabitLayout", { screen: "QuestionPage" }) 
-                Alert.alert("Please set a first goal.")
-            } else {
-                navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
-            }
+            navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
         }
     }
 
     return (
         <SafeAreaView style={styles.helpContainer}>
             <View style={styles.helpFlexHeader}>
-                <Text style={styles.titleText}>What now?</Text>
+                <Text style={styles.titleText}>{modalView ? "Help" : "Welcome!"}</Text>
                 {modalView && 
                 <TouchableOpacity onPress={closeWhatNowModal}>
                     <Icon
@@ -153,9 +111,9 @@ function WhatNowPage({ navigation, modalView }: WhatNowPageProps) {
                 textColor={modalView ? "white" : "#586183"}
                 labelStyle={styles.helpButtonText}
                 contentStyle={styles.helpButtonContainer}
-                style={buttonPressed ? styles.helpButtonPressed : styles.helpButton}
+                style={buttonPressed ? [styles.helpButtonPressed, {marginTop: 83}] : [styles.helpButton, {marginTop: 80}]}
             >
-                {modalView ? "Change Habit" : "Begin"}
+                {modalView ? "Change Habit" : "Next"}
             </Button>
         </SafeAreaView>
     )

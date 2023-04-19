@@ -83,6 +83,7 @@ export default function ProgressPage({ navigation }: any) {
             console.log(error)
         }
         setAchievements(newAchievements)
+        
         clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
     }
     
