@@ -68,7 +68,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
     return (
         <SafeAreaView style={styles.helpContainer}>
             <View style={styles.helpFlexHeader}>
-                <Text style={styles.titleText}>{modalView ? "Help" : "Welcome!"}</Text>
+                <Text style={styles.titleText}>{modalView ? "Help" : "Welcome! 👋"}</Text>
                 {modalView && 
                 <TouchableOpacity onPress={closeHelpModal}>
                     <Icon
@@ -83,22 +83,27 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 
             <View>
                 <Text style={styles.bodyText}>
-                    Your rock represents your bad habit! 
-                    Each time you act on your habit, hit the plus button.
+                    BreakIt is designed to help you hold yourself accountable when attempting to reduce or break your bad habits. 
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    Tap your rock to see your week’s current progress.
+                    You will enter a goal which determines your initial limit for acting on your bad habit.
+
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    After you have broken your habit, you will get a gem as a 
-                    reward, which can be viewed in your treasure trove!
+                    You can tap on your rock to view your current week's progress. Your goal will update each week.
+                    Here, you will see if you are on track to meet your goal.
                 </Text>
 
                 <Text style={styles.bodyText}>
-                    Show off your trove and enter a new habit!
+                    Each time you act on your habit, open up BreakIt and hit the plus! This will help you 
+                    correlate an event with your bad habit, allowing you to be more mindful of your actions in the future.
                 </Text>
+
+                {!modalView && <Text style={styles.bodyText}>
+                    Let's get started... swipe to continue!
+                </Text>}
             </View>
 
             {
@@ -112,7 +117,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
                     textColor={"white"}
                     labelStyle={styles.helpButtonText}
                     contentStyle={styles.helpButtonContainer}
-                    style={buttonPressed ? [styles.helpButtonPressed, {marginTop: 83}] : [styles.helpButton, {marginTop: 80}]}
+                    style={buttonPressed ? [styles.helpButtonPressed, {marginTop: 63}] : [styles.helpButton, {marginTop: 60}]}
                 >
                     Change Habit
                 </Button>

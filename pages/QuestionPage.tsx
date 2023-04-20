@@ -137,14 +137,14 @@ function QuestionPage({ navigation }: any) {
         } else {
             // Begin habit button was pressed => set data
             setCurrentWeek(currWeek)
-            setFirstLoad(false)
             setReset(false)
             setWeekDecrement(goalDecrement)
             storeData(habit, calculatedWeeks, currWeek, goalDecrement)
+            navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 
             setTimeout(() => {
-                navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
-            }, 300)
+                setFirstLoad(false)
+            }, 600)
         }
         
     }
@@ -159,7 +159,7 @@ function QuestionPage({ navigation }: any) {
             <Text style={styles.bodyText}>I engage in this habit <Text style={styles.questionValue}>{frequency}</Text></Text>
             <CustomSlider onValueChange={changeFrequency} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
-            <Text style={styles.bodyText}>This habit has had a <Text style={styles.questionValue}>{impact}</Text> impact</Text>
+            <Text style={styles.bodyText}>This habit has a <Text style={styles.questionValue}>{impact}</Text> impact</Text>
             <CustomSlider onValueChange={changeImpact} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
             <Text style={styles.bodyText}>My first limit is <Text style={styles.questionValue}>{goal}</Text> times a week</Text>
@@ -174,10 +174,13 @@ function QuestionPage({ navigation }: any) {
                 textColor={"#586183"}
                 labelStyle={styles.helpButtonText}
                 contentStyle={styles.helpButtonContainer}
-                style={[
-                    buttonPressed ? styles.helpButtonPressed : styles.helpButton, 
-                    firstLoad ? {} : {marginTop: 80} 
-                ]}
+                style={
+                    buttonPressed 
+                    ? 
+                        firstLoad ? styles.helpButtonPressed : [styles.helpButtonPressed, {marginTop: 83}] 
+                    :  
+                        firstLoad ? styles.helpButton : [styles.helpButton, {marginTop: 80}]
+                }
             >
                 Begin
             </Button>

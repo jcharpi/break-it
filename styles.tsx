@@ -6,9 +6,11 @@ export default StyleSheet.create({
     bodyText: {
         color: "white",
         fontSize: 19,
-        fontWeight: "400",
+        fontWeight: "500",
         marginHorizontal: "7%",
-        marginTop: "12%"
+        marginTop: "11%",
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.1,
     },
     titleText: {
         color: "white",
@@ -16,7 +18,7 @@ export default StyleSheet.create({
         fontWeight: "600",
         marginHorizontal: "7%",
         marginTop: "10%",
-        shadowOffset: { width: 1, height: 3 },
+        shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
     },
 
@@ -200,7 +202,7 @@ export default StyleSheet.create({
         alignSelf: "center",
         borderRadius: 15,
         justifyContent: "center",
-        marginTop: 61,
+        marginTop: 67,
     },
     helpButtonContainer: {
         height: 45,
@@ -210,7 +212,7 @@ export default StyleSheet.create({
         alignSelf: "center",
         borderRadius: 15,
         justifyContent: "center",
-        marginTop: 64,
+        marginTop: 70,
     },
     helpButtonText: {
         fontSize: 20,
