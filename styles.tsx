@@ -48,7 +48,7 @@ export default StyleSheet.create({
     addButtonShared: {
         alignItems: "center",
         backgroundColor: "white",
-        borderColor: "#FFD645",
+        borderColor: "#FFC333",
         borderWidth: 3,
         borderRadius: 50,
         height: 100,

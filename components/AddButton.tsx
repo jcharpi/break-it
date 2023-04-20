@@ -46,7 +46,7 @@ export default function AddButton(props: Props) {
             <Icon
                 name={currentWeek === "week9" ? "redo" : "plus"}
                 size={48} 
-                color="#FFD645"
+                color="#FFC333"
             />
         </Pressable>
     )
