@@ -1,6 +1,8 @@
 // REACT HOOKS & COMPONENTS
 import { useState, memo, useContext, useEffect } from "react"
-import { SafeAreaView, Text } from "react-native"
+import { SafeAreaView, Text, Alert } from "react-native"
+import { Button } from "react-native-paper"
+import * as Haptics from 'expo-haptics'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // CUSTOM COMPONENTS
@@ -19,8 +21,6 @@ import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../fu
 
 // STYLE
 import styles from "../styles"
-import { Button } from "react-native-paper"
-import { Alert } from "react-native"
 
 function QuestionPage({ navigation }: any) {
     interface Habit {
@@ -74,6 +74,12 @@ function QuestionPage({ navigation }: any) {
     }, [reset])
 
     // SLIDER CHANGES
+    function sliderFeedback() {
+        Haptics.notificationAsync(
+            Haptics.NotificationFeedbackType.Success
+        )
+    }
+
     function changeOccurrence(value: number) {
         setFirstOccurrence(occurrenceOptions[value] || "weeks")
     }
@@ -94,6 +100,7 @@ function QuestionPage({ navigation }: any) {
                 goal: value
             }
         })
+        sliderFeedback()
         setActiveSlider(false)
     }
 
@@ -123,10 +130,12 @@ function QuestionPage({ navigation }: any) {
 
 
     function buttonHandler() {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+
         const calculatedWeeks = calculateWeeks(new Date())
         const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
         const goalDecrement = getPerWeekDecrement(habit.goal, 8)  
-
+        
         // Redirects for invalid input
         if (habit.habitName === "") {
             navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" }) 
@@ -154,13 +163,13 @@ function QuestionPage({ navigation }: any) {
             <Text style={styles.titleText}>A few questions...</Text>
             
             <Text style={styles.bodyText}>First occurrence was <Text style={styles.questionValue}>{firstOccurrence}</Text> ago</Text>
-            <CustomSlider onValueChange={changeOccurrence} maximumValue={2} trackMarks={[0, 1, 2]}/>
+            <CustomSlider onValueChange={changeOccurrence} maximumValue={2} trackMarks={[0, 1, 2]} onSlidingComplete={sliderFeedback}/>
 
             <Text style={styles.bodyText}>I engage in this habit <Text style={styles.questionValue}>{frequency}</Text></Text>
-            <CustomSlider onValueChange={changeFrequency} maximumValue={2} trackMarks={[0, 1, 2]}/>
+            <CustomSlider onValueChange={changeFrequency} maximumValue={2} trackMarks={[0, 1, 2]} onSlidingComplete={sliderFeedback}/>
 
             <Text style={styles.bodyText}>This habit has a <Text style={styles.questionValue}>{impact}</Text> impact</Text>
-            <CustomSlider onValueChange={changeImpact} maximumValue={2} trackMarks={[0, 1, 2]}/>
+            <CustomSlider onValueChange={changeImpact} maximumValue={2} trackMarks={[0, 1, 2]} onSlidingComplete={sliderFeedback}/>
 
             <Text style={styles.bodyText}>My first limit is <Text style={styles.questionValue}>{goal}</Text> times a week</Text>
             <CustomSlider onValueChange={changeGoal} maximumValue={100} trackMarks={[0, 100]} onSlidingComplete={slidersComplete} />

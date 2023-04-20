@@ -2,6 +2,7 @@
 import { useContext, useState } from "react"
 import { Pressable } from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import * as Haptics from 'expo-haptics'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
@@ -30,9 +31,14 @@ export default function AddButton(props: Props) {
         }
     }
     
+    function pressIn() {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+        setButtonPressed(true)
+    }
+
     return (
         <Pressable 
-            onPressIn={() => setButtonPressed(true)}
+            onPressIn={pressIn}
             onPressOut={() => setButtonPressed(false)}
             onPress={currentWeek === "week9" ? props.clearData : addOccurrence} 
             style={buttonPressed ? [styles.addButtonPressed, styles.addButtonShared] : [styles.addButton, styles.addButtonShared]}

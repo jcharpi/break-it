@@ -2,6 +2,7 @@
 import { memo, useContext, useState } from "react"
 import { SafeAreaView, Text, View, Alert, TouchableOpacity } from "react-native"
 import { Button } from "react-native-paper"
+import * as Haptics from 'expo-haptics'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
@@ -45,6 +46,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 
     function buttonHandler() {
         if(modalView) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
             Alert.alert("Change Habit", "All progress made on your current habit will be lost!", [
                 {
                     text: "Cancel",
