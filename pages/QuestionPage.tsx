@@ -153,11 +153,13 @@ function QuestionPage({ navigation }: any) {
             navigation.navigate("CreateHabitLayout", { screen: "QuestionPage" }) 
             Alert.alert("Please set a first goal.")
         } else {
+
             // Begin habit button was pressed => set data
             setCurrentWeek(currWeek)
             setReset(false)
             setWeekDecrement(goalDecrement)
             storeData(habit, calculatedWeeks, currWeek, goalDecrement)
+            setActiveSlider(false)
             navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 
             setTimeout(() => {
