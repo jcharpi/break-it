@@ -29,7 +29,7 @@ import HelpPage from "./HelpPage"
 import styles from "../styles"
 
 // FUNCTIONS
-import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../functions"
+import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../backendFunctions"
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS

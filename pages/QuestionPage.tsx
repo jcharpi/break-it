@@ -17,7 +17,7 @@ import ResetContext from "../contexts/ResetContext"
 import GoalDecrementContext from "../contexts/GoalDecrementContext"
 
 // BACKEND FUNCTIONS
-import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../functions"
+import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../backendFunctions"
 
 // STYLE
 import styles from "../styles"

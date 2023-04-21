@@ -15,7 +15,7 @@ import OccurrenceContext from "../contexts/OccurrenceContext"
 import GoalDecrementContext from "../contexts/GoalDecrementContext"
 
 // BACKEND FUNCTIONS
-import { clearData } from "../functions"
+import { clearData } from "../backendFunctions"
 
 // STYLE
 import styles from "../styles"

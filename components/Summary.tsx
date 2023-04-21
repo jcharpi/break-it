@@ -9,7 +9,7 @@ import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import OccurrenceContext from "../contexts/OccurrenceContext"
 
 // CUSTOM FUNCTIONS
-import { getWeekNumber } from "../functions"
+import { getWeekNumber } from "../backendFunctions"
 
 // STYLE
 import styles from "../styles"

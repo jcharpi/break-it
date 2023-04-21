@@ -126,6 +126,15 @@ export default function App() {
     }
   }
 
+  const getAsyncData = () => {
+    getAchievements()
+    getCurrentWeek()
+    getFirstLoad()
+    getGoalDecrement()
+    getOccurrences()
+    getWeeks()
+  }
+
   useEffect(() => {
     AsyncStorage.clear()
     const getInitialRouteName = async () => {
@@ -137,13 +146,9 @@ export default function App() {
       }
     }
 
-    getAchievements()
-    getCurrentWeek()
-    getFirstLoad()
-    getGoalDecrement()
+    getAsyncData()
     getInitialRouteName()
-    getOccurrences()
-    getWeeks()
+
   }, [])
 
   if (!initialRouteName) {
