@@ -80,6 +80,15 @@ function QuestionPage({ navigation }: any) {
         )
     }
 
+    useEffect(() => {
+        sliderFeedback()
+    }, [firstOccurrence, frequency, impact])
+
+    useEffect(() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    }, [goal])
+
+
     function changeOccurrence(value: number) {
         setFirstOccurrence(occurrenceOptions[value] || "weeks")
     }
@@ -163,13 +172,13 @@ function QuestionPage({ navigation }: any) {
             <Text style={styles.titleText}>A few questions...</Text>
             
             <Text style={styles.bodyText}>First occurrence was <Text style={styles.questionValue}>{firstOccurrence}</Text> ago</Text>
-            <CustomSlider onValueChange={changeOccurrence} maximumValue={2} trackMarks={[0, 1, 2]} onSlidingComplete={sliderFeedback}/>
+            <CustomSlider onValueChange={changeOccurrence} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
             <Text style={styles.bodyText}>I engage in this habit <Text style={styles.questionValue}>{frequency}</Text></Text>
-            <CustomSlider onValueChange={changeFrequency} maximumValue={2} trackMarks={[0, 1, 2]} onSlidingComplete={sliderFeedback}/>
+            <CustomSlider onValueChange={changeFrequency} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
             <Text style={styles.bodyText}>This habit has a <Text style={styles.questionValue}>{impact}</Text> impact</Text>
-            <CustomSlider onValueChange={changeImpact} maximumValue={2} trackMarks={[0, 1, 2]} onSlidingComplete={sliderFeedback}/>
+            <CustomSlider onValueChange={changeImpact} maximumValue={2} trackMarks={[0, 1, 2]}/>
 
             <Text style={styles.bodyText}>My first limit is <Text style={styles.questionValue}>{goal}</Text> times a week</Text>
             <CustomSlider onValueChange={changeGoal} maximumValue={100} trackMarks={[0, 100]} onSlidingComplete={slidersComplete} />
