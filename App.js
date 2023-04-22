@@ -1,7 +1,7 @@
+// REACT HOOKS & COMPONENTS
 import { useEffect, useState } from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-// REACT HOOKS & COMPONENTS
 import { ActivityIndicator, useTheme } from "react-native-paper"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
@@ -148,7 +148,6 @@ export default function App() {
 
     getAsyncData()
     getInitialRouteName()
-
   }, [])
 
   if (!initialRouteName) {

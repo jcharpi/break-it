@@ -52,12 +52,12 @@ export default function CreateHabitLayout() {
                 }
             >
                 {
-                    firstLoad && 
-                    <Tab.Screen 
-                        name="HelpPage" 
-                        component={HelpPage} 
-                        options={{swipeEnabled: true}}
-                    />
+                firstLoad && 
+                <Tab.Screen 
+                    name="HelpPage" 
+                    component={HelpPage} 
+                    options={{swipeEnabled: true}}
+                />
                 }
                 <Tab.Screen 
                     name="EnterHabitPage" 
