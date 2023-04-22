@@ -25,7 +25,7 @@ const Stack = createNativeStackNavigator()
 export default function App() {
   // CONTEXTS
   const [achievements, setAchievements] = useState([])
-  const [currentWeek, setCurrentWeek] = useState()
+  const [currentWeek, setCurrentWeek] = useState("")
   const [firstLoad, setFirstLoad] = useState(true)
   const [goalDecrement, setGoalDecrement] = useState(1)
   const [habit, setHabit] = useState({
@@ -33,7 +33,7 @@ export default function App() {
     goal: 0,
     habitName: ""
   })
-  const [initialRouteName, setInitialRouteName] = useState(null)
+  const [initialRouteName, setInitialRouteName] = useState("")
   const [occurrences, setOccurrences] = useState(0)
   const [reset, setReset] = useState(false)
   const [weeks, setWeeks] = useState({})
@@ -111,14 +111,14 @@ export default function App() {
     try {
       const storedWeeks = await AsyncStorage.getItem("weeks")
 
-      const parsedWeeks = JSON.parse(storedWeeks, (key, value) => {
-        if (typeof value === "string" && key.startsWith("week")) {
-          return new Date(value)
-        }
-        return value
-      })
-
       if (storedWeeks !== null) {
+        const parsedWeeks = JSON.parse(storedWeeks, (key, value) => {
+          if (typeof value === "string" && key.startsWith("week")) {
+            return new Date(value)
+          }
+          return value
+        })
+
         setWeeks(parsedWeeks)
       }
     } catch(error) {
@@ -136,13 +136,12 @@ export default function App() {
   }
 
   useEffect(() => {
-    AsyncStorage.clear()
     const getInitialRouteName = async () => {
       const habitExists = await getHabit()
       if (habitExists) {
-        setInitialRouteName(() => "TrackHabitLayout")
+        setInitialRouteName("TrackHabitLayout")
       } else {
-        setInitialRouteName(() => "CreateHabitLayout")
+        setInitialRouteName("CreateHabitLayout")
       }
     }
 
