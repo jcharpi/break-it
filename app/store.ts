@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 import achievementSlice from "../reducers/achievementSlice"
 import activeSliderSlice from "../reducers/activeSliderSlice"
 import firstLoadSlice from "../reducers/firstLoadSlice"
+import goalDecrementSlice from "../reducers/goalDecrementSlice"
 import occurrenceReducer from "../reducers/occurrenceSlice"
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     achievements: achievementSlice,
     activeSlider: activeSliderSlice,
     firstLoad: firstLoadSlice,
+    goalDecrement: goalDecrementSlice,
     occurrences: occurrenceReducer,
   },
 });

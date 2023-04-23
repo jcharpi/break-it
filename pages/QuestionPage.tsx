@@ -12,7 +12,6 @@ import CustomSlider from "../components/CustomSlider"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import HabitContext from "../contexts/HabitContext"
 import ResetContext from "../contexts/ResetContext"
-import GoalDecrementContext from "../contexts/GoalDecrementContext"
 
 // BACKEND FUNCTIONS
 import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../backendFunctions"
@@ -24,6 +23,7 @@ import { selectFirstLoad, setPreviouslyLoaded } from "../reducers/firstLoadSlice
 
 // STYLE
 import styles from "../styles"
+import { setGoalDecrement } from "../reducers/goalDecrementSlice"
 
 function QuestionPage({ navigation }: any) {
     interface Habit {
@@ -40,7 +40,6 @@ function QuestionPage({ navigation }: any) {
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
-    const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
 
@@ -136,7 +135,7 @@ function QuestionPage({ navigation }: any) {
 
             await AsyncStorage.setItem("goalDecrement", goalDecrement.toString())
 
-            await AsyncStorage.setItem("firstLoad", "false")
+            //await AsyncStorage.setItem("firstLoad", "false")
         } catch (error) {
             console.log(error)
         }
@@ -161,8 +160,9 @@ function QuestionPage({ navigation }: any) {
             // Begin habit button was pressed => set data
             setCurrentWeek(currWeek)
             setReset(false)
-            setWeekDecrement(goalDecrement)
             storeData(habit, calculatedWeeks, currWeek, goalDecrement)
+            dispatch(setGoalDecrement(goalDecrement))
+            console.log(goalDecrement)
             dispatch(setInactiveSlider())
             navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 

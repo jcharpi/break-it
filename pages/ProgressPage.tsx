@@ -13,7 +13,6 @@ import rockImage from "../images/rock.png"
 
 // CONTEXTS
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-import GoalDecrementContext from "../contexts/GoalDecrementContext"
 import HabitContext from "../contexts/HabitContext"
 import ResetContext from "../contexts/ResetContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
@@ -33,16 +32,17 @@ import styles from "../styles"
 // FUNCTIONS
 import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../backendFunctions"
 import { addAchievement } from "../reducers/achievementSlice"
+import { resetGoalDecrement, selectGoalDecrement } from "../reducers/goalDecrementSlice"
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
     const dispatch = useAppDispatch()
-
+    const goalDecrement = useAppSelector(selectGoalDecrement)
+    
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
-    const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
     const [HelpModalVisible, setHelpModalVisible] = useContext(HelpModalVisibleContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
@@ -50,7 +50,7 @@ export default function ProgressPage({ navigation }: any) {
     // CUSTOM FUNCTIONS
     const currWeekCheck = calculateCurrentWeek(weeks, new Date())
     const weekNumber = currentWeek === undefined ? 1 : getWeekNumber(currentWeek)
-    const goal = calculateGoal(habit.goal, weekDecrement, weekNumber)
+    const goal = calculateGoal(habit.goal, goalDecrement, weekNumber)
 
     // NAVBAR FUNCTIONS
     const capitalizedHabit = habit.habitName.replace(/(^|\s)([a-z])/g, function(char: string) {
@@ -83,7 +83,8 @@ export default function ProgressPage({ navigation }: any) {
         // }
         dispatch(addAchievement(newAchievement))
         dispatch(resetOccurrences())
-        clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setCurrentWeek)
+        dispatch(resetGoalDecrement())
+        clearData(navigation, setHabit, setReset, setWeeks, setCurrentWeek)
     }
     
     // WEEK UPDATE

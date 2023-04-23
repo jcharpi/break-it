@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export interface OccurrenceState {
@@ -19,10 +19,13 @@ export const occurrenceSlice = createSlice({
     resetOccurrences: (state) => {
       state.value = 0
     },
+    setOccurrences: (state, action: PayloadAction<number>) => {
+      state.value = action.payload
+    }
   },
 })
 
-export const { addOccurrence, resetOccurrences } = occurrenceSlice.actions
+export const { addOccurrence, resetOccurrences, setOccurrences } = occurrenceSlice.actions
 
 export const selectOccurrences = (state: RootState) => state.occurrences.value
 
