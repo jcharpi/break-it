@@ -162,7 +162,6 @@ function QuestionPage({ navigation }: any) {
             setReset(false)
             storeData(habit, calculatedWeeks, currWeek, goalDecrement)
             dispatch(setGoalDecrement(goalDecrement))
-            console.log(goalDecrement)
             dispatch(setInactiveSlider())
             navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 

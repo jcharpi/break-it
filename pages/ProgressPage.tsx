@@ -97,7 +97,6 @@ export default function ProgressPage({ navigation }: any) {
             dispatch(resetOccurrences())
             if(currWeekCheck !== undefined) {
                 AsyncStorage.setItem("currentWeek", currWeekCheck)
-                AsyncStorage.setItem("occurrences", "0")
             }
         }
     }

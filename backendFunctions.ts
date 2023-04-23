@@ -13,7 +13,7 @@ const DAYS_IN_WEEK = 7
 // Sets 9 weeks from current date
 export const calculateWeeks = (currentDate: Date) => {
     const millisecondsInWeek =
-      MILLISECONDS_IN_SECOND * 10
+      MILLISECONDS_IN_SECOND * 20
       // * 
       // SECONDS_IN_MINUTE *
       // MINUTES_IN_HOUR *

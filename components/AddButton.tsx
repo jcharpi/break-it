@@ -8,8 +8,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
 // REDUX
-import { useAppDispatch } from "../app/hooks"
-import { addOccurrence } from "../reducers/occurrenceSlice"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
+import { addOccurrence, selectOccurrences } from "../reducers/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"
@@ -22,7 +22,7 @@ export default function AddButton(props: Props) {
     const dispatch = useAppDispatch()
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [buttonPressed, setButtonPressed] = useState(false)
-    
+
     function pressIn() {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
         setButtonPressed(true)
@@ -32,8 +32,7 @@ export default function AddButton(props: Props) {
         <Pressable 
             onPressIn={pressIn}
             onPressOut={() => setButtonPressed(false)}
-            onPress={currentWeek === "week9" ? props.clearData : () => dispatch(addOccurrence())
-        } 
+            onPress={currentWeek === "week9" ? props.clearData : () => dispatch(addOccurrence())} 
             style={buttonPressed ? [styles.addButtonPressed, styles.addButtonShared] : [styles.addButton, styles.addButtonShared]}
         >
             <Icon

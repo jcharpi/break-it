@@ -95,16 +95,16 @@ export default function BreakItLayout() {
         }
     }
 
-    const getOccurrences = async () => {
-        try {
-        const storedOccurrences = await AsyncStorage.getItem("occurrences")
-        if (storedOccurrences !== null) {
-            dispatch(setOccurrences(parseInt(storedOccurrences)))
-        }
-        } catch(error) {
-        console.log(error)
-        }
-    }
+    // const getOccurrences = async () => {
+    //     try {
+    //     const storedOccurrences = await AsyncStorage.getItem("occurrences")
+    //     if (storedOccurrences !== null) {
+    //         dispatch(setOccurrences(parseInt(storedOccurrences)))
+    //     }
+    //     } catch(error) {
+    //     console.log(error)
+    //     }
+    // }
 
     const getWeeks = async () => {
         try {
@@ -130,7 +130,7 @@ export default function BreakItLayout() {
         getCurrentWeek()
         //getFirstLoad()
         getGoalDecrement()
-        getOccurrences()
+        //getOccurrences()
         getWeeks()
     }
 
