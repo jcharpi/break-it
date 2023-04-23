@@ -12,7 +12,7 @@ import { getWeekNumber } from "../backendFunctions"
 
 // REDUX
 import { useAppSelector } from "../app/hooks"
-import { selectOccurrences } from "../actions/occurrenceSlice"
+import { selectOccurrences } from "../reducers/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"

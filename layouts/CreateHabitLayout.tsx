@@ -1,5 +1,5 @@
 // REACT HOOKS & COMPONENTS
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 import Icon from "react-native-vector-icons/Ionicons"
 
@@ -8,12 +8,10 @@ import EnterHabitPage from "../pages/EnterHabitPage"
 import QuestionPage from "../pages/QuestionPage"
 import HelpPage from "../pages/HelpPage"
 
-// CONTEXTS
-import FirstLoadContext from "../contexts/FirstLoadContext"
-
 // REDUX
 import { useAppSelector } from "../app/hooks"
-import { selectActiveSlider } from "../actions/activeSliderSlice"
+import { selectActiveSlider } from "../reducers/activeSliderSlice"
+import { selectFirstLoad } from "../reducers/firstLoadSlice"
 
 // STYLE
 import styles from "../styles"
@@ -22,8 +20,7 @@ const Tab = createMaterialTopTabNavigator()
 
 export default function CreateHabitLayout() {
     const activeSlider = useAppSelector(selectActiveSlider)
-    
-    const [firstLoad, setFirstLoad] = useContext(FirstLoadContext)
+    const firstLoad = useAppSelector(selectFirstLoad)
 
     return (
         <Tab.Navigator 

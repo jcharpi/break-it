@@ -10,7 +10,6 @@ import CustomSlider from "../components/CustomSlider"
 
 // CONTEXTS
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-import FirstLoadContext from "../contexts/FirstLoadContext"
 import HabitContext from "../contexts/HabitContext"
 import ResetContext from "../contexts/ResetContext"
 import GoalDecrementContext from "../contexts/GoalDecrementContext"
@@ -19,8 +18,9 @@ import GoalDecrementContext from "../contexts/GoalDecrementContext"
 import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../backendFunctions"
 
 // REDUX
-import { useAppDispatch } from "../app/hooks"
-import { setInactiveSlider } from "../actions/activeSliderSlice"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
+import { setInactiveSlider } from "../reducers/activeSliderSlice"
+import { selectFirstLoad, setPreviouslyLoaded } from "../reducers/firstLoadSlice"
 
 // STYLE
 import styles from "../styles"
@@ -35,9 +35,9 @@ function QuestionPage({ navigation }: any) {
     // CONTEXTS
 
     const dispatch = useAppDispatch()
+    const firstLoad = useAppSelector(selectFirstLoad)
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [firstLoad, setFirstLoad] = useContext(FirstLoadContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
     const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
@@ -158,7 +158,6 @@ function QuestionPage({ navigation }: any) {
             navigation.navigate("CreateHabitLayout", { screen: "QuestionPage" }) 
             Alert.alert("Please set a first goal.")
         } else {
-
             // Begin habit button was pressed => set data
             setCurrentWeek(currWeek)
             setReset(false)
@@ -168,7 +167,7 @@ function QuestionPage({ navigation }: any) {
             navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 
             setTimeout(() => {
-                setFirstLoad(false)
+                dispatch(setPreviouslyLoaded())
             }, 600)
         }
         

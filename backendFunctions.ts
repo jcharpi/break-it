@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface Weeks {
-    [key: string]: Date
+  [key: string]: Date
 }
 
 const MILLISECONDS_IN_SECOND = 1000
@@ -13,7 +13,7 @@ const DAYS_IN_WEEK = 7
 // Sets 9 weeks from current date
 export const calculateWeeks = (currentDate: Date) => {
     const millisecondsInWeek =
-      MILLISECONDS_IN_SECOND * 30
+      MILLISECONDS_IN_SECOND * 10
       // * 
       // SECONDS_IN_MINUTE *
       // MINUTES_IN_HOUR *
@@ -79,9 +79,9 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
         // disappering before going to EnterHabitPage
         setTimeout(() => {
             setHabit({
-                habitName: "",
                 gem: "silver",
                 goal: 0,  
+                habitName: "",
             })
         }, 310)
 

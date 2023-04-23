@@ -9,7 +9,7 @@ import ResetContext from "../contexts/ResetContext"
 
 // REDUX
 import { useAppDispatch } from "../app/hooks"
-import { setActiveSlider } from "../actions/activeSliderSlice"
+import { setActiveSlider } from "../reducers/activeSliderSlice"
 
 // STYLE
 import styles from "../styles"

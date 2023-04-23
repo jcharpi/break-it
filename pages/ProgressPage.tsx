@@ -19,26 +19,25 @@ import ResetContext from "../contexts/ResetContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import HelpModalVisibleContext from "../contexts/HelpModalVisibleContext"
-import AchievementContext from "../contexts/AchievementContext"
 
 // PAGES
 import HelpPage from "./HelpPage"
 
 // REDUX
-import { useAppDispatch } from "../app/hooks"
-import { resetOccurrences } from "../actions/occurrenceSlice"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
+import { resetOccurrences } from "../reducers/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"
 
 // FUNCTIONS
 import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../backendFunctions"
+import { addAchievement } from "../reducers/achievementSlice"
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
     const dispatch = useAppDispatch()
 
-    const [achievements, setAchievements] = useContext(AchievementContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
@@ -75,18 +74,14 @@ export default function ProgressPage({ navigation }: any) {
     }
 
     const resetHabit = async () => {
-        const newAchievements = [
-            ...achievements,
-            { gem: habit.gem, habitName: capitalizedHabit }
-        ]
-
-        try {
-            const jsonAchievements = JSON.stringify(newAchievements)
-            await AsyncStorage.setItem("achievements", jsonAchievements)
-          } catch (error) {
-            console.log(error)
-        }
-        setAchievements(newAchievements)
+        const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
+        // try {
+        //     const jsonAchievements = JSON.stringify(newAchievements)
+        //     await AsyncStorage.setItem("achievements", jsonAchievements)
+        //   } catch (error) {
+        //     console.log(error)
+        // }
+        dispatch(addAchievement(newAchievement))
         dispatch(resetOccurrences())
         clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setCurrentWeek)
     }

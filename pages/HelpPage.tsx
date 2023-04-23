@@ -18,7 +18,7 @@ import { clearData } from "../backendFunctions"
 
 // REDUX
 import { useAppSelector, useAppDispatch } from "../app/hooks"
-import { resetOccurrences, selectOccurrences } from "../actions/occurrenceSlice"
+import { resetOccurrences, selectOccurrences } from "../reducers/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"

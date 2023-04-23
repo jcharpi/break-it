@@ -1,10 +1,14 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
-import occurrenceReducer from "../actions/occurrenceSlice"
-import activeSliderSlice from "../actions/activeSliderSlice";
+import achievementSlice from "../reducers/achievementSlice"
+import activeSliderSlice from "../reducers/activeSliderSlice"
+import firstLoadSlice from "../reducers/firstLoadSlice"
+import occurrenceReducer from "../reducers/occurrenceSlice"
 
 export const store = configureStore({
   reducer: {
+    achievements: achievementSlice,
     activeSlider: activeSliderSlice,
+    firstLoad: firstLoadSlice,
     occurrences: occurrenceReducer,
   },
 });

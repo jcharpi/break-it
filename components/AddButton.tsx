@@ -9,7 +9,7 @@ import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
 // REDUX
 import { useAppDispatch } from "../app/hooks"
-import { addOccurrence } from "../actions/occurrenceSlice"
+import { addOccurrence } from "../reducers/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"
