@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { ActivityIndicator, useTheme } from "react-native-paper"
+import { Provider } from 'react-redux';
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // PAGE LAYOUTS
@@ -13,12 +14,14 @@ import TrackHabitLayout from "./layouts/TrackHabitLayout"
 import HabitContext from "./contexts/HabitContext"
 import HelpModalVisibleContext from "./contexts/HelpModalVisibleContext"
 import ResetContext from "./contexts/ResetContext"
-import OccurrenceContext from "./contexts/OccurrenceContext"
 import WeekLayoutContext from "./contexts/WeekLayoutContext"
 import CurrentWeekContext from "./contexts/CurrentWeekContext"
 import GoalDecrementContext from "./contexts/GoalDecrementContext"
 import AchievementContext from "./contexts/AchievementContext"
 import FirstLoadContext from "./contexts/FirstLoadContext"
+
+// REDUX
+import { store } from "./app/store";
 
 const Stack = createNativeStackNavigator()
 
@@ -34,7 +37,6 @@ export default function App() {
     habitName: ""
   })
   const [initialRouteName, setInitialRouteName] = useState("")
-  const [occurrences, setOccurrences] = useState(0)
   const [reset, setReset] = useState(false)
   const [weeks, setWeeks] = useState({})
   const [HelpModalVisible, setHelpModalVisible] = useState(false)
@@ -96,16 +98,16 @@ export default function App() {
     }
   }
 
-  const getOccurrences = async () => {
-    try {
-      const storedOccurrences = await AsyncStorage.getItem("occurrences")
-      if (storedOccurrences !== null) {
-        setOccurrences(parseInt(storedOccurrences))
-      }
-    } catch(error) {
-      console.log(error)
-    }
-  }
+  // const getOccurrences = async () => {
+  //   try {
+  //     const storedOccurrences = await AsyncStorage.getItem("occurrences")
+  //     if (storedOccurrences !== null) {
+  //       setOccurrences(parseInt(storedOccurrences))
+  //     }
+  //   } catch(error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const getWeeks = async () => {
     try {
@@ -131,7 +133,7 @@ export default function App() {
     getCurrentWeek()
     getFirstLoad()
     getGoalDecrement()
-    getOccurrences()
+    // getOccurrences()
     getWeeks()
   }
 
@@ -155,12 +157,12 @@ export default function App() {
   }
 
   return (
-    <AchievementContext.Provider value={[achievements, setAchievements]}>
-      <CurrentWeekContext.Provider value={[currentWeek, setCurrentWeek]}>
-        <FirstLoadContext.Provider value={[firstLoad, setFirstLoad]}>
-          <GoalDecrementContext.Provider value={[goalDecrement, setGoalDecrement]}>
-            <HabitContext.Provider value={[habit, setHabit]}>
-              <OccurrenceContext.Provider value={[occurrences, setOccurrences]}>
+    <Provider store={store}>
+      <AchievementContext.Provider value={[achievements, setAchievements]}>
+        <CurrentWeekContext.Provider value={[currentWeek, setCurrentWeek]}>
+          <FirstLoadContext.Provider value={[firstLoad, setFirstLoad]}>
+            <GoalDecrementContext.Provider value={[goalDecrement, setGoalDecrement]}>
+              <HabitContext.Provider value={[habit, setHabit]}>
                 <ResetContext.Provider value={[reset, setReset]}>
                   <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
                     <HelpModalVisibleContext.Provider value={[HelpModalVisible, setHelpModalVisible]}>
@@ -187,12 +189,12 @@ export default function App() {
                     </HelpModalVisibleContext.Provider>
                   </WeekLayoutContext.Provider>
                 </ResetContext.Provider>
-              </OccurrenceContext.Provider>
-            </HabitContext.Provider>
-          </GoalDecrementContext.Provider>
-        </FirstLoadContext.Provider>
-      </CurrentWeekContext.Provider>
-    </AchievementContext.Provider>
+              </HabitContext.Provider>
+            </GoalDecrementContext.Provider>
+          </FirstLoadContext.Provider>
+        </CurrentWeekContext.Provider>
+      </AchievementContext.Provider>
+    </Provider>
   )
 }
 

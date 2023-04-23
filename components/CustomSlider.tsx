@@ -5,8 +5,11 @@ import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/typ
 import SliderMarker from "./SliderMarker"
 
 // CONTEXTS
-import ActiveSliderContext from "../contexts/ActiveSliderContext"
 import ResetContext from "../contexts/ResetContext"
+
+// REDUX
+import { useAppDispatch } from "../app/hooks"
+import { setActiveSlider } from "../actions/activeSliderSlice"
 
 // STYLE
 import styles from "../styles"
@@ -19,7 +22,8 @@ interface SliderProps {
 }
 
 function CustomSlider(props: SliderProps) {
-    const [activeSlider, setActiveSlider] = useContext(ActiveSliderContext)
+    const dispatch = useAppDispatch()
+
     const [reset, setReset] = useContext(ResetContext)
     const [sliderValue, setSliderValue] = useState(0)
 
@@ -48,7 +52,7 @@ function CustomSlider(props: SliderProps) {
             thumbStyle={styles.thumbStyle}
             trackStyle={styles.trackStyle}
             containerStyle={styles.sliderContainer}
-            onSlidingStart={() => setActiveSlider(true)}
+            onSlidingStart={() => dispatch(setActiveSlider())}
             onSlidingComplete={props.onSlidingComplete}
         />
     )

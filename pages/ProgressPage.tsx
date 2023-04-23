@@ -15,7 +15,6 @@ import rockImage from "../images/rock.png"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import GoalDecrementContext from "../contexts/GoalDecrementContext"
 import HabitContext from "../contexts/HabitContext"
-import OccurrenceContext from "../contexts/OccurrenceContext"
 import ResetContext from "../contexts/ResetContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
@@ -25,6 +24,10 @@ import AchievementContext from "../contexts/AchievementContext"
 // PAGES
 import HelpPage from "./HelpPage"
 
+// REDUX
+import { useAppDispatch } from "../app/hooks"
+import { resetOccurrences } from "../actions/occurrenceSlice"
+
 // STYLE
 import styles from "../styles"
 
@@ -33,10 +36,11 @@ import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from ".
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
+    const dispatch = useAppDispatch()
+
     const [achievements, setAchievements] = useContext(AchievementContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
-    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
     const [reset, setReset] = useContext(ResetContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
@@ -83,7 +87,8 @@ export default function ProgressPage({ navigation }: any) {
             console.log(error)
         }
         setAchievements(newAchievements)
-        clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
+        dispatch(resetOccurrences())
+        clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setCurrentWeek)
     }
     
     // WEEK UPDATE
@@ -93,7 +98,7 @@ export default function ProgressPage({ navigation }: any) {
         const result = currWeekCheck === undefined ? true : currentWeek === currWeekCheck
         if(!result) {
             setCurrentWeek(currWeekCheck)
-            setOccurrences(0)
+            dispatch(resetOccurrences())
             if(currWeekCheck !== undefined) {
                 AsyncStorage.setItem("currentWeek", currWeekCheck)
                 AsyncStorage.setItem("occurrences", "0")

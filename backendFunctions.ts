@@ -61,13 +61,14 @@ export const getWeekNumber = (currentWeek: string) => {
 }
 
 
-export const clearData = async (navigation: any, setHabit: any, setReset: any, setWeeks: any, setWeekDecrement: any, setOccurrences: any, setCurrentWeek: any) => {
+//setOccurrences: any,
+export const clearData = async (navigation: any, setHabit: any, setReset: any, setWeeks: any, setWeekDecrement: any, setCurrentWeek: any) => {
     try {
         await AsyncStorage.removeItem('habit')
         await AsyncStorage.removeItem('weeks')
         await AsyncStorage.removeItem('currentWeek')
         await AsyncStorage.removeItem('goalDecrement')
-        await AsyncStorage.setItem('occurrences', '0')
+        //await AsyncStorage.setItem('occurrences', '0')
         
         // Navigate with delay for better visual experience
         setTimeout(() => {
@@ -87,7 +88,7 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
         setReset(true)
         setWeeks({})
         setWeekDecrement(1)
-        setOccurrences(0)
+        //setOccurrences(0)
         setTimeout(() => {
           setCurrentWeek('')
         }, 400)

@@ -1,13 +1,15 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useContext, useState } from "react"
 import { Pressable } from "react-native"
-import AsyncStorage from "@react-native-async-storage/async-storage"
 import * as Haptics from 'expo-haptics'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
-import OccurrenceContext from "../contexts/OccurrenceContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
+
+// REDUX
+import { useAppDispatch } from "../app/hooks"
+import { addOccurrence } from "../actions/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"
@@ -17,19 +19,9 @@ interface Props {
 }
 export default function AddButton(props: Props) {
     // CONTEXTS
-    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
+    const dispatch = useAppDispatch()
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [buttonPressed, setButtonPressed] = useState(false)
-
-    async function addOccurrence() {
-        try {
-          const newOccurrences = occurrences + 1
-          await AsyncStorage.setItem("occurrences", newOccurrences.toString())
-          setOccurrences(newOccurrences)
-        } catch (error) {
-          console.error("Error saving occurrence:", error)
-        }
-    }
     
     function pressIn() {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
@@ -40,7 +32,8 @@ export default function AddButton(props: Props) {
         <Pressable 
             onPressIn={pressIn}
             onPressOut={() => setButtonPressed(false)}
-            onPress={currentWeek === "week9" ? props.clearData : addOccurrence} 
+            onPress={currentWeek === "week9" ? props.clearData : () => dispatch(addOccurrence())
+        } 
             style={buttonPressed ? [styles.addButtonPressed, styles.addButtonShared] : [styles.addButton, styles.addButtonShared]}
         >
             <Icon

@@ -9,7 +9,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import CustomSlider from "../components/CustomSlider"
 
 // CONTEXTS
-import ActiveSliderContext from "../contexts/ActiveSliderContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import FirstLoadContext from "../contexts/FirstLoadContext"
 import HabitContext from "../contexts/HabitContext"
@@ -18,6 +17,10 @@ import GoalDecrementContext from "../contexts/GoalDecrementContext"
 
 // BACKEND FUNCTIONS
 import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../backendFunctions"
+
+// REDUX
+import { useAppDispatch } from "../app/hooks"
+import { setInactiveSlider } from "../actions/activeSliderSlice"
 
 // STYLE
 import styles from "../styles"
@@ -30,7 +33,9 @@ function QuestionPage({ navigation }: any) {
     }
 
     // CONTEXTS
-    const [activeSlider, setActiveSlider] = useContext(ActiveSliderContext)
+
+    const dispatch = useAppDispatch()
+
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [firstLoad, setFirstLoad] = useContext(FirstLoadContext)
     const [habit, setHabit] = useContext(HabitContext)
@@ -110,7 +115,7 @@ function QuestionPage({ navigation }: any) {
             }
         })
         sliderFeedback()
-        setActiveSlider(false)
+        dispatch(setInactiveSlider())
     }
 
     // SET FIRST GOAL
@@ -159,7 +164,7 @@ function QuestionPage({ navigation }: any) {
             setReset(false)
             setWeekDecrement(goalDecrement)
             storeData(habit, calculatedWeeks, currWeek, goalDecrement)
-            setActiveSlider(false)
+            dispatch(setInactiveSlider())
             navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 
             setTimeout(() => {

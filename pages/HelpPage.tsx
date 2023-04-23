@@ -11,11 +11,14 @@ import ResetContext from "../contexts/ResetContext"
 import HelpModalVisibleContext from "../contexts/HelpModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-import OccurrenceContext from "../contexts/OccurrenceContext"
 import GoalDecrementContext from "../contexts/GoalDecrementContext"
 
 // BACKEND FUNCTIONS
 import { clearData } from "../backendFunctions"
+
+// REDUX
+import { useAppSelector, useAppDispatch } from "../app/hooks"
+import { resetOccurrences, selectOccurrences } from "../actions/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"
@@ -29,10 +32,12 @@ interface HelpPageProps {
 
 function HelpPage({ navigation, modalView }: HelpPageProps) {
     // CONTEXTS
+    const occurrences = useAppSelector(selectOccurrences)
+    const dispatch = useAppDispatch()
+
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
-    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
     const [weekDecrement, setWeekDecrement] = useContext(GoalDecrementContext)
     const [HelpModalVisible, setHelpModalVisible] = useContext(HelpModalVisibleContext)
@@ -57,7 +62,8 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
                         closeHelpModal() 
 
                         // Resets habit to prepare for new one
-                        clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setOccurrences, setCurrentWeek)
+                        dispatch(resetOccurrences())
+                        clearData(navigation, setHabit, setReset, setWeeks, setWeekDecrement, setCurrentWeek)
                     },
                     style: "destructive"
                 },

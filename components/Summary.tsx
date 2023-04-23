@@ -6,10 +6,13 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 // CONTEXTS
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-import OccurrenceContext from "../contexts/OccurrenceContext"
 
 // CUSTOM FUNCTIONS
 import { getWeekNumber } from "../backendFunctions"
+
+// REDUX
+import { useAppSelector } from "../app/hooks"
+import { selectOccurrences } from "../actions/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"
@@ -20,9 +23,9 @@ interface Props {
 
 export default function Summary(props: Props) {
     // CONTEXTS
+    const occurrences = useAppSelector(selectOccurrences)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [occurrences, setOccurrences] = useContext(OccurrenceContext)
 
     const weekNumber = getWeekNumber(currentWeek)
     function closeSummaryModal() {
