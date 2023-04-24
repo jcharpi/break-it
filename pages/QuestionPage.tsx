@@ -167,7 +167,7 @@ function QuestionPage({ navigation }: any) {
 
             setTimeout(() => {
                 dispatch(setPreviouslyLoaded())
-            }, 600)
+            }, 1000)
         }
         
     }
