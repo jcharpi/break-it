@@ -8,7 +8,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 // CONTEXTS
 import HabitContext from "../contexts/HabitContext"
 import ResetContext from "../contexts/ResetContext"
-import HelpModalVisibleContext from "../contexts/HelpModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
@@ -16,12 +15,13 @@ import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import { clearData } from "../backendFunctions"
 
 // REDUX
-import { useAppSelector, useAppDispatch } from "../app/hooks"
-import { resetOccurrences, selectOccurrences } from "../reducers/occurrenceSlice"
+import { useAppDispatch } from "../app/hooks"
+import { resetOccurrences } from "../reducers/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"
 import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
+import { setHelpModalInvisible } from "../reducers/helpModalVisibleSlice"
 
 // DETERMINES IF MODAL VIEW OR NOT
 interface HelpPageProps {
@@ -32,21 +32,15 @@ interface HelpPageProps {
 
 function HelpPage({ navigation, modalView }: HelpPageProps) {
     // CONTEXTS
-    const occurrences = useAppSelector(selectOccurrences)
     const dispatch = useAppDispatch()
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
-    const [HelpModalVisible, setHelpModalVisible] = useContext(HelpModalVisibleContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
 
-    // EVENT FUNCTIONS
-    function closeHelpModal() {
-        setHelpModalVisible(false)
-    }
 
     function buttonHandler() {
         if(modalView) {
@@ -58,7 +52,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
                 },
                 {
                     text: "OK", onPress: () => {
-                        closeHelpModal() 
+                        dispatch(setHelpModalInvisible())
 
                         // Resets habit to prepare for new one
                         dispatch(resetOccurrences())
@@ -78,7 +72,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
             <View style={styles.helpFlexHeader}>
                 <Text style={styles.titleText}>{modalView ? "Help" : "Welcome! 👋"}</Text>
                 {modalView && 
-                <TouchableOpacity onPress={closeHelpModal}>
+                <TouchableOpacity onPress={() => dispatch(setHelpModalInvisible())}>
                     <Icon
                         style={{marginRight: "7%"}}
                         name="close-thick" 

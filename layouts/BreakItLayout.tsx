@@ -11,21 +11,13 @@ import TrackHabitLayout from "../layouts/TrackHabitLayout"
 
 // CONTEXTS
 import HabitContext from "../contexts/HabitContext"
-import HelpModalVisibleContext from "../contexts/HelpModalVisibleContext"
 import ResetContext from "../contexts/ResetContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
-// REDUX
-import { useAppDispatch } from "../app/hooks";
-import { setGoalDecrement } from "../reducers/goalDecrementSlice";
-import { setOccurrences } from "../reducers/occurrenceSlice"
-
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
-    const dispatch = useAppDispatch()
-
     // CONTEXTS
     const [currentWeek, setCurrentWeek] = useState("")
     const [habit, setHabit] = useState({
@@ -36,44 +28,9 @@ export default function BreakItLayout() {
     const [initialRouteName, setInitialRouteName] = useState("")
     const [reset, setReset] = useState(false)
     const [weeks, setWeeks] = useState({})
-    const [HelpModalVisible, setHelpModalVisible] = useState(false)
 
     const theme = useTheme()
     theme.colors.secondaryContainer = "transparent"  
-
-  // SET HABITS TO ASYNCSTORAGE VALUES ON PAGE LOAD
-  // const getAchievements = async () => {
-  //   try {
-  //     const storedAchievements = await AsyncStorage.getItem("achievements")
-  //     if (storedAchievements !== null) {
-  //       setAchievements(JSON.parse(storedAchievements))
-  //     }
-  //   } catch(error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // const getFirstLoad = async () => {
-  //   try {
-  //     const storedFirstLoad = await AsyncStorage.getItem("firstLoad")
-  //     if (storedFirstLoad !== null) {
-  //       setFirstLoad(JSON.parse(storedFirstLoad))
-  //     }
-  //   } catch(error) {
-  //     console.log(error)
-  //   }
-  // }
-
-    const getGoalDecrement = async () => {
-        try {
-        const storedGoalDecrement = await AsyncStorage.getItem("goalDecrement")
-        if (storedGoalDecrement !== null) {
-            dispatch(setGoalDecrement(parseInt(storedGoalDecrement)))
-        }
-        } catch(error) {
-        console.log(error)
-        }
-    }
 
     const getCurrentWeek = async () => {
         try {
@@ -95,17 +52,6 @@ export default function BreakItLayout() {
         }
     }
 
-    // const getOccurrences = async () => {
-    //     try {
-    //     const storedOccurrences = await AsyncStorage.getItem("occurrences")
-    //     if (storedOccurrences !== null) {
-    //         dispatch(setOccurrences(parseInt(storedOccurrences)))
-    //     }
-    //     } catch(error) {
-    //     console.log(error)
-    //     }
-    // }
-
     const getWeeks = async () => {
         try {
         const storedWeeks = await AsyncStorage.getItem("weeks")
@@ -126,15 +72,12 @@ export default function BreakItLayout() {
     }
 
     const getAsyncData = () => {
-        //getAchievements()
         getCurrentWeek()
-        //getFirstLoad()
-        getGoalDecrement()
-        //getOccurrences()
         getWeeks()
     }
 
     useEffect(() => {
+      AsyncStorage.clear()
         const getInitialRouteName = async () => {
         const habitExists = await getHabit()
         if (habitExists) {
@@ -157,28 +100,26 @@ export default function BreakItLayout() {
         <HabitContext.Provider value={[habit, setHabit]}>
           <ResetContext.Provider value={[reset, setReset]}>
             <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
-              <HelpModalVisibleContext.Provider value={[HelpModalVisible, setHelpModalVisible]}>
-                <NavigationContainer>
-                    <Stack.Navigator 
-                      initialRouteName={initialRouteName}
-                      screenOptions={{
-                        headerShown: false,
-                        animation: "fade",
-                        animationDuration: 500,
-                        gestureEnabled: false,
-                      }}
-                    >
-                      <Stack.Screen 
-                        name="CreateHabitLayout" 
-                        component={CreateHabitLayout} 
-                      />
-                      <Stack.Screen 
-                        name="TrackHabitLayout" 
-                        component={TrackHabitLayout}  
-                      />
-                    </Stack.Navigator>
-                  </NavigationContainer>
-              </HelpModalVisibleContext.Provider>
+              <NavigationContainer>
+                <Stack.Navigator 
+                  initialRouteName={initialRouteName}
+                  screenOptions={{
+                    headerShown: false,
+                    animation: "fade",
+                    animationDuration: 500,
+                    gestureEnabled: false,
+                  }}
+                >
+                  <Stack.Screen 
+                    name="CreateHabitLayout" 
+                    component={CreateHabitLayout} 
+                  />
+                  <Stack.Screen 
+                    name="TrackHabitLayout" 
+                    component={TrackHabitLayout}  
+                  />
+                </Stack.Navigator>
+              </NavigationContainer>
             </WeekLayoutContext.Provider>
           </ResetContext.Provider>
         </HabitContext.Provider>

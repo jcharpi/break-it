@@ -3,18 +3,48 @@ import achievementSlice from "../reducers/achievementSlice"
 import activeSliderSlice from "../reducers/activeSliderSlice"
 import firstLoadSlice from "../reducers/firstLoadSlice"
 import goalDecrementSlice from "../reducers/goalDecrementSlice"
-import occurrenceReducer from "../reducers/occurrenceSlice"
+import helpModalVisibleSlice from "../reducers/helpModalVisibleSlice"
+import occurrenceSlice from "../reducers/occurrenceSlice"
 
-export const store = configureStore({
-  reducer: {
-    achievements: achievementSlice,
-    activeSlider: activeSliderSlice,
-    firstLoad: firstLoadSlice,
-    goalDecrement: goalDecrementSlice,
-    occurrences: occurrenceReducer,
-  },
+import { combineReducers } from '@reduxjs/toolkit'
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persistStore, persistReducer, FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER, } from 'redux-persist'
+
+const rootReducer = combineReducers({
+  achievements: achievementSlice,
+  activeSlider: activeSliderSlice,
+  firstLoad: firstLoadSlice,
+  goalDecrement: goalDecrementSlice,
+  helpModalVisible: helpModalVisibleSlice,
+  occurrences: occurrenceSlice,
 })
 
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+  getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+  devTools: process.env.NODE_ENV !== "production",
+})
+
+export const persistor = persistStore(store)
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof store.getState>
 export type AppThunk<ReturnType = void> = ThunkAction<
@@ -22,4 +52,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   RootState,
   unknown,
   Action<string>
->;
+>

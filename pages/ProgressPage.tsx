@@ -17,7 +17,6 @@ import HabitContext from "../contexts/HabitContext"
 import ResetContext from "../contexts/ResetContext"
 import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
-import HelpModalVisibleContext from "../contexts/HelpModalVisibleContext"
 
 // PAGES
 import HelpPage from "./HelpPage"
@@ -33,19 +32,19 @@ import styles from "../styles"
 import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../backendFunctions"
 import { addAchievement } from "../reducers/achievementSlice"
 import { resetGoalDecrement, selectGoalDecrement } from "../reducers/goalDecrementSlice"
+import { selectHelpModalVisible, setHelpModalInvisible, toggleHelpModalVisible } from "../reducers/helpModalVisibleSlice"
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
     const dispatch = useAppDispatch()
     const goalDecrement = useAppSelector(selectGoalDecrement)
+    const helpModalVisible = useAppSelector(selectHelpModalVisible)
     
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
     const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
-    const [HelpModalVisible, setHelpModalVisible] = useContext(HelpModalVisibleContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
-
 
     // CUSTOM FUNCTIONS
     const currWeekCheck = calculateCurrentWeek(weeks, new Date())
@@ -58,7 +57,7 @@ export default function ProgressPage({ navigation }: any) {
     }).trim()
 
     const handleHelp = () => {
-        setHelpModalVisible((prev: any) => !prev)
+        dispatch(toggleHelpModalVisible())
     }
 
     const handleTrove = () => {
@@ -139,8 +138,8 @@ export default function ProgressPage({ navigation }: any) {
                 {/* WHAT NOW MODAL */}
                 <Modal
                     animationType="slide"
-                    visible={HelpModalVisible}
-                    onRequestClose={() => setHelpModalVisible(false)}
+                    visible={helpModalVisible}
+                    onRequestClose={() => dispatch(setHelpModalInvisible())}
                     presentationStyle="pageSheet"
                     statusBarTranslucent={true}
                 >
