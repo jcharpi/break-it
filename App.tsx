@@ -13,15 +13,15 @@ export default function App() {
   theme.colors.secondaryContainer = "transparent"  
 
   return (
-    <Provider store={store}>
-      <BreakItLayout/>
-    </Provider>
-
     // <Provider store={store}>
-    //   <PersistGate loading={null} persistor={persistor}>
-    //     <BreakItLayout/>
-    //   </PersistGate>
+    //   <BreakItLayout/>
     // </Provider>
+
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BreakItLayout/>
+      </PersistGate>
+    </Provider>
   )
 }
 

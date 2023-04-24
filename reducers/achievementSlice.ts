@@ -11,10 +11,7 @@ export interface AchievementState {
 }
 
 const initialState: AchievementState = {
-  value: [
-    {gem: "silver", habitName: "test"},
-    {gem: "gold", habitName: "test2"}
-  ],
+  value: [],
 }
 
 export const achievementSlice = createSlice({

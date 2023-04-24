@@ -4,15 +4,15 @@ import { View, Text, TouchableOpacity } from "react-native"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
-import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
 // CUSTOM FUNCTIONS
 import { getWeekNumber } from "../backendFunctions"
 
 // REDUX
-import { useAppSelector } from "../app/hooks"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectOccurrences } from "../reducers/occurrenceSlice"
+import { setSummaryModalInvisible } from "../reducers/summaryModalVisibleSlice"
 
 // STYLE
 import styles from "../styles"
@@ -23,14 +23,12 @@ interface Props {
 
 export default function Summary(props: Props) {
     // CONTEXTS
+    const dispatch = useAppDispatch()
+
     const occurrences = useAppSelector(selectOccurrences)
-    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
 
     const weekNumber = getWeekNumber(currentWeek)
-    function closeSummaryModal() {
-        setSummaryModalVisible(false)
-    }
 
     return (
         <View style={styles.summaryContainer}>
@@ -40,7 +38,7 @@ export default function Summary(props: Props) {
                     {weekNumber === 10 ? "Congratulations 🥳" : `Week ${weekNumber}`}
                 </Text>
 
-                <TouchableOpacity onPress={closeSummaryModal}
+                <TouchableOpacity onPress={() => dispatch(setSummaryModalInvisible())}
 >
                     <Icon
                         style={{marginRight: "4%"}}

@@ -5,6 +5,7 @@ import firstLoadSlice from "../reducers/firstLoadSlice"
 import goalDecrementSlice from "../reducers/goalDecrementSlice"
 import helpModalVisibleSlice from "../reducers/helpModalVisibleSlice"
 import occurrenceSlice from "../reducers/occurrenceSlice"
+import summaryModalVisibleSlice from "../reducers/summaryModalVisibleSlice"
 
 import { combineReducers } from '@reduxjs/toolkit'
 
@@ -23,12 +24,14 @@ const rootReducer = combineReducers({
   goalDecrement: goalDecrementSlice,
   helpModalVisible: helpModalVisibleSlice,
   occurrences: occurrenceSlice,
+  summaryModalVisible: summaryModalVisibleSlice,
 })
 
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  blacklist: ["helpModalVisible", "summaryModalVisible"]
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

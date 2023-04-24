@@ -16,16 +16,13 @@ export const helpModalVisibleSlice = createSlice({
     toggleHelpModalVisible: (state) => {
       state.value = !state.value
     },
-    setHelpModalVisible: (state) => {
-        state.value = true
-    },
     setHelpModalInvisible: (state) => {
         state.value = false
     },
   },
 })
 
-export const { toggleHelpModalVisible, setHelpModalVisible, setHelpModalInvisible } = helpModalVisibleSlice.actions
+export const { toggleHelpModalVisible, setHelpModalInvisible } = helpModalVisibleSlice.actions
 
 export const selectHelpModalVisible = (state: RootState) => state.helpModalVisible.value
 

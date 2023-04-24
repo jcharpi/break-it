@@ -15,7 +15,6 @@ import rockImage from "../images/rock.png"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import HabitContext from "../contexts/HabitContext"
 import ResetContext from "../contexts/ResetContext"
-import SummaryModalVisibleContext from "../contexts/SummaryModalVisibleContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 
 // PAGES
@@ -24,26 +23,27 @@ import HelpPage from "./HelpPage"
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { resetOccurrences } from "../reducers/occurrenceSlice"
+import { addAchievement } from "../reducers/achievementSlice"
+import { resetGoalDecrement, selectGoalDecrement } from "../reducers/goalDecrementSlice"
+import { selectHelpModalVisible, setHelpModalInvisible, toggleHelpModalVisible } from "../reducers/helpModalVisibleSlice"
+import { selectSummaryModalVisible, setSummaryModalInvisible, setSummaryModalVisible } from "../reducers/summaryModalVisibleSlice"
 
 // STYLE
 import styles from "../styles"
 
 // FUNCTIONS
 import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../backendFunctions"
-import { addAchievement } from "../reducers/achievementSlice"
-import { resetGoalDecrement, selectGoalDecrement } from "../reducers/goalDecrementSlice"
-import { selectHelpModalVisible, setHelpModalInvisible, toggleHelpModalVisible } from "../reducers/helpModalVisibleSlice"
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
     const dispatch = useAppDispatch()
     const goalDecrement = useAppSelector(selectGoalDecrement)
     const helpModalVisible = useAppSelector(selectHelpModalVisible)
-    
+    const summaryModalVisible = useAppSelector(selectSummaryModalVisible)
+
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
     const [reset, setReset] = useContext(ResetContext)
-    const [summaryModalVisible, setSummaryModalVisible] = useContext(SummaryModalVisibleContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
     // CUSTOM FUNCTIONS
@@ -62,14 +62,6 @@ export default function ProgressPage({ navigation }: any) {
 
     const handleTrove = () => {
         navigation.navigate("TrovePage")
-    }
-
-    const openSummaryModal = () => {
-        setSummaryModalVisible(true)
-    }
-
-    const closeSummaryModal = () => {
-        setSummaryModalVisible(false)
     }
 
     const resetHabit = async () => {
@@ -118,16 +110,16 @@ export default function ProgressPage({ navigation }: any) {
             />
 
             <View style={styles.progressFlexView}>
-                <Pressable onPress={openSummaryModal}>
+                <Pressable onPress={() => dispatch(setSummaryModalVisible())}>
                     {/* SUMMARY OVERLAY */}
                     <Modal
                         animationType="slide"
                         transparent={true}
                         visible={summaryModalVisible}
-                        onRequestClose={() => setSummaryModalVisible(false)}
+                        onRequestClose={() => dispatch(setSummaryModalInvisible())}
                         presentationStyle="overFullScreen"
                     >
-                        <Pressable onPress={closeSummaryModal} style={styles.progressModalContainer}>
+                        <Pressable onPress={() => dispatch(setSummaryModalInvisible())} style={styles.progressModalContainer}>
                             <Summary goal={goal}/>
                         </Pressable>
 
