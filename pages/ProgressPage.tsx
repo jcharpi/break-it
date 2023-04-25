@@ -13,7 +13,6 @@ import rockImage from "../images/rock.png"
 
 // CONTEXTS
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-import WeekLayoutContext from "../contexts/WeekLayoutContext"
 
 // PAGES
 import HelpPage from "./HelpPage"
