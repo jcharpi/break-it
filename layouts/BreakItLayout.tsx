@@ -2,22 +2,28 @@
 import { useEffect, useState } from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { ActivityIndicator, useTheme } from "react-native-paper"
+import { ActivityIndicator } from "react-native-paper"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // PAGE LAYOUTS
 import CreateHabitLayout from "../layouts/CreateHabitLayout"
 import TrackHabitLayout from "../layouts/TrackHabitLayout"
 
+// REDUX
+import { useAppSelector } from "../app/hooks"
+import { selectReset } from "../reducers/resetSlice"
+
 // CONTEXTS
 import HabitContext from "../contexts/HabitContext"
-import ResetContext from "../contexts/ResetContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
+
 
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
+    const reset = useAppSelector(selectReset)
+
     // CONTEXTS
     const [currentWeek, setCurrentWeek] = useState("")
     const [habit, setHabit] = useState({
@@ -26,11 +32,7 @@ export default function BreakItLayout() {
         habitName: ""
     })
     const [initialRouteName, setInitialRouteName] = useState("")
-    const [reset, setReset] = useState(false)
     const [weeks, setWeeks] = useState({})
-
-    const theme = useTheme()
-    theme.colors.secondaryContainer = "transparent"  
 
     const getCurrentWeek = async () => {
         try {
@@ -97,30 +99,28 @@ export default function BreakItLayout() {
     return (
       <CurrentWeekContext.Provider value={[currentWeek, setCurrentWeek]}>
         <HabitContext.Provider value={[habit, setHabit]}>
-          <ResetContext.Provider value={[reset, setReset]}>
-            <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
-              <NavigationContainer>
-                <Stack.Navigator 
-                  initialRouteName={initialRouteName}
-                  screenOptions={{
-                    headerShown: false,
-                    animation: "fade",
-                    animationDuration: 500,
-                    gestureEnabled: false,
-                  }}
-                >
-                  <Stack.Screen 
-                    name="CreateHabitLayout" 
-                    component={CreateHabitLayout} 
-                  />
-                  <Stack.Screen 
-                    name="TrackHabitLayout" 
-                    component={TrackHabitLayout}  
-                  />
-                </Stack.Navigator>
-              </NavigationContainer>
-            </WeekLayoutContext.Provider>
-          </ResetContext.Provider>
+          <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
+            <NavigationContainer>
+              <Stack.Navigator 
+                initialRouteName={initialRouteName}
+                screenOptions={{
+                  headerShown: false,
+                  animation: "fade",
+                  animationDuration: 500,
+                  gestureEnabled: false,
+                }}
+              >
+                <Stack.Screen 
+                  name="CreateHabitLayout" 
+                  component={CreateHabitLayout} 
+                />
+                <Stack.Screen 
+                  name="TrackHabitLayout" 
+                  component={TrackHabitLayout}  
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </WeekLayoutContext.Provider>
         </HabitContext.Provider>
       </CurrentWeekContext.Provider>
     )

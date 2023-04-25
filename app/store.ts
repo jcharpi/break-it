@@ -5,6 +5,7 @@ import firstLoadSlice from "../reducers/firstLoadSlice"
 import goalDecrementSlice from "../reducers/goalDecrementSlice"
 import helpModalVisibleSlice from "../reducers/helpModalVisibleSlice"
 import occurrenceSlice from "../reducers/occurrenceSlice"
+import resetSlice from "../reducers/resetSlice"
 import summaryModalVisibleSlice from "../reducers/summaryModalVisibleSlice"
 
 import { combineReducers } from '@reduxjs/toolkit'
@@ -24,9 +25,9 @@ const rootReducer = combineReducers({
   goalDecrement: goalDecrementSlice,
   helpModalVisible: helpModalVisibleSlice,
   occurrences: occurrenceSlice,
+  reset: resetSlice,
   summaryModalVisible: summaryModalVisibleSlice,
 })
-
 
 const persistConfig = {
   key: 'root',

@@ -8,8 +8,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
 // REDUX
-import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { addOccurrence, selectOccurrences } from "../reducers/occurrenceSlice"
+import { useAppDispatch } from "../app/hooks"
+import { addOccurrence } from "../reducers/occurrenceSlice"
 
 // STYLE
 import styles from "../styles"
@@ -17,6 +17,7 @@ import styles from "../styles"
 interface Props {
     clearData: any
 }
+
 export default function AddButton(props: Props) {
     // CONTEXTS
     const dispatch = useAppDispatch()

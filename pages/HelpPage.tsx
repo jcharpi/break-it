@@ -7,7 +7,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
 import HabitContext from "../contexts/HabitContext"
-import ResetContext from "../contexts/ResetContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
@@ -16,12 +15,15 @@ import { clearData } from "../backendFunctions"
 
 // REDUX
 import { useAppDispatch } from "../app/hooks"
+import { setInactiveSlider } from "../reducers/activeSliderSlice"
+import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
+import { setHelpModalInvisible } from "../reducers/helpModalVisibleSlice"
 import { resetOccurrences } from "../reducers/occurrenceSlice"
+import { setResetTrue } from "../reducers/resetSlice"
+import { setSummaryModalInvisible } from "../reducers/summaryModalVisibleSlice"
 
 // STYLE
 import styles from "../styles"
-import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
-import { setHelpModalInvisible } from "../reducers/helpModalVisibleSlice"
 
 // DETERMINES IF MODAL VIEW OR NOT
 interface HelpPageProps {
@@ -36,7 +38,6 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
-    const [reset, setReset] = useContext(ResetContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
@@ -53,11 +54,15 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
                 {
                     text: "OK", onPress: () => {
                         dispatch(setHelpModalInvisible())
+                        dispatch(setSummaryModalInvisible())
 
-                        // Resets habit to prepare for new one
                         dispatch(resetOccurrences())
                         dispatch(resetGoalDecrement())
-                        clearData(navigation, setHabit, setReset, setWeeks, setCurrentWeek)
+
+                        dispatch(setInactiveSlider())
+                        dispatch(setResetTrue())
+                        
+                        clearData(navigation, setHabit, setWeeks, setCurrentWeek)
                     },
                     style: "destructive"
                 },

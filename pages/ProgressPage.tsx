@@ -14,7 +14,6 @@ import rockImage from "../images/rock.png"
 // CONTEXTS
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import HabitContext from "../contexts/HabitContext"
-import ResetContext from "../contexts/ResetContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 
 // PAGES
@@ -22,10 +21,11 @@ import HelpPage from "./HelpPage"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { resetOccurrences } from "../reducers/occurrenceSlice"
 import { addAchievement } from "../reducers/achievementSlice"
 import { resetGoalDecrement, selectGoalDecrement } from "../reducers/goalDecrementSlice"
 import { selectHelpModalVisible, setHelpModalInvisible, toggleHelpModalVisible } from "../reducers/helpModalVisibleSlice"
+import { resetOccurrences } from "../reducers/occurrenceSlice"
+import { setResetTrue } from "../reducers/resetSlice"
 import { selectSummaryModalVisible, setSummaryModalInvisible, setSummaryModalVisible } from "../reducers/summaryModalVisibleSlice"
 
 // STYLE
@@ -43,7 +43,6 @@ export default function ProgressPage({ navigation }: any) {
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
-    const [reset, setReset] = useContext(ResetContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
     // CUSTOM FUNCTIONS
@@ -75,7 +74,8 @@ export default function ProgressPage({ navigation }: any) {
         dispatch(addAchievement(newAchievement))
         dispatch(resetOccurrences())
         dispatch(resetGoalDecrement())
-        clearData(navigation, setHabit, setReset, setWeeks, setCurrentWeek)
+        dispatch(setResetTrue())
+        clearData(navigation, setHabit, setWeeks, setCurrentWeek)
     }
     
     // WEEK UPDATE

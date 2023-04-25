@@ -62,7 +62,7 @@ export const getWeekNumber = (currentWeek: string) => {
 
 
 //setOccurrences: any,
-export const clearData = async (navigation: any, setHabit: any, setReset: any, setWeeks: any, setCurrentWeek: any) => {
+export const clearData = async (navigation: any, setHabit: any, setWeeks: any, setCurrentWeek: any) => {
     try {
         await AsyncStorage.removeItem('habit')
         await AsyncStorage.removeItem('weeks')
@@ -85,7 +85,6 @@ export const clearData = async (navigation: any, setHabit: any, setReset: any, s
             })
         }, 310)
 
-        setReset(true)
         setWeeks({})
         setTimeout(() => {
           setCurrentWeek('')

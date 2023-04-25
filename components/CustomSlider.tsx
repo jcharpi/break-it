@@ -4,12 +4,10 @@ import { Slider } from "@miblanchard/react-native-slider"
 import { SliderOnChangeCallback } from "@miblanchard/react-native-slider/lib/types"
 import SliderMarker from "./SliderMarker"
 
-// CONTEXTS
-import ResetContext from "../contexts/ResetContext"
-
 // REDUX
-import { useAppDispatch } from "../app/hooks"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { setActiveSlider } from "../reducers/activeSliderSlice"
+import { selectReset } from "../reducers/resetSlice"
 
 // STYLE
 import styles from "../styles"
@@ -23,8 +21,8 @@ interface SliderProps {
 
 function CustomSlider(props: SliderProps) {
     const dispatch = useAppDispatch()
-
-    const [reset, setReset] = useContext(ResetContext)
+    const reset = useAppSelector(selectReset)
+    
     const [sliderValue, setSliderValue] = useState(0)
 
     const handleValueChange: SliderOnChangeCallback = (value) => {

@@ -11,7 +11,6 @@ import CustomSlider from "../components/CustomSlider"
 // CONTEXTS
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 import HabitContext from "../contexts/HabitContext"
-import ResetContext from "../contexts/ResetContext"
 
 // BACKEND FUNCTIONS
 import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../backendFunctions"
@@ -20,10 +19,12 @@ import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../ba
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
 import { selectFirstLoad, setPreviouslyLoaded } from "../reducers/firstLoadSlice"
+import { setGoalDecrement } from "../reducers/goalDecrementSlice"
+import { selectReset, setResetFalse } from "../reducers/resetSlice"
 
 // STYLE
 import styles from "../styles"
-import { setGoalDecrement } from "../reducers/goalDecrementSlice"
+
 
 function QuestionPage({ navigation }: any) {
     interface Habit {
@@ -36,10 +37,10 @@ function QuestionPage({ navigation }: any) {
 
     const dispatch = useAppDispatch()
     const firstLoad = useAppSelector(selectFirstLoad)
+    const reset = useAppSelector(selectReset)
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
     const [habit, setHabit] = useContext(HabitContext)
-    const [reset, setReset] = useContext(ResetContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
 
@@ -159,10 +160,10 @@ function QuestionPage({ navigation }: any) {
         } else {
             // Begin habit button was pressed => set data
             setCurrentWeek(currWeek)
-            setReset(false)
             storeData(habit, calculatedWeeks, currWeek, goalDecrement)
             dispatch(setGoalDecrement(goalDecrement))
             dispatch(setInactiveSlider())
+            dispatch(setResetFalse())
             navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 
             setTimeout(() => {
