@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-export interface GoalDecrementState {
+interface GoalDecrementState {
 	value: number
 }
 

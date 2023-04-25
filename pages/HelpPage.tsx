@@ -27,7 +27,6 @@ import styles from "../styles"
 interface HelpPageProps {
 	navigation: any
 	modalView?: boolean
-	closeModal?: any
 }
 
 function HelpPage({ navigation, modalView }: HelpPageProps) {

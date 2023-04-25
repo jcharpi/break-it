@@ -1,0 +1,17 @@
+{
+  "ignore": {
+    "files": [
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/activeSliderSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/achievementSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/currentWeekSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/firstLoadSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/goalDecrementSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/habitSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/weekSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/summaryModalVisibleSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/resetSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/occurrenceSlice.ts",
+      "/Users/charpi/Documents/BreakIt/break-it/reducers/helpModalVisibleSlice.ts"
+    ]
+  }
+}

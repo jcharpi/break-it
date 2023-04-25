@@ -6,7 +6,7 @@ interface Achievement {
 	habitName: string
 }
 
-export interface AchievementState {
+interface AchievementState {
 	value: Achievement[]
 }
 

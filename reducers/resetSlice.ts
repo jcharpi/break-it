@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-export interface ResetState {
+interface ResetState {
 	value: boolean
 }
 
