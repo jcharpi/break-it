@@ -3,15 +3,13 @@ import { useContext } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
-// CONTEXTS
-import CurrentWeekContext from "../contexts/CurrentWeekContext"
-
 // CUSTOM FUNCTIONS
 import { getWeekNumber } from "../backendFunctions"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectOccurrences } from "../reducers/occurrenceSlice"
+import { selectCurrentWeek } from "../reducers/currentWeekSlice"
 import { setSummaryModalInvisible } from "../reducers/summaryModalVisibleSlice"
 
 // STYLE
@@ -26,7 +24,7 @@ export default function Summary(props: Props) {
     const dispatch = useAppDispatch()
 
     const occurrences = useAppSelector(selectOccurrences)
-    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
+    const currentWeek = useAppSelector(selectCurrentWeek)
 
     const weekNumber = getWeekNumber(currentWeek)
 

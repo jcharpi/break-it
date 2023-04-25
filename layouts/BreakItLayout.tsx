@@ -13,32 +13,13 @@ import TrackHabitLayout from "../layouts/TrackHabitLayout"
 import { useAppSelector } from "../app/hooks"
 import { selectHabit } from "../reducers/habitSlice"
 
-// CONTEXTS
-import CurrentWeekContext from "../contexts/CurrentWeekContext"
-
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
     const habit = useAppSelector(selectHabit)
 
     // CONTEXTS
-    const [currentWeek, setCurrentWeek] = useState("")
     const [initialRouteName, setInitialRouteName] = useState("")
-
-    const getCurrentWeek = async () => {
-        try {
-        const storedCurrentWeek = await AsyncStorage.getItem("currentWeek")
-        if (storedCurrentWeek !== null) {
-            setCurrentWeek(storedCurrentWeek)
-        }
-        } catch(error) {
-        console.log(error)
-        }
-    }
-
-    const getAsyncData = () => {
-        getCurrentWeek()
-    }
 
     useEffect(() => {
         const getInitialRouteName = async () => {
@@ -50,7 +31,6 @@ export default function BreakItLayout() {
         }
         }
 
-        getAsyncData()
         getInitialRouteName()
     }, [])
 
@@ -59,28 +39,26 @@ export default function BreakItLayout() {
     }
 
     return (
-      <CurrentWeekContext.Provider value={[currentWeek, setCurrentWeek]}>
-        <NavigationContainer>
-          <Stack.Navigator 
-            initialRouteName={initialRouteName}
-            screenOptions={{
-              headerShown: false,
-              animation: "fade",
-              animationDuration: 500,
-              gestureEnabled: false,
-            }}
-          >
-            <Stack.Screen 
-              name="CreateHabitLayout" 
-              component={CreateHabitLayout} 
-            />
-            <Stack.Screen 
-              name="TrackHabitLayout" 
-              component={TrackHabitLayout}  
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </CurrentWeekContext.Provider>
+      <NavigationContainer>
+        <Stack.Navigator 
+          initialRouteName={initialRouteName}
+          screenOptions={{
+            headerShown: false,
+            animation: "fade",
+            animationDuration: 500,
+            gestureEnabled: false,
+          }}
+        >
+          <Stack.Screen 
+            name="CreateHabitLayout" 
+            component={CreateHabitLayout} 
+          />
+          <Stack.Screen 
+            name="TrackHabitLayout" 
+            component={TrackHabitLayout}  
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     )
 }
 

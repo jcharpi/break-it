@@ -11,15 +11,13 @@ import Summary from "../components/Summary"
 // CUSTOM IMAGES
 import rockImage from "../images/rock.png"
 
-// CONTEXTS
-import CurrentWeekContext from "../contexts/CurrentWeekContext"
-
 // PAGES
 import HelpPage from "./HelpPage"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { addAchievement } from "../reducers/achievementSlice"
+import { resetCurrentWeek, selectCurrentWeek, setCurrentWeek } from "../reducers/currentWeekSlice"
 import { resetGoalDecrement, selectGoalDecrement } from "../reducers/goalDecrementSlice"
 import { resetHabit, selectHabit } from "../reducers/habitSlice"
 import { selectHelpModalVisible, setHelpModalInvisible, toggleHelpModalVisible } from "../reducers/helpModalVisibleSlice"
@@ -32,23 +30,21 @@ import { resetWeeks, selectWeeks } from "../reducers/weekSlice"
 import styles from "../styles"
 
 // FUNCTIONS
-import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from "../backendFunctions"
+import { calculateCurrentWeek, calculateGoal, getWeekNumber } from "../backendFunctions"
 
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
     const dispatch = useAppDispatch()
-    const habit = useAppSelector(selectHabit)
-    const weeks = useAppSelector(selectWeeks)
-
+    const currentWeek = useAppSelector(selectCurrentWeek)
     const goalDecrement = useAppSelector(selectGoalDecrement)
+    const habit = useAppSelector(selectHabit)
     const helpModalVisible = useAppSelector(selectHelpModalVisible)
     const summaryModalVisible = useAppSelector(selectSummaryModalVisible)
-
-    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
+    const weeks = useAppSelector(selectWeeks)
 
     // CUSTOM FUNCTIONS
     const currWeekCheck = calculateCurrentWeek(weeks, new Date())
-    const weekNumber = currentWeek === undefined ? 1 : getWeekNumber(currentWeek)
+    const weekNumber = currentWeek === "" ? 0 : getWeekNumber(currentWeek)
     const goal = calculateGoal(habit.goal, goalDecrement, weekNumber)
 
     // NAVBAR FUNCTIONS
@@ -64,28 +60,30 @@ export default function ProgressPage({ navigation }: any) {
         navigation.navigate("TrovePage")
     }
 
-    const prepareNewHabit = async () => {
+    const clearData = () => {
         const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
         dispatch(addAchievement(newAchievement))
-        dispatch(resetHabit())
         dispatch(resetOccurrences())
         dispatch(resetGoalDecrement())
         dispatch(setResetTrue())
         dispatch(resetWeeks())
-        clearData(navigation, setCurrentWeek)
+        dispatch(resetCurrentWeek())
+        setTimeout(() => {
+            navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
+        }, 200)
+        setTimeout(() => {
+            dispatch(resetHabit())
+        }, 400)
     }
     
     // WEEK UPDATE
     // using sameWeekCheck in the useEffect to compare last 
     // stored currentWeek and what currentWeek SHOULD be
     const sameWeekCheck = () => {
-        const result = currWeekCheck === undefined ? true : currentWeek === currWeekCheck
+        const result = currWeekCheck === "" ? true : currentWeek === currWeekCheck
         if(!result) {
-            setCurrentWeek(currWeekCheck)
+            currWeekCheck === "" ? dispatch(resetCurrentWeek()) : dispatch(setCurrentWeek(currWeekCheck))
             dispatch(resetOccurrences())
-            if(currWeekCheck !== undefined) {
-                AsyncStorage.setItem("currentWeek", currWeekCheck)
-            }
         }
     }
 
@@ -135,7 +133,7 @@ export default function ProgressPage({ navigation }: any) {
                     <HelpPage navigation={navigation} modalView={true} />
                 </Modal>
                 
-                <AddButton clearData={prepareNewHabit}/>
+                <AddButton clearData={clearData}/>
             </View>
         </View>
     )

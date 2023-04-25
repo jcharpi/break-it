@@ -5,15 +5,10 @@ import { Button } from "react-native-paper"
 import * as Haptics from 'expo-haptics'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
-// CONTEXTS
-import CurrentWeekContext from "../contexts/CurrentWeekContext"
-
-// BACKEND FUNCTIONS
-import { clearData } from "../backendFunctions"
-
 // REDUX
 import { useAppDispatch } from "../app/hooks"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
+import { resetCurrentWeek } from "../reducers/currentWeekSlice"
 import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
 import { resetHabit } from "../reducers/habitSlice"
 import { setHelpModalInvisible } from "../reducers/helpModalVisibleSlice"
@@ -36,10 +31,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
     // CONTEXTS
     const dispatch = useAppDispatch()
 
-    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-
     const [buttonPressed, setButtonPressed] = useState(false)
-
 
     function buttonHandler() {
         if(modalView) {
@@ -61,11 +53,15 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
                         dispatch(setResetTrue())
 
                         dispatch(resetWeeks())
-                        
+                        dispatch(resetCurrentWeek())
+
                         setTimeout(() => {
                             dispatch(resetHabit())
                         }, 600)
-                        clearData(navigation, setCurrentWeek)
+
+                        setTimeout(() => {
+                            navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
+                        }, 200)
                     },
                     style: "destructive"
                 },

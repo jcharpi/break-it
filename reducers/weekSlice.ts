@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-export interface Weeks {
-    [key: string]: string
-}
+export type Weeks = {
+    [key: string]: string;
+};
 
 export interface WeekState {
     value: Weeks
@@ -14,7 +14,7 @@ const initialState: WeekState = {
 }
 
 export const weekSlice = createSlice({
-    name: "summaryModalVisible",
+    name: "weekSlice",
     initialState,
     reducers: {
         setWeeks: (state, action: PayloadAction<Weeks>) => {

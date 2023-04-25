@@ -10,7 +10,7 @@ const DAYS_IN_WEEK = 7
 // Sets 9 weeks from current date
 export const calculateWeeks = (currentDate: Date) => {
     const millisecondsInWeek =
-      MILLISECONDS_IN_SECOND * 20
+      MILLISECONDS_IN_SECOND * 5
       // * 
       // SECONDS_IN_MINUTE *
       // MINUTES_IN_HOUR *
@@ -33,7 +33,7 @@ export const calculateWeeks = (currentDate: Date) => {
 
 // Calculate week that should be used based on current date to compare w/ last stored current week
 export const calculateCurrentWeek = (weeks: Weeks, currDate: Date) => {
-  let lastWeekKey = undefined
+  let lastWeekKey: string = ""
   Object.keys(weeks).forEach((week) => {
     if (currDate >= new Date(weeks[week])) {
       lastWeekKey = week
@@ -58,23 +58,5 @@ export const getWeekNumber = (currentWeek: string) => {
 }
 
 
-//setOccurrences: any,
-export const clearData = async (navigation: any, setCurrentWeek: any) => {
-    try {
-        await AsyncStorage.removeItem('currentWeek')
-        
-        // Navigate with delay for better visual experience
-        setTimeout(() => {
-            navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
-        }, 200)
-        
 
-        setTimeout(() => {
-          setCurrentWeek('')
-        }, 400)
-
-    } catch (error) {
-        console.log(error)
-    }
-}
 

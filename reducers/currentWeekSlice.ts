@@ -1,35 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-export enum CurrentWeeks {
-    WEEK_0 = "week0",
-    WEEK_1 = "week1",
-    WEEK_2 = "week2",
-    WEEK_3 = "week3",
-    WEEK_4 = "week4",
-    WEEK_5 = "week5",
-    WEEK_6 = "week6",
-    WEEK_7 = "week7",
-    WEEK_8 = "week8",
-    WEEK_9 = "week9",
-}
-
 export interface CurrentWeekState {
-  value: CurrentWeeks
+  value: string
 }
 
 const initialState: CurrentWeekState = {
-  value: CurrentWeeks.WEEK_0
+  value: ""
 }
 
 export const currentWeekSlice = createSlice({
-  name: "occurrences",
+  name: "currentWeek",
   initialState,
   reducers: {
     resetCurrentWeek: (state) => {
-      state.value = CurrentWeeks.WEEK_0
+      state.value = ""
     },
-    setCurrentWeek: (state, action: PayloadAction<CurrentWeeks>) => {
+    setCurrentWeek: (state, action: PayloadAction<string>) => {
       state.value = action.payload
     }
   },

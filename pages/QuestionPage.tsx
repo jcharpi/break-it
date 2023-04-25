@@ -8,9 +8,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 // CUSTOM COMPONENTS
 import CustomSlider from "../components/CustomSlider"
 
-// CONTEXTS
-import CurrentWeekContext from "../contexts/CurrentWeekContext"
-
 // BACKEND FUNCTIONS
 import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../backendFunctions"
 
@@ -26,6 +23,7 @@ import { Weeks, selectWeeks, setWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
+import { setCurrentWeek } from "../reducers/currentWeekSlice"
 
 
 function QuestionPage({ navigation }: any) {
@@ -33,7 +31,6 @@ function QuestionPage({ navigation }: any) {
     const habit = useAppSelector(selectHabit)
     const firstLoad = useAppSelector(selectFirstLoad)
     const reset = useAppSelector(selectReset)
-    const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
 
@@ -121,17 +118,6 @@ function QuestionPage({ navigation }: any) {
         setGoal(value)
     }
 
-    // BUTTON FUNCTIONS
-    const storeData = async (currWeek: any) => {
-        try {
-            await AsyncStorage.setItem("currentWeek", currWeek)
-            //await AsyncStorage.setItem("firstLoad", "false")
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-
     function buttonHandler() {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
 
@@ -148,11 +134,8 @@ function QuestionPage({ navigation }: any) {
             Alert.alert("Please set a first goal.")
         } else {
             // Begin habit button was pressed => set data
-            setCurrentWeek(currWeek)
-            console.log(calculatedWeeks)
-            console.log(JSON.stringify(calculatedWeeks))
+            dispatch(setCurrentWeek(currWeek))
             dispatch(setWeeks(calculatedWeeks))
-            storeData(currWeek)
             dispatch(setGoalDecrement(goalDecrement))
             dispatch(setInactiveSlider())
             dispatch(setResetFalse())
