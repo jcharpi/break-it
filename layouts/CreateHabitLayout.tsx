@@ -1,5 +1,4 @@
 // REACT HOOKS & COMPONENTS
-import { useContext } from "react"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 import Icon from "react-native-vector-icons/Ionicons"
 

@@ -6,7 +6,6 @@ import * as Haptics from 'expo-haptics'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
-import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
 // BACKEND FUNCTIONS

@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 import achievementSlice from "../reducers/achievementSlice"
 import activeSliderSlice from "../reducers/activeSliderSlice"
+import currentWeekSlice from "../reducers/currentWeekSlice"
 import firstLoadSlice from "../reducers/firstLoadSlice"
 import goalDecrementSlice from "../reducers/goalDecrementSlice"
 import habitSlice from "../reducers/habitSlice"
@@ -23,6 +24,7 @@ import { persistStore, persistReducer, FLUSH,
 const rootReducer = combineReducers({
   achievements: achievementSlice,
   activeSlider: activeSliderSlice,
+  currentWeek: currentWeekSlice,
   firstLoad: firstLoadSlice,
   goalDecrement: goalDecrementSlice,
   habit: habitSlice,

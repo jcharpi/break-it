@@ -1,5 +1,4 @@
 // REACT HOOKS & COMPONENTS
-import { useState } from "react"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 
 // PAGES
