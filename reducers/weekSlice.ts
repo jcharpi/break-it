@@ -2,28 +2,28 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export type Weeks = {
-    [key: string]: string;
-};
+	[key: string]: string
+}
 
 export interface WeekState {
-    value: Weeks
+	value: Weeks
 }
 
 const initialState: WeekState = {
-    value: {}
+	value: {},
 }
 
 export const weekSlice = createSlice({
-    name: "weekSlice",
-    initialState,
-    reducers: {
-        setWeeks: (state, action: PayloadAction<Weeks>) => {
-            state.value = action.payload
-        },
-        resetWeeks: (state) => {
-            state.value = {}
-        },
-    },
+	name: "weekSlice",
+	initialState,
+	reducers: {
+		setWeeks: (state, action: PayloadAction<Weeks>) => {
+			state.value = action.payload
+		},
+		resetWeeks: (state) => {
+			state.value = {}
+		},
+	},
 })
 
 export const { resetWeeks, setWeeks } = weekSlice.actions

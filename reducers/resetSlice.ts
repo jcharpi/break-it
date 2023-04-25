@@ -2,24 +2,24 @@ import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export interface ResetState {
-  value: boolean
+	value: boolean
 }
 
 const initialState: ResetState = {
-  value: false,
+	value: false,
 }
 
 export const resetSlice = createSlice({
-  name: "reset",
-  initialState,
-  reducers: {
-    setResetFalse: (state) => {
-        state.value = false
-    },
-    setResetTrue: (state) => {
-        state.value = true
-    }
-  },
+	name: "reset",
+	initialState,
+	reducers: {
+		setResetFalse: (state) => {
+			state.value = false
+		},
+		setResetTrue: (state) => {
+			state.value = true
+		},
+	},
 })
 
 export const { setResetFalse, setResetTrue } = resetSlice.actions

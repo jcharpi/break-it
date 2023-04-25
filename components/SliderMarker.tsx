@@ -6,6 +6,5 @@ import { View } from "react-native"
 import styles from "../styles"
 
 export default function SliderMarker() {
-  return <View style={styles.markerContainer}/>
+	return <View style={styles.markerContainer} />
 }
-

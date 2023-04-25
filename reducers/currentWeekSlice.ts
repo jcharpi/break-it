@@ -2,24 +2,24 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export interface CurrentWeekState {
-  value: string
+	value: string
 }
 
 const initialState: CurrentWeekState = {
-  value: ""
+	value: "",
 }
 
 export const currentWeekSlice = createSlice({
-  name: "currentWeek",
-  initialState,
-  reducers: {
-    resetCurrentWeek: (state) => {
-      state.value = ""
-    },
-    setCurrentWeek: (state, action: PayloadAction<string>) => {
-      state.value = action.payload
-    }
-  },
+	name: "currentWeek",
+	initialState,
+	reducers: {
+		resetCurrentWeek: (state) => {
+			state.value = ""
+		},
+		setCurrentWeek: (state, action: PayloadAction<string>) => {
+			state.value = action.payload
+		},
+	},
 })
 
 export const { resetCurrentWeek, setCurrentWeek } = currentWeekSlice.actions

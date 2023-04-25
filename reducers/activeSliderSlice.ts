@@ -2,24 +2,24 @@ import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export interface ActiveSliderState {
-  value: boolean
+	value: boolean
 }
 
 const initialState: ActiveSliderState = {
-  value: false,
+	value: false,
 }
 
 export const activeSliderSlice = createSlice({
-  name: "activeSlider",
-  initialState,
-  reducers: {
-    setActiveSlider: (state) => {
-      state.value = true
-    },
-    setInactiveSlider: (state) => {
-      state.value = false
-    }
-  },
+	name: "activeSlider",
+	initialState,
+	reducers: {
+		setActiveSlider: (state) => {
+			state.value = true
+		},
+		setInactiveSlider: (state) => {
+			state.value = false
+		},
+	},
 })
 
 export const { setActiveSlider, setInactiveSlider } = activeSliderSlice.actions

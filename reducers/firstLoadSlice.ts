@@ -2,21 +2,21 @@ import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export interface FirstLoadSliceState {
-  value: boolean
+	value: boolean
 }
 
 const initialState: FirstLoadSliceState = {
-  value: true,
+	value: true,
 }
 
 export const firstLoadSliderSlice = createSlice({
-  name: "firstLoad",
-  initialState,
-  reducers: {
-    setPreviouslyLoaded: (state) => {
-      state.value = false
-    },
-  },
+	name: "firstLoad",
+	initialState,
+	reducers: {
+		setPreviouslyLoaded: (state) => {
+			state.value = false
+		},
+	},
 })
 
 export const { setPreviouslyLoaded } = firstLoadSliderSlice.actions

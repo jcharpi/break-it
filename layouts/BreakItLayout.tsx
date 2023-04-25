@@ -16,50 +16,43 @@ import { selectHabit } from "../reducers/habitSlice"
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
-    const habit = useAppSelector(selectHabit)
+	const habit = useAppSelector(selectHabit)
 
-    // CONTEXTS
-    const [initialRouteName, setInitialRouteName] = useState("")
+	// CONTEXTS
+	const [initialRouteName, setInitialRouteName] = useState("")
 
-    useEffect(() => {
-        const getInitialRouteName = async () => {
-        const habitExists = habit.habitName === "" ? false : true
-        if (habitExists) {
-            setInitialRouteName("TrackHabitLayout")
-        } else {
-            setInitialRouteName("CreateHabitLayout")
-        }
-        }
+	useEffect(() => {
+		const getInitialRouteName = async () => {
+			const habitExists = habit.habitName === "" ? false : true
 
-        getInitialRouteName()
-    }, [])
+			if (habitExists) {
+				setInitialRouteName("TrackHabitLayout")
+			} else {
+				setInitialRouteName("CreateHabitLayout")
+			}
+		}
 
-    if (!initialRouteName) {
-    return <ActivityIndicator animating={true} color={"white"}/>
-    }
+		getInitialRouteName()
+	}, [])
 
-    return (
-      <NavigationContainer>
-        <Stack.Navigator 
-          initialRouteName={initialRouteName}
-          screenOptions={{
-            headerShown: false,
-            animation: "fade",
-            animationDuration: 500,
-            gestureEnabled: false,
-          }}
-        >
-          <Stack.Screen 
-            name="CreateHabitLayout" 
-            component={CreateHabitLayout} 
-          />
-          <Stack.Screen 
-            name="TrackHabitLayout" 
-            component={TrackHabitLayout}  
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
+	if (!initialRouteName) {
+		return <ActivityIndicator animating={true} color={"white"} />
+	}
+
+	return (
+		<NavigationContainer>
+			<Stack.Navigator
+				initialRouteName={initialRouteName}
+				screenOptions={{
+					headerShown: false,
+					animation: "fade",
+					animationDuration: 500,
+					gestureEnabled: false,
+				}}
+			>
+				<Stack.Screen name="CreateHabitLayout" component={CreateHabitLayout} />
+				<Stack.Screen name="TrackHabitLayout" component={TrackHabitLayout} />
+			</Stack.Navigator>
+		</NavigationContainer>
+	)
 }
-
-

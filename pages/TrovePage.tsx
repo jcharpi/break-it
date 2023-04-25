@@ -1,6 +1,5 @@
 // REACT COMPONENTS & HOOKS
 import { View, ScrollView, Text } from "react-native"
-import { useContext } from "react"
 
 // CUSTOM COMPONENTS
 import Achievement from "../components/Achievement"
@@ -14,37 +13,43 @@ import { selectAchievements } from "../reducers/achievementSlice"
 import styles from "../styles"
 
 interface Achievement {
-    gem: "silver" | "gold" | "diamond"
-    habitName: string
+	gem: "silver" | "gold" | "diamond"
+	habitName: string
 }
 
 export default function TrovePage({ navigation }: any) {
-    const achievements = useAppSelector(selectAchievements)
+	const achievements = useAppSelector(selectAchievements)
 
-    function handleBack() {
-        navigation.navigate("ProgressPage")
-    }
+	function handleBack() {
+		navigation.navigate("ProgressPage")
+	}
 
-    return (
-        <View style={styles.troveContainer}>
-            <NavBar 
-                handleLeftIcon={handleBack}
-                leftIconName={"chevron-left"} 
-                title="Trove"
-            />
-            {achievements.length === 0 && <Text style={styles.troveBody}>No treasure here yet!</Text>}
+	return (
+		<View style={styles.troveContainer}>
+			<NavBar
+				handleLeftIcon={handleBack}
+				leftIconName={"chevron-left"}
+				title="Trove"
+			/>
+			{achievements.length === 0 && (
+				<Text style={styles.troveBody}>No treasure here yet!</Text>
+			)}
 
-            <ScrollView showsVerticalScrollIndicator={false} alwaysBounceVertical={false} contentContainerStyle={styles.troveAchievementList}>
-                {achievements.map((achievement: Achievement, index: number) => {
-                    return (
-                        <Achievement 
-                            key={achievement.habitName + index}
-                            gem={achievement.gem}
-                            habitName={achievement.habitName}
-                        />
-                    )
-                })}
-            </ScrollView>
-        </View>
-    )
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+				alwaysBounceVertical={false}
+				contentContainerStyle={styles.troveAchievementList}
+			>
+				{achievements.map((achievement: Achievement, index: number) => {
+					return (
+						<Achievement
+							key={achievement.habitName + index}
+							gem={achievement.gem}
+							habitName={achievement.habitName}
+						/>
+					)
+				})}
+			</ScrollView>
+		</View>
+	)
 }

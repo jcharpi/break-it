@@ -11,35 +11,34 @@ import diamond from "../images/diamond.png"
 import styles from "../styles"
 
 interface Props {
-    gem: string
-    habitName: string
+	gem: string
+	habitName: string
 }
 
 function Achievement(props: Props) {
+	function getGemImage() {
+		switch (props.gem) {
+			case "silver":
+				return silver
+			case "gold":
+				return gold
+			case "diamond":
+				return diamond
+			default:
+				return silver
+		}
+	}
 
-    function getGemImage() {
-        switch (props.gem) {
-            case "silver":
-                return silver
-            case "gold":
-                return gold
-            case "diamond":
-                return diamond
-            default:
-                return silver
-        }
-    }
-
-    return (
-        <View style={styles.achievementContainer}>
-            <Image 
-                source={getGemImage()} 
-                style={styles.gemImage} 
-                resizeMode="contain" 
-            />
-            <Text style={styles.achievementBody}>{props.habitName}</Text>
-        </View>
-    )
+	return (
+		<View style={styles.achievementContainer}>
+			<Image
+				source={getGemImage()}
+				style={styles.gemImage}
+				resizeMode="contain"
+			/>
+			<Text style={styles.achievementBody}>{props.habitName}</Text>
+		</View>
+	)
 }
 
 export default memo(Achievement)
