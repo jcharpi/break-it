@@ -6,7 +6,7 @@ export interface SummaryModalVisibleSliceState {
 }
 
 const initialState: SummaryModalVisibleSliceState = {
-  value: false,
+  value: false
 }
 
 export const summaryModalVisibleSlice = createSlice({

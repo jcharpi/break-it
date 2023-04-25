@@ -8,6 +8,7 @@ import helpModalVisibleSlice from "../reducers/helpModalVisibleSlice"
 import occurrenceSlice from "../reducers/occurrenceSlice"
 import resetSlice from "../reducers/resetSlice"
 import summaryModalVisibleSlice from "../reducers/summaryModalVisibleSlice"
+import weekSlice from "../reducers/weekSlice"
 
 import { combineReducers } from '@reduxjs/toolkit'
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   occurrences: occurrenceSlice,
   reset: resetSlice,
   summaryModalVisible: summaryModalVisibleSlice,
+  weeks: weekSlice
 })
 
 const persistConfig = {

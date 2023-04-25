@@ -2,19 +2,19 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export enum Gem {
-    SILVER = "silver",
-    GOLD = "gold",
-    DIAMOND = "diamond",
+  SILVER = "silver",
+  GOLD = "gold",
+  DIAMOND = "diamond",
 }
 
 export interface Habit {
-    gem: Gem
-    goal: number
-    habitName: string
+  gem: Gem
+  goal: number
+  habitName: string
 }
 
 export interface HabitState {
-    value: Habit
+  value: Habit
 }
 
 const initialState: HabitState = {
