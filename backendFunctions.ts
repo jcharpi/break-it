@@ -62,7 +62,7 @@ export const getWeekNumber = (currentWeek: string) => {
 
 
 //setOccurrences: any,
-export const clearData = async (navigation: any, setHabit: any, setWeeks: any, setCurrentWeek: any) => {
+export const clearData = async (navigation: any, setWeeks: any, setCurrentWeek: any) => {
     try {
         await AsyncStorage.removeItem('habit')
         await AsyncStorage.removeItem('weeks')
@@ -74,16 +74,7 @@ export const clearData = async (navigation: any, setHabit: any, setWeeks: any, s
         setTimeout(() => {
             navigation.navigate('CreateHabitLayout', { screen: 'EnterHabitPage' })
         }, 200)
-
-        // Clearing habit with delay prevents habit title from visually 
-        // disappering before going to EnterHabitPage
-        setTimeout(() => {
-            setHabit({
-                gem: "silver",
-                goal: 0,  
-                habitName: "",
-            })
-        }, 310)
+        
 
         setWeeks({})
         setTimeout(() => {

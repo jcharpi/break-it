@@ -10,7 +10,6 @@ import CustomSlider from "../components/CustomSlider"
 
 // CONTEXTS
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-import HabitContext from "../contexts/HabitContext"
 
 // BACKEND FUNCTIONS
 import { calculateWeeks, calculateCurrentWeek, getPerWeekDecrement } from "../backendFunctions"
@@ -20,27 +19,23 @@ import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
 import { selectFirstLoad, setPreviouslyLoaded } from "../reducers/firstLoadSlice"
 import { setGoalDecrement } from "../reducers/goalDecrementSlice"
+import { Habit, selectHabit, setHabit } from "../reducers/habitSlice"
 import { selectReset, setResetFalse } from "../reducers/resetSlice"
 
 // STYLE
 import styles from "../styles"
 
+import { Gem } from "../reducers/habitSlice"
 
 function QuestionPage({ navigation }: any) {
-    interface Habit {
-        habitName: string,
-        gem: string,
-        goal: number,
-    }
-
     // CONTEXTS
 
     const dispatch = useAppDispatch()
+    const habit = useAppSelector(selectHabit)
     const firstLoad = useAppSelector(selectFirstLoad)
     const reset = useAppSelector(selectReset)
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [habit, setHabit] = useContext(HabitContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
 
@@ -62,10 +57,14 @@ function QuestionPage({ navigation }: any) {
 
     // Update gem val based on slider values
     useEffect(() => {
-        setHabit((prev: any) => ({
-            ...prev,
-            gem: gemVal < 3 ? "silver" : gemVal > 5 ? "diamond" : "gold"
-          }))
+        const updatedGemHabit = (prev: Habit) => {
+            return {
+                ...prev,
+                gem: gemVal < 3 ? Gem.SILVER : (gemVal > 5 ? Gem.DIAMOND : Gem.GOLD)
+                
+            }
+        }
+        dispatch(setHabit(updatedGemHabit(habit)))
     }, [gemVal])
     
     // reset slider on reset state
@@ -108,12 +107,13 @@ function QuestionPage({ navigation }: any) {
 
     // UPDATE HABIT STATE VAR
     function slidersComplete(value: number) {
-        setHabit((prev: any) => {
+        const updatedGoalHabit = (prev: Habit) => {
             return {
                 ...prev,
                 goal: value
             }
-        })
+        }
+        dispatch(setHabit(updatedGoalHabit(habit)))
         sliderFeedback()
         dispatch(setInactiveSlider())
     }
@@ -124,18 +124,12 @@ function QuestionPage({ navigation }: any) {
     }
 
     // BUTTON FUNCTIONS
-    const storeData = async (habit: Habit, weeks: object, currWeek: any, goalDecrement: number) => {
+    const storeData = async (weeks: object, currWeek: any) => {
         try {
-            const jsonHabit = JSON.stringify(habit)
-            await AsyncStorage.setItem("habit", jsonHabit)
-
             const jsonWeek = JSON.stringify(weeks)
             await AsyncStorage.setItem("weeks", jsonWeek)
             
             await AsyncStorage.setItem("currentWeek", currWeek)
-
-            await AsyncStorage.setItem("goalDecrement", goalDecrement.toString())
-
             //await AsyncStorage.setItem("firstLoad", "false")
         } catch (error) {
             console.log(error)
@@ -160,7 +154,7 @@ function QuestionPage({ navigation }: any) {
         } else {
             // Begin habit button was pressed => set data
             setCurrentWeek(currWeek)
-            storeData(habit, calculatedWeeks, currWeek, goalDecrement)
+            storeData(calculatedWeeks, currWeek)
             dispatch(setGoalDecrement(goalDecrement))
             dispatch(setInactiveSlider())
             dispatch(setResetFalse())

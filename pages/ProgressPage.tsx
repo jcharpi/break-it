@@ -13,7 +13,6 @@ import rockImage from "../images/rock.png"
 
 // CONTEXTS
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-import HabitContext from "../contexts/HabitContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 
 // PAGES
@@ -23,6 +22,7 @@ import HelpPage from "./HelpPage"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { addAchievement } from "../reducers/achievementSlice"
 import { resetGoalDecrement, selectGoalDecrement } from "../reducers/goalDecrementSlice"
+import { resetHabit, selectHabit } from "../reducers/habitSlice"
 import { selectHelpModalVisible, setHelpModalInvisible, toggleHelpModalVisible } from "../reducers/helpModalVisibleSlice"
 import { resetOccurrences } from "../reducers/occurrenceSlice"
 import { setResetTrue } from "../reducers/resetSlice"
@@ -37,12 +37,12 @@ import { calculateCurrentWeek, calculateGoal, getWeekNumber, clearData } from ".
 export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
     const dispatch = useAppDispatch()
+    const habit = useAppSelector(selectHabit)
     const goalDecrement = useAppSelector(selectGoalDecrement)
     const helpModalVisible = useAppSelector(selectHelpModalVisible)
     const summaryModalVisible = useAppSelector(selectSummaryModalVisible)
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [habit, setHabit] = useContext(HabitContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
     // CUSTOM FUNCTIONS
@@ -63,19 +63,14 @@ export default function ProgressPage({ navigation }: any) {
         navigation.navigate("TrovePage")
     }
 
-    const resetHabit = async () => {
+    const prepareNewHabit = async () => {
         const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
-        // try {
-        //     const jsonAchievements = JSON.stringify(newAchievements)
-        //     await AsyncStorage.setItem("achievements", jsonAchievements)
-        //   } catch (error) {
-        //     console.log(error)
-        // }
         dispatch(addAchievement(newAchievement))
+        dispatch(resetHabit())
         dispatch(resetOccurrences())
         dispatch(resetGoalDecrement())
         dispatch(setResetTrue())
-        clearData(navigation, setHabit, setWeeks, setCurrentWeek)
+        clearData(navigation, setWeeks, setCurrentWeek)
     }
     
     // WEEK UPDATE
@@ -138,7 +133,7 @@ export default function ProgressPage({ navigation }: any) {
                     <HelpPage navigation={navigation} modalView={true} />
                 </Modal>
                 
-                <AddButton clearData={resetHabit}/>
+                <AddButton clearData={prepareNewHabit}/>
             </View>
         </View>
     )

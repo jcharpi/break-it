@@ -6,17 +6,13 @@ import { Provider } from "react-redux"
 import { persistor, store } from "./app/store"
 import BreakItLayout from "./layouts/BreakItLayout"
 import { PersistGate } from "redux-persist/integration/react"
-
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function App() {
   const theme = useTheme()
   theme.colors.secondaryContainer = "transparent"  
 
   return (
-    // <Provider store={store}>
-    //   <BreakItLayout/>
-    // </Provider>
-
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BreakItLayout/>

@@ -3,6 +3,7 @@ import achievementSlice from "../reducers/achievementSlice"
 import activeSliderSlice from "../reducers/activeSliderSlice"
 import firstLoadSlice from "../reducers/firstLoadSlice"
 import goalDecrementSlice from "../reducers/goalDecrementSlice"
+import habitSlice from "../reducers/habitSlice"
 import helpModalVisibleSlice from "../reducers/helpModalVisibleSlice"
 import occurrenceSlice from "../reducers/occurrenceSlice"
 import resetSlice from "../reducers/resetSlice"
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   activeSlider: activeSliderSlice,
   firstLoad: firstLoadSlice,
   goalDecrement: goalDecrementSlice,
+  habit: habitSlice,
   helpModalVisible: helpModalVisibleSlice,
   occurrences: occurrenceSlice,
   reset: resetSlice,

@@ -11,26 +11,19 @@ import TrackHabitLayout from "../layouts/TrackHabitLayout"
 
 // REDUX
 import { useAppSelector } from "../app/hooks"
-import { selectReset } from "../reducers/resetSlice"
+import { selectHabit } from "../reducers/habitSlice"
 
 // CONTEXTS
-import HabitContext from "../contexts/HabitContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
-
 
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
-    const reset = useAppSelector(selectReset)
+    const habit = useAppSelector(selectHabit)
 
     // CONTEXTS
     const [currentWeek, setCurrentWeek] = useState("")
-    const [habit, setHabit] = useState({
-        gem: "silver",
-        goal: 0,
-        habitName: ""
-    })
     const [initialRouteName, setInitialRouteName] = useState("")
     const [weeks, setWeeks] = useState({})
 
@@ -40,15 +33,6 @@ export default function BreakItLayout() {
         if (storedCurrentWeek !== null) {
             setCurrentWeek(storedCurrentWeek)
         }
-        } catch(error) {
-        console.log(error)
-        }
-    }
-
-    const getHabit = async () => {
-        try {
-        const storedHabit = await AsyncStorage.getItem("habit")
-        return storedHabit !== null ? (setHabit(JSON.parse(storedHabit)), true) : false
         } catch(error) {
         console.log(error)
         }
@@ -80,7 +64,7 @@ export default function BreakItLayout() {
 
     useEffect(() => {
         const getInitialRouteName = async () => {
-        const habitExists = await getHabit()
+        const habitExists = habit.habitName === "" ? false : true
         if (habitExists) {
             setInitialRouteName("TrackHabitLayout")
         } else {
@@ -98,30 +82,28 @@ export default function BreakItLayout() {
 
     return (
       <CurrentWeekContext.Provider value={[currentWeek, setCurrentWeek]}>
-        <HabitContext.Provider value={[habit, setHabit]}>
-          <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
-            <NavigationContainer>
-              <Stack.Navigator 
-                initialRouteName={initialRouteName}
-                screenOptions={{
-                  headerShown: false,
-                  animation: "fade",
-                  animationDuration: 500,
-                  gestureEnabled: false,
-                }}
-              >
-                <Stack.Screen 
-                  name="CreateHabitLayout" 
-                  component={CreateHabitLayout} 
-                />
-                <Stack.Screen 
-                  name="TrackHabitLayout" 
-                  component={TrackHabitLayout}  
-                />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </WeekLayoutContext.Provider>
-        </HabitContext.Provider>
+        <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
+          <NavigationContainer>
+            <Stack.Navigator 
+              initialRouteName={initialRouteName}
+              screenOptions={{
+                headerShown: false,
+                animation: "fade",
+                animationDuration: 500,
+                gestureEnabled: false,
+              }}
+            >
+              <Stack.Screen 
+                name="CreateHabitLayout" 
+                component={CreateHabitLayout} 
+              />
+              <Stack.Screen 
+                name="TrackHabitLayout" 
+                component={TrackHabitLayout}  
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </WeekLayoutContext.Provider>
       </CurrentWeekContext.Provider>
     )
 }

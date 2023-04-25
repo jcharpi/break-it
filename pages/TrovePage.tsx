@@ -14,7 +14,7 @@ import { selectAchievements } from "../reducers/achievementSlice"
 import styles from "../styles"
 
 interface Achievement {
-    gem: "silver" | "gold" | "diamond",
+    gem: "silver" | "gold" | "diamond"
     habitName: string
 }
 

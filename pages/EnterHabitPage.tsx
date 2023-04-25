@@ -1,17 +1,19 @@
 // REACT HOOKS & COMPONENTS
-import { memo, useContext } from "react"
+import { memo } from "react"
 import { Text, TextInput, SafeAreaView } from "react-native"
+
+// REDUX
+import { useAppDispatch, useAppSelector } from "../app/hooks"
+import { selectHabit, setHabit } from "../reducers/habitSlice"
+import { Habit } from "../reducers/habitSlice"
 
 // STYLE
 import styles from "../styles"
 
-// CONTEXTS
-import HabitContext from "../contexts/HabitContext"
 
 function EnterHabitPage({ navigation }: any) {
-    // CONTEXTS
-    const [habit, setHabit] = useContext(HabitContext)
-    
+    const dispatch = useAppDispatch()
+    const habit = useAppSelector(selectHabit)
     // EVENT FUNCTIONS
     const submitHabit = () => {
         navigation.navigate("QuestionPage")
@@ -19,12 +21,13 @@ function EnterHabitPage({ navigation }: any) {
 
 
     function changeHabitName (habitNameInput: string) {
-        setHabit((prev: any) => {
+        const updatedHabit = (prev: Habit) => {
             return {
                 ...prev,
                 habitName: habitNameInput
             }
-        })
+        }
+        dispatch(setHabit(updatedHabit(habit)))
     }
 
     return (

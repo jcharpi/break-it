@@ -242,7 +242,7 @@ export default StyleSheet.create({
         alignItems: "center",
         flexDirection: "column",
         gap: 60,
-        marginTop: "40%",
+        marginTop: "30%",
     },
     progressModalContainer: {
         alignItems: "center",

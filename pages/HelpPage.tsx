@@ -6,7 +6,6 @@ import * as Haptics from 'expo-haptics'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // CONTEXTS
-import HabitContext from "../contexts/HabitContext"
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
@@ -17,6 +16,7 @@ import { clearData } from "../backendFunctions"
 import { useAppDispatch } from "../app/hooks"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
 import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
+import { resetHabit } from "../reducers/habitSlice"
 import { setHelpModalInvisible } from "../reducers/helpModalVisibleSlice"
 import { resetOccurrences } from "../reducers/occurrenceSlice"
 import { setResetTrue } from "../reducers/resetSlice"
@@ -37,7 +37,6 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
     const dispatch = useAppDispatch()
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [habit, setHabit] = useContext(HabitContext)
     const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
@@ -61,8 +60,10 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 
                         dispatch(setInactiveSlider())
                         dispatch(setResetTrue())
-                        
-                        clearData(navigation, setHabit, setWeeks, setCurrentWeek)
+                        setTimeout(() => {
+                            dispatch(resetHabit())
+                        }, 600)
+                        clearData(navigation, setWeeks, setCurrentWeek)
                     },
                     style: "destructive"
                 },
