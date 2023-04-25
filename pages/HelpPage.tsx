@@ -21,6 +21,7 @@ import { setHelpModalInvisible } from "../reducers/helpModalVisibleSlice"
 import { resetOccurrences } from "../reducers/occurrenceSlice"
 import { setResetTrue } from "../reducers/resetSlice"
 import { setSummaryModalInvisible } from "../reducers/summaryModalVisibleSlice"
+import { resetWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
@@ -37,7 +38,6 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
     const dispatch = useAppDispatch()
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
 
@@ -60,10 +60,13 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 
                         dispatch(setInactiveSlider())
                         dispatch(setResetTrue())
+
+                        dispatch(resetWeeks())
+                        
                         setTimeout(() => {
                             dispatch(resetHabit())
                         }, 600)
-                        clearData(navigation, setWeeks, setCurrentWeek)
+                        clearData(navigation, setCurrentWeek)
                     },
                     style: "destructive"
                 },

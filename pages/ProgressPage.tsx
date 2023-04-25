@@ -27,6 +27,7 @@ import { selectHelpModalVisible, setHelpModalInvisible, toggleHelpModalVisible }
 import { resetOccurrences } from "../reducers/occurrenceSlice"
 import { setResetTrue } from "../reducers/resetSlice"
 import { selectSummaryModalVisible, setSummaryModalInvisible, setSummaryModalVisible } from "../reducers/summaryModalVisibleSlice"
+import { resetWeeks, selectWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
@@ -38,12 +39,13 @@ export default function ProgressPage({ navigation }: any) {
     // CONTEXTS
     const dispatch = useAppDispatch()
     const habit = useAppSelector(selectHabit)
+    const weeks = useAppSelector(selectWeeks)
+
     const goalDecrement = useAppSelector(selectGoalDecrement)
     const helpModalVisible = useAppSelector(selectHelpModalVisible)
     const summaryModalVisible = useAppSelector(selectSummaryModalVisible)
 
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
-    const [weeks, setWeeks] = useContext(WeekLayoutContext)
 
     // CUSTOM FUNCTIONS
     const currWeekCheck = calculateCurrentWeek(weeks, new Date())
@@ -70,7 +72,8 @@ export default function ProgressPage({ navigation }: any) {
         dispatch(resetOccurrences())
         dispatch(resetGoalDecrement())
         dispatch(setResetTrue())
-        clearData(navigation, setWeeks, setCurrentWeek)
+        dispatch(resetWeeks())
+        clearData(navigation, setCurrentWeek)
     }
     
     // WEEK UPDATE

@@ -10,8 +10,9 @@ import CreateHabitLayout from "../layouts/CreateHabitLayout"
 import TrackHabitLayout from "../layouts/TrackHabitLayout"
 
 // REDUX
-import { useAppSelector } from "../app/hooks"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectHabit } from "../reducers/habitSlice"
+import { setWeeks } from "../reducers/weekSlice"
 
 // CONTEXTS
 import WeekLayoutContext from "../contexts/WeekLayoutContext"
@@ -20,12 +21,12 @@ import CurrentWeekContext from "../contexts/CurrentWeekContext"
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
+    const dispatch = useAppDispatch()
     const habit = useAppSelector(selectHabit)
 
     // CONTEXTS
     const [currentWeek, setCurrentWeek] = useState("")
     const [initialRouteName, setInitialRouteName] = useState("")
-    const [weeks, setWeeks] = useState({})
 
     const getCurrentWeek = async () => {
         try {
@@ -38,28 +39,27 @@ export default function BreakItLayout() {
         }
     }
 
-    const getWeeks = async () => {
-        try {
-        const storedWeeks = await AsyncStorage.getItem("weeks")
+    // const getWeeks = async () => {
+    //     try {
+    //     const storedWeeks = await AsyncStorage.getItem("weeks")
 
-        if (storedWeeks !== null) {
-            const parsedWeeks = JSON.parse(storedWeeks, (key, value) => {
-            if (typeof value === "string" && key.startsWith("week")) {
-                return new Date(value)
-            }
-            return value
-            })
+    //     if (storedWeeks !== null) {
+    //         const parsedWeeks = JSON.parse(storedWeeks, (key, value) => {
+    //         if (typeof value === "string" && key.startsWith("week")) {
+    //             return new Date(value)
+    //         }
+    //         return value
+    //         })
 
-            setWeeks(parsedWeeks)
-        }
-        } catch(error) {
-        console.log(error)
-        }
-    }
+    //         dispatch(setWeeks(parsedWeeks))
+    //     }
+    //     } catch(error) {
+    //     console.log(error)
+    //     }
+    // }
 
     const getAsyncData = () => {
         getCurrentWeek()
-        getWeeks()
     }
 
     useEffect(() => {
@@ -82,28 +82,26 @@ export default function BreakItLayout() {
 
     return (
       <CurrentWeekContext.Provider value={[currentWeek, setCurrentWeek]}>
-        <WeekLayoutContext.Provider value={[weeks, setWeeks]}>
-          <NavigationContainer>
-            <Stack.Navigator 
-              initialRouteName={initialRouteName}
-              screenOptions={{
-                headerShown: false,
-                animation: "fade",
-                animationDuration: 500,
-                gestureEnabled: false,
-              }}
-            >
-              <Stack.Screen 
-                name="CreateHabitLayout" 
-                component={CreateHabitLayout} 
-              />
-              <Stack.Screen 
-                name="TrackHabitLayout" 
-                component={TrackHabitLayout}  
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </WeekLayoutContext.Provider>
+        <NavigationContainer>
+          <Stack.Navigator 
+            initialRouteName={initialRouteName}
+            screenOptions={{
+              headerShown: false,
+              animation: "fade",
+              animationDuration: 500,
+              gestureEnabled: false,
+            }}
+          >
+            <Stack.Screen 
+              name="CreateHabitLayout" 
+              component={CreateHabitLayout} 
+            />
+            <Stack.Screen 
+              name="TrackHabitLayout" 
+              component={TrackHabitLayout}  
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </CurrentWeekContext.Provider>
     )
 }

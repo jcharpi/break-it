@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export interface Weeks {
-    [key: string]: Date
+    [key: string]: string
 }
 
 export interface WeekState {

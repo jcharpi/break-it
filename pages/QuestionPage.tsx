@@ -19,22 +19,20 @@ import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
 import { selectFirstLoad, setPreviouslyLoaded } from "../reducers/firstLoadSlice"
 import { setGoalDecrement } from "../reducers/goalDecrementSlice"
+import { Gem } from "../reducers/habitSlice"
 import { Habit, selectHabit, setHabit } from "../reducers/habitSlice"
 import { selectReset, setResetFalse } from "../reducers/resetSlice"
+import { Weeks, selectWeeks, setWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
 
-import { Gem } from "../reducers/habitSlice"
 
 function QuestionPage({ navigation }: any) {
-    // CONTEXTS
-
     const dispatch = useAppDispatch()
     const habit = useAppSelector(selectHabit)
     const firstLoad = useAppSelector(selectFirstLoad)
     const reset = useAppSelector(selectReset)
-
     const [currentWeek, setCurrentWeek] = useContext(CurrentWeekContext)
 
     const [buttonPressed, setButtonPressed] = useState(false)
@@ -124,11 +122,8 @@ function QuestionPage({ navigation }: any) {
     }
 
     // BUTTON FUNCTIONS
-    const storeData = async (weeks: object, currWeek: any) => {
+    const storeData = async (currWeek: any) => {
         try {
-            const jsonWeek = JSON.stringify(weeks)
-            await AsyncStorage.setItem("weeks", jsonWeek)
-            
             await AsyncStorage.setItem("currentWeek", currWeek)
             //await AsyncStorage.setItem("firstLoad", "false")
         } catch (error) {
@@ -154,10 +149,14 @@ function QuestionPage({ navigation }: any) {
         } else {
             // Begin habit button was pressed => set data
             setCurrentWeek(currWeek)
-            storeData(calculatedWeeks, currWeek)
+            console.log(calculatedWeeks)
+            console.log(JSON.stringify(calculatedWeeks))
+            dispatch(setWeeks(calculatedWeeks))
+            storeData(currWeek)
             dispatch(setGoalDecrement(goalDecrement))
             dispatch(setInactiveSlider())
             dispatch(setResetFalse())
+
             navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 
             setTimeout(() => {
