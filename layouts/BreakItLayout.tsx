@@ -10,18 +10,15 @@ import CreateHabitLayout from "../layouts/CreateHabitLayout"
 import TrackHabitLayout from "../layouts/TrackHabitLayout"
 
 // REDUX
-import { useAppDispatch, useAppSelector } from "../app/hooks"
+import { useAppSelector } from "../app/hooks"
 import { selectHabit } from "../reducers/habitSlice"
-import { setWeeks } from "../reducers/weekSlice"
 
 // CONTEXTS
-import WeekLayoutContext from "../contexts/WeekLayoutContext"
 import CurrentWeekContext from "../contexts/CurrentWeekContext"
 
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
-    const dispatch = useAppDispatch()
     const habit = useAppSelector(selectHabit)
 
     // CONTEXTS
@@ -38,25 +35,6 @@ export default function BreakItLayout() {
         console.log(error)
         }
     }
-
-    // const getWeeks = async () => {
-    //     try {
-    //     const storedWeeks = await AsyncStorage.getItem("weeks")
-
-    //     if (storedWeeks !== null) {
-    //         const parsedWeeks = JSON.parse(storedWeeks, (key, value) => {
-    //         if (typeof value === "string" && key.startsWith("week")) {
-    //             return new Date(value)
-    //         }
-    //         return value
-    //         })
-
-    //         dispatch(setWeeks(parsedWeeks))
-    //     }
-    //     } catch(error) {
-    //     console.log(error)
-    //     }
-    // }
 
     const getAsyncData = () => {
         getCurrentWeek()
