@@ -124,7 +124,7 @@ export default function ProgressPage({ navigation }: any) {
                         </Pressable>
 
                     </Modal>
-                    <Image source={rockImage}/>
+                    <Image style={styles.progressRock} source={rockImage}/>
                 </Pressable>
 
                 {/* WHAT NOW MODAL */}
