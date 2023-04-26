@@ -14,7 +14,7 @@ import styles from "../styles"
 
 interface SliderProps {
 	maximumValue: number
-	onValueChange: any
+	onValueChange: (value: number) => void
 	onSlidingComplete?: any
 	trackMarks: number[]
 }

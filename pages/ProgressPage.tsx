@@ -93,7 +93,7 @@ export default function ProgressPage({ navigation }: any) {
 		}, 200)
 		setTimeout(() => {
 			dispatch(resetHabit())
-		}, 400)
+		}, 300)
 	}
 
 	// WEEK UPDATE
