@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-interface OccurrenceState {
+export interface OccurrenceState {
 	value: number
 }
 

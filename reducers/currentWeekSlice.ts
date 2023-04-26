@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-interface CurrentWeekState {
+export interface CurrentWeekState {
 	value: string
 }
 

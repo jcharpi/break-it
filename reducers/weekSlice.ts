@@ -5,7 +5,7 @@ export type Weeks = {
 	[key: string]: string
 }
 
-interface WeekState {
+export interface WeekState {
 	value: Weeks
 }
 

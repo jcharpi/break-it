@@ -13,7 +13,7 @@ export interface Habit {
 	habitName: string
 }
 
-interface HabitState {
+export interface HabitState {
 	value: Habit
 }
 

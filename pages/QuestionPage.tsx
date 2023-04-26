@@ -192,7 +192,7 @@ function QuestionPage({ navigation }: any) {
 				onValueChange={changeGoal}
 				maximumValue={100}
 				trackMarks={[0, 100]}
-				onSlidingComplete={() => slidersComplete}
+				onSlidingComplete={slidersComplete}
 			/>
 
 			<Button

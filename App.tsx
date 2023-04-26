@@ -9,7 +9,7 @@ import { PersistGate } from "redux-persist/integration/react"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-function App() {
+export default function App() {
 	const theme = useTheme()
 	theme.colors.secondaryContainer = "transparent"
 

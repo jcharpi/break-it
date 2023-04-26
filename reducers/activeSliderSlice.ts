@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-interface ActiveSliderState {
+export interface ActiveSliderState {
 	value: boolean
 }
 

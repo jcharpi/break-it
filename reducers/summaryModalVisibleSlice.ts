@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-interface SummaryModalVisibleSliceState {
+export interface SummaryModalVisibleSliceState {
 	value: boolean
 }
 
