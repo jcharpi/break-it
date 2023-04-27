@@ -21,6 +21,6 @@ export const firstLoadSliderSlice = createSlice({
 
 export const { setPreviouslyLoaded } = firstLoadSliderSlice.actions
 
-export const selectFirstLoad = (state: RootState) => state.firstLoad.value
+export const selectFirstLoad = (state: RootState) => state.firstLoadSlice.value
 
 export default firstLoadSliderSlice.reducer

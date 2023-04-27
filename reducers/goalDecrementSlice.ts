@@ -26,6 +26,6 @@ export const { setGoalDecrement, resetGoalDecrement } =
 	goalDecrementSlice.actions
 
 export const selectGoalDecrement = (state: RootState) =>
-	state.goalDecrement.value
+	state.goalDecrementSlice.value
 
 export default goalDecrementSlice.reducer

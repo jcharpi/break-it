@@ -28,6 +28,6 @@ export const weekSlice = createSlice({
 
 export const { resetWeeks, setWeeks } = weekSlice.actions
 
-export const selectWeeks = (state: RootState) => state.weeks.value
+export const selectWeeks = (state: RootState) => state.weekSlice.value
 
 export default weekSlice.reducer

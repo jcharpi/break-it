@@ -27,17 +27,14 @@ import {
 } from "../reducers/goalDecrementSlice"
 import { resetHabit, selectHabit } from "../reducers/habitSlice"
 import {
-	selectHelpModalVisible,
+	selectModalVisible,
 	setHelpModalInvisible,
 	toggleHelpModalVisible,
-} from "../reducers/helpModalVisibleSlice"
-import { resetOccurrences } from "../reducers/occurrenceSlice"
-import { setResetTrue } from "../reducers/resetSlice"
-import {
-	selectSummaryModalVisible,
 	setSummaryModalInvisible,
 	setSummaryModalVisible,
-} from "../reducers/summaryModalVisibleSlice"
+} from "../reducers/modalVisibleSlice"
+import { resetOccurrences } from "../reducers/occurrenceSlice"
+import { setResetTrue } from "../reducers/resetSlice"
 import { resetWeeks, selectWeeks } from "../reducers/weekSlice"
 
 // STYLE
@@ -56,8 +53,7 @@ export default function ProgressPage({ navigation }: any) {
 	const currentWeek = useAppSelector(selectCurrentWeek)
 	const goalDecrement = useAppSelector(selectGoalDecrement)
 	const habit = useAppSelector(selectHabit)
-	const helpModalVisible = useAppSelector(selectHelpModalVisible)
-	const summaryModalVisible = useAppSelector(selectSummaryModalVisible)
+	const modalVisible = useAppSelector(selectModalVisible)
 	const weeks = useAppSelector(selectWeeks)
 
 	// CUSTOM FUNCTIONS
@@ -132,7 +128,7 @@ export default function ProgressPage({ navigation }: any) {
 					<Modal
 						animationType="slide"
 						transparent={true}
-						visible={summaryModalVisible}
+						visible={modalVisible.summaryModalVisible}
 						onRequestClose={() => dispatch(setSummaryModalInvisible())}
 						presentationStyle="overFullScreen"
 					>
@@ -149,7 +145,7 @@ export default function ProgressPage({ navigation }: any) {
 				{/* WHAT NOW MODAL */}
 				<Modal
 					animationType="slide"
-					visible={helpModalVisible}
+					visible={modalVisible.helpModalVisible}
 					onRequestClose={() => dispatch(setHelpModalInvisible())}
 					presentationStyle="pageSheet"
 					statusBarTranslucent={true}

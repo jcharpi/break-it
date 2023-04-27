@@ -26,6 +26,6 @@ export const achievementSlice = createSlice({
 
 export const { addAchievement } = achievementSlice.actions
 
-export const selectAchievements = (state: RootState) => state.achievements.value
+export const selectAchievements = (state: RootState) => state.achievementSlice.value
 
 export default achievementSlice.reducer

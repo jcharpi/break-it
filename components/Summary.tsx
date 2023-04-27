@@ -9,7 +9,7 @@ import { getWeekNumber } from "../backendFunctions"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectOccurrences } from "../reducers/occurrenceSlice"
 import { selectCurrentWeek } from "../reducers/currentWeekSlice"
-import { setSummaryModalInvisible } from "../reducers/summaryModalVisibleSlice"
+import { setSummaryModalInvisible } from "../reducers/modalVisibleSlice"
 
 // STYLE
 import styles from "../styles"

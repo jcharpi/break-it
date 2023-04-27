@@ -14,10 +14,9 @@ import {
 } from "../reducers/currentWeekSlice"
 import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
 import { resetHabit } from "../reducers/habitSlice"
-import { setHelpModalInvisible } from "../reducers/helpModalVisibleSlice"
+import { setHelpModalInvisible, setSummaryModalInvisible } from "../reducers/modalVisibleSlice"
 import { resetOccurrences } from "../reducers/occurrenceSlice"
 import { setResetTrue } from "../reducers/resetSlice"
-import { setSummaryModalInvisible } from "../reducers/summaryModalVisibleSlice"
 import { resetWeeks } from "../reducers/weekSlice"
 
 // STYLE

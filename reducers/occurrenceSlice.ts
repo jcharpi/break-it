@@ -28,6 +28,6 @@ export const occurrenceSlice = createSlice({
 export const { addOccurrence, resetOccurrences, setOccurrences } =
 	occurrenceSlice.actions
 
-export const selectOccurrences = (state: RootState) => state.occurrences.value
+export const selectOccurrences = (state: RootState) => state.occurrenceSlice.value
 
 export default occurrenceSlice.reducer

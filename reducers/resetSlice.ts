@@ -24,6 +24,6 @@ export const resetSlice = createSlice({
 
 export const { setResetFalse, setResetTrue } = resetSlice.actions
 
-export const selectReset = (state: RootState) => state.reset.value
+export const selectReset = (state: RootState) => state.resetSlice.value
 
 export default resetSlice.reducer

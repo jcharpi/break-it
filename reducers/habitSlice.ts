@@ -44,6 +44,6 @@ export const habitSlice = createSlice({
 
 export const { setHabit, resetHabit } = habitSlice.actions
 
-export const selectHabit = (state: RootState) => state.habit.value
+export const selectHabit = (state: RootState) => state.habitSlice.value
 
 export default habitSlice.reducer

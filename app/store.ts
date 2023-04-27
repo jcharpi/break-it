@@ -5,10 +5,9 @@ import currentWeekSlice from "../reducers/currentWeekSlice"
 import firstLoadSlice from "../reducers/firstLoadSlice"
 import goalDecrementSlice from "../reducers/goalDecrementSlice"
 import habitSlice from "../reducers/habitSlice"
-import helpModalVisibleSlice from "../reducers/helpModalVisibleSlice"
+import modalVisibleSlice from "../reducers/modalVisibleSlice"
 import occurrenceSlice from "../reducers/occurrenceSlice"
 import resetSlice from "../reducers/resetSlice"
-import summaryModalVisibleSlice from "../reducers/summaryModalVisibleSlice"
 import weekSlice from "../reducers/weekSlice"
 
 import { combineReducers } from "@reduxjs/toolkit"
@@ -26,23 +25,22 @@ import {
 } from "redux-persist"
 
 const rootReducer = combineReducers({
-	achievements: achievementSlice,
-	activeSlider: activeSliderSlice,
-	currentWeek: currentWeekSlice,
-	firstLoad: firstLoadSlice,
-	goalDecrement: goalDecrementSlice,
-	habit: habitSlice,
-	helpModalVisible: helpModalVisibleSlice,
-	occurrences: occurrenceSlice,
-	reset: resetSlice,
-	summaryModalVisible: summaryModalVisibleSlice,
-	weeks: weekSlice,
+	achievementSlice: achievementSlice,
+	activeSliderSlice: activeSliderSlice,
+	currentWeekSlice: currentWeekSlice,
+	firstLoadSlice: firstLoadSlice,
+	goalDecrementSlice: goalDecrementSlice,
+	habitSlice: habitSlice,
+	modalVisibleSlice: modalVisibleSlice,
+	occurrenceSlice: occurrenceSlice,
+	resetSlice: resetSlice,
+	weekSlice: weekSlice,
 })
 
 const persistConfig = {
 	key: "root",
 	storage: AsyncStorage,
-	blacklist: ["helpModalVisible", "summaryModalVisible"],
+	blacklist: ["modalVisible"],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
