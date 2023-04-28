@@ -33,8 +33,7 @@ import {
 	setSummaryModalInvisible,
 	setSummaryModalVisible,
 } from "../reducers/modalVisibleSlice"
-import { resetOccurrences } from "../reducers/occurrenceSlice"
-import { setResetTrue } from "../reducers/resetSlice"
+import { resetOccurrences, setResetTrue } from "../reducers/addButtonSlice"
 import { resetWeeks, selectWeeks } from "../reducers/weekSlice"
 
 // STYLE

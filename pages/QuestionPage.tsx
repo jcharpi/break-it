@@ -24,7 +24,7 @@ import {
 import { setGoalDecrement } from "../reducers/goalDecrementSlice"
 import { Gem } from "../reducers/habitSlice"
 import { Habit, selectHabit, setHabit } from "../reducers/habitSlice"
-import { selectReset, setResetFalse } from "../reducers/resetSlice"
+import { selectAddButton, setResetFalse } from "../reducers/addButtonSlice"
 import { setWeeks } from "../reducers/weekSlice"
 
 // STYLE
@@ -35,7 +35,7 @@ function QuestionPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
 	const habit = useAppSelector(selectHabit)
 	const firstLoad = useAppSelector(selectFirstLoad)
-	const reset = useAppSelector(selectReset)
+	const reset = useAppSelector(selectAddButton).reset
 
 	const [buttonPressed, setButtonPressed] = useState(false)
 

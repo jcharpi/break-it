@@ -7,7 +7,7 @@ import SliderMarker from "./SliderMarker"
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { setActiveSlider } from "../reducers/activeSliderSlice"
-import { selectReset } from "../reducers/resetSlice"
+import { selectAddButton } from "../reducers/addButtonSlice"
 
 // STYLE
 import styles from "../styles"
@@ -21,7 +21,7 @@ interface SliderProps {
 
 function CustomSlider(props: SliderProps) {
 	const dispatch = useAppDispatch()
-	const reset = useAppSelector(selectReset)
+	const reset = useAppSelector(selectAddButton).reset
 
 	const [sliderValue, setSliderValue] = useState(0)
 

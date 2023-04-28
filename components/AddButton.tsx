@@ -1,5 +1,4 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
-import { useState } from "react"
 import { Pressable } from "react-native"
 import * as Haptics from "expo-haptics"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
@@ -7,7 +6,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectCurrentWeek } from "../reducers/currentWeekSlice"
-import { addOccurrence } from "../reducers/occurrenceSlice"
+import { addOccurrence, selectAddButton, setAddButtonPressedFalse, setAddButtonPressedTrue } from "../reducers/addButtonSlice"
 
 // STYLE
 import styles from "../styles"
@@ -19,18 +18,18 @@ interface Props {
 export default function AddButton(props: Props) {
 	// CONTEXTS
 	const dispatch = useAppDispatch()
+	const buttonPressed = useAppSelector(selectAddButton).addButtonPressed
 	const currentWeek = useAppSelector(selectCurrentWeek)
-	const [buttonPressed, setButtonPressed] = useState(false)
 
 	function pressIn() {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
-		setButtonPressed(true)
+		dispatch(setAddButtonPressedTrue())
 	}
 
 	return (
 		<Pressable
 			onPressIn={pressIn}
-			onPressOut={() => setButtonPressed(false)}
+			onPressOut={() => dispatch(setAddButtonPressedFalse())}
 			onPress={
 				currentWeek === "week9"
 					? props.clearData

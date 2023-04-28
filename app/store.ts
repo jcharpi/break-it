@@ -6,8 +6,7 @@ import firstLoadSlice from "../reducers/firstLoadSlice"
 import goalDecrementSlice from "../reducers/goalDecrementSlice"
 import habitSlice from "../reducers/habitSlice"
 import modalVisibleSlice from "../reducers/modalVisibleSlice"
-import occurrenceSlice from "../reducers/occurrenceSlice"
-import resetSlice from "../reducers/resetSlice"
+import addButtonSlice from "../reducers/addButtonSlice"
 import weekSlice from "../reducers/weekSlice"
 
 import { combineReducers } from "@reduxjs/toolkit"
@@ -32,8 +31,7 @@ const rootReducer = combineReducers({
 	goalDecrementSlice: goalDecrementSlice,
 	habitSlice: habitSlice,
 	modalVisibleSlice: modalVisibleSlice,
-	occurrenceSlice: occurrenceSlice,
-	resetSlice: resetSlice,
+	addButtonSlice: addButtonSlice,
 	weekSlice: weekSlice,
 })
 
