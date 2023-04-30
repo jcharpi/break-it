@@ -38,7 +38,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
 	key: "root",
 	storage: AsyncStorage,
-	blacklist: ["modalVisible"],
+	blacklist: ["modalVisibleSlice"],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
