@@ -16,6 +16,12 @@ import {
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
+import {
+	selectButtonPressed,
+	setQuestionPageButtonPressedFalse,
+	setQuestionPageButtonPressedTrue,
+} from "../reducers/buttonPressedSlice"
+import { setCurrentWeek } from "../reducers/currentWeekSlice"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
 import {
 	selectFirstLoad,
@@ -29,15 +35,14 @@ import { setWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
-import { setCurrentWeek } from "../reducers/currentWeekSlice"
 
 function QuestionPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
 	const habit = useAppSelector(selectHabit)
 	const firstLoad = useAppSelector(selectFirstLoad)
 	const reset = useAppSelector(selectAddButton).reset
-
-	const [buttonPressed, setButtonPressed] = useState(false)
+	const buttonPressed =
+		useAppSelector(selectButtonPressed).questionPageButtonPressed
 
 	// SLIDER STATES
 	const [goal, setGoal] = useState(0)
@@ -197,8 +202,8 @@ function QuestionPage({ navigation }: any) {
 
 			<Button
 				mode="elevated"
-				onPressIn={() => setButtonPressed(true)}
-				onPressOut={() => setButtonPressed(false)}
+				onPressIn={() => dispatch(setQuestionPageButtonPressedTrue())}
+				onPressOut={() => dispatch(setQuestionPageButtonPressedFalse())}
 				onPress={buttonHandler}
 				buttonColor={"white"}
 				textColor={"#586183"}

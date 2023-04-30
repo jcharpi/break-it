@@ -6,7 +6,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectCurrentWeek } from "../reducers/currentWeekSlice"
-import { addOccurrence, selectAddButton, setAddButtonPressedFalse, setAddButtonPressedTrue } from "../reducers/addButtonSlice"
+import { addOccurrence, selectAddButton } from "../reducers/addButtonSlice"
+import { setAddButtonPressedTrue, setAddButtonPressedFalse, selectButtonPressed } from "../reducers/buttonPressedSlice"
 
 // STYLE
 import styles from "../styles"
@@ -18,7 +19,7 @@ interface Props {
 export default function AddButton(props: Props) {
 	// CONTEXTS
 	const dispatch = useAppDispatch()
-	const buttonPressed = useAppSelector(selectAddButton).addButtonPressed
+	const buttonPressed = useAppSelector(selectButtonPressed).addButtonPressed
 	const currentWeek = useAppSelector(selectCurrentWeek)
 
 	function pressIn() {

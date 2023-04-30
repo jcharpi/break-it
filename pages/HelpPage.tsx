@@ -1,5 +1,5 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
-import { memo, useState } from "react"
+import { memo } from "react"
 import { SafeAreaView, Text, View, Alert, TouchableOpacity } from "react-native"
 import { Button } from "react-native-paper"
 import * as Haptics from "expo-haptics"
@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
+import { selectButtonPressed, setHelpPageButtonPressedFalse, setHelpPageButtonPressedTrue } from "../reducers/buttonPressedSlice"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
 import {
 	resetCurrentWeek,
@@ -31,8 +32,8 @@ interface HelpPageProps {
 function HelpPage({ navigation, modalView }: HelpPageProps) {
 	// CONTEXTS
 	const dispatch = useAppDispatch()
+  const buttonPressed = useAppSelector(selectButtonPressed).helpPageButtonPressed
 	const currentWeek = useAppSelector(selectCurrentWeek)
-	const [buttonPressed, setButtonPressed] = useState(false)
 
 	function buttonHandler() {
 		if (modalView) {
@@ -131,8 +132,8 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 				(currentWeek !== "week9" ? (
 					<Button
 						mode="elevated"
-						onPressIn={() => setButtonPressed(true)}
-						onPressOut={() => setButtonPressed(false)}
+						onPressIn={() => dispatch(setHelpPageButtonPressedTrue())}
+						onPressOut={() => dispatch(setHelpPageButtonPressedFalse())}
 						onPress={buttonHandler}
 						buttonColor={"#dd1e00"}
 						textColor={"white"}
