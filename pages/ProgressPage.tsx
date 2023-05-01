@@ -47,7 +47,11 @@ import {
 } from "../backendFunctions"
 
 export default function ProgressPage({ navigation }: any) {
-	// CONTEXTS
+  enum RockImage {
+    WEEK0_ROCK = "what"
+  }
+
+	// REDUX
 	const dispatch = useAppDispatch()
 	const currentWeek = useAppSelector(selectCurrentWeek)
 	const goalDecrement = useAppSelector(selectGoalDecrement)

@@ -30,7 +30,7 @@ interface HelpPageProps {
 }
 
 function HelpPage({ navigation, modalView }: HelpPageProps) {
-	// CONTEXTS
+	// REDUX
 	const dispatch = useAppDispatch()
   const buttonPressed = useAppSelector(selectButtonPressed).helpPageButtonPressed
 	const currentWeek = useAppSelector(selectCurrentWeek)

@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function AddButton(props: Props) {
-	// CONTEXTS
+	// REDUX
 	const dispatch = useAppDispatch()
 	const buttonPressed = useAppSelector(selectButtonPressed).addButtonPressed
 	const currentWeek = useAppSelector(selectCurrentWeek)

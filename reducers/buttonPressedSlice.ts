@@ -1,7 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-export interface AddButtonState { 
+export interface ButtonPressedState { 
 	value: {
 		addButtonPressed: boolean,
     helpPageButtonPressed: boolean,
@@ -9,7 +9,7 @@ export interface AddButtonState {
 	}
 }
 
-const initialState: AddButtonState = {
+const initialState: ButtonPressedState = {
 	value: {
 		addButtonPressed: false,
     helpPageButtonPressed: false,

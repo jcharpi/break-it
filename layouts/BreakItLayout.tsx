@@ -15,9 +15,9 @@ import { selectHabit } from "../reducers/habitSlice"
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
+  // REDUX
 	const habit = useAppSelector(selectHabit)
 
-	// CONTEXTS
 	const [initialRouteName, setInitialRouteName] = useState("")
 
 	useEffect(() => {

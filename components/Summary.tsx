@@ -19,9 +19,8 @@ interface Props {
 }
 
 export default function Summary(props: Props) {
-	// CONTEXTS
+	// REDUX
 	const dispatch = useAppDispatch()
-
 	const occurrences = useAppSelector(selectAddButton).occurrences
 	const currentWeek = useAppSelector(selectCurrentWeek)
 
