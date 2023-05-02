@@ -126,7 +126,6 @@ export default function ProgressPage({ navigation }: any) {
       dispatch(setResetTrue())
     }, 850)
     dispatch(addAchievement(newAchievement))
-
 	}
 
 	// WEEK UPDATE
@@ -148,6 +147,12 @@ export default function ProgressPage({ navigation }: any) {
 			sameWeekCheck()
 		}
 	}, [weeks, currentWeek])
+
+  useEffect(() => {
+    if(currentWeek === "") {
+      navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
+    }
+  }, [])
 
 	return (
 		<View style={styles.progressContainer}>
