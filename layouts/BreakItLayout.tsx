@@ -19,6 +19,7 @@ export default function BreakItLayout() {
 	const habit = useAppSelector(selectHabit)
 
 	const [initialRouteName, setInitialRouteName] = useState("")
+  console.log(habit)
 
 	useEffect(() => {
 		const getInitialRouteName = async () => {

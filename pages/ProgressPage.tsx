@@ -35,10 +35,9 @@ import {
 	setCurrentWeek,
 } from "../reducers/currentWeekSlice"
 import {
-	resetGoalDecrement,
 	selectGoalDecrement,
 } from "../reducers/goalDecrementSlice"
-import { resetHabit, selectHabit } from "../reducers/habitSlice"
+import { selectHabit } from "../reducers/habitSlice"
 import {
 	selectModalVisible,
 	setHelpModalInvisible,
@@ -47,7 +46,7 @@ import {
 	setSummaryModalVisible,
 } from "../reducers/modalVisibleSlice"
 import { resetOccurrences, setResetTrue } from "../reducers/addButtonSlice"
-import { resetWeeks, selectWeeks } from "../reducers/weekSlice"
+import { selectWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
@@ -119,19 +118,14 @@ export default function ProgressPage({ navigation }: any) {
 
 	const clearData = () => {
 		const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
-    dispatch(setResetTrue())
 		setTimeout(() => {
       navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
-		}, 400)
-		dispatch(addAchievement(newAchievement))
-		dispatch(resetOccurrences())
-		dispatch(resetGoalDecrement())
-		dispatch(resetWeeks())
-
+		}, 200)
     setTimeout(() => {
-      dispatch(resetCurrentWeek())
-      dispatch(resetHabit())
-    }, 1100)
+      dispatch(setResetTrue())
+    }, 2000)
+    dispatch(addAchievement(newAchievement))
+
 	}
 
 	// WEEK UPDATE

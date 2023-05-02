@@ -1,11 +1,16 @@
 // REACT HOOKS & COMPONENTS
-import { memo } from "react"
+import { memo, useEffect } from "react"
 import { Text, TextInput, SafeAreaView } from "react-native"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { selectHabit, setHabit } from "../reducers/habitSlice"
-import { Habit } from "../reducers/habitSlice"
+import { resetHabit, selectHabit, setHabit, Habit } from "../reducers/habitSlice"
+import { resetOccurrences, selectAddButton } from "../reducers/addButtonSlice"
+import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
+import { resetWeeks } from "../reducers/weekSlice"
+import { resetCurrentWeek } from "../reducers/currentWeekSlice"
+import { setHelpModalInvisible, setSummaryModalInvisible } from "../reducers/modalVisibleSlice"
+import { setInactiveSlider } from "../reducers/activeSliderSlice"
 
 // STYLE
 import styles from "../styles"
@@ -13,6 +18,7 @@ import styles from "../styles"
 function EnterHabitPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
 	const habit = useAppSelector(selectHabit)
+  const reset = useAppSelector(selectAddButton).reset
 	// EVENT FUNCTIONS
 	const submitHabit = () => {
 		navigation.navigate("QuestionPage")
@@ -27,6 +33,22 @@ function EnterHabitPage({ navigation }: any) {
 		}
 		dispatch(setHabit(updatedHabit(habit)))
 	}
+
+  useEffect(() => {
+    if(reset) {
+      dispatch(setHelpModalInvisible())
+      dispatch(setSummaryModalInvisible())
+
+			dispatch(setInactiveSlider())
+
+		  dispatch(resetOccurrences())
+		  dispatch(resetGoalDecrement())
+		  dispatch(resetWeeks())
+
+      dispatch(resetCurrentWeek())
+      dispatch(resetHabit())
+    }
+	}, [reset])
 
 	return (
 		<SafeAreaView style={styles.enterContainer}>

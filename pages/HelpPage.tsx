@@ -8,17 +8,11 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectButtonPressed, setHelpPageButtonPressedFalse, setHelpPageButtonPressedTrue } from "../reducers/buttonPressedSlice"
-import { setInactiveSlider } from "../reducers/activeSliderSlice"
 import {
-	resetCurrentWeek,
 	selectCurrentWeek,
 } from "../reducers/currentWeekSlice"
-import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
-import { resetHabit } from "../reducers/habitSlice"
-import { setHelpModalInvisible, setSummaryModalInvisible } from "../reducers/modalVisibleSlice"
-import { resetOccurrences } from "../reducers/addButtonSlice"
+import { setHelpModalInvisible } from "../reducers/modalVisibleSlice"
 import { setResetTrue } from "../reducers/addButtonSlice"
-import { resetWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
@@ -49,27 +43,14 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 					{
 						text: "OK",
 						onPress: () => {
-							dispatch(setHelpModalInvisible())
-							dispatch(setSummaryModalInvisible())
-
-							dispatch(resetOccurrences())
-							dispatch(resetGoalDecrement())
-
-							dispatch(setInactiveSlider())
-							dispatch(setResetTrue())
-
-							dispatch(resetWeeks())
-							dispatch(resetCurrentWeek())
-
-							setTimeout(() => {
-								dispatch(resetHabit())
-							}, 600)
-
 							setTimeout(() => {
 								navigation.navigate("CreateHabitLayout", {
 									screen: "EnterHabitPage",
 								})
-							}, 200)
+							}, 100)
+              setTimeout(() => {
+                dispatch(setResetTrue())
+              }, 2000)
 						},
 						style: "destructive",
 					},
