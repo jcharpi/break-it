@@ -120,10 +120,11 @@ export default function ProgressPage({ navigation }: any) {
 		const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
 		setTimeout(() => {
       navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
-		}, 200)
+		}, 250)
+    dispatch(setResetTrue())
     setTimeout(() => {
       dispatch(setResetTrue())
-    }, 500)
+    }, 850)
     dispatch(addAchievement(newAchievement))
 
 	}

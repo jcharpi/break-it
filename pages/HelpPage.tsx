@@ -47,7 +47,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 								navigation.navigate("CreateHabitLayout", {
 									screen: "EnterHabitPage",
 								})
-							}, 200)
+							}, 250)
               dispatch(setResetTrue())
 						},
 						style: "destructive",

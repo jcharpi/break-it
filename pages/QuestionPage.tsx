@@ -149,8 +149,7 @@ function QuestionPage({ navigation }: any) {
 
       setTimeout(() => {
         navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
-
-      }, 200)
+      }, 250)
       
 			setTimeout(() => {
 				dispatch(setPreviouslyLoaded())
