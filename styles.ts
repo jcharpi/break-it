@@ -236,6 +236,11 @@ export default StyleSheet.create({
 		height: 350,
 		width: 350,
 	},
+  gemRock: {
+    marginVertical: 90,
+    width: 170,
+		height: 170,
+  },
 
 	// TROVE PAGE
 	troveAchievementList: {

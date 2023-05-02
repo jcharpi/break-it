@@ -141,14 +141,17 @@ function QuestionPage({ navigation }: any) {
 			Alert.alert("Please set a first goal.")
 		} else {
 			// Begin habit button was pressed => set data
-			dispatch(setCurrentWeek(currWeek))
+      dispatch(setCurrentWeek(currWeek))
 			dispatch(setWeeks(calculatedWeeks))
 			dispatch(setGoalDecrement(goalDecrement))
 			dispatch(setInactiveSlider())
 			dispatch(setResetFalse())
 
-			navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
+      setTimeout(() => {
+        navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })
 
+      }, 200)
+      
 			setTimeout(() => {
 				dispatch(setPreviouslyLoaded())
 			}, 1000)
