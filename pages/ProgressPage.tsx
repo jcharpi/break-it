@@ -119,18 +119,19 @@ export default function ProgressPage({ navigation }: any) {
 
 	const clearData = () => {
 		const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
+    dispatch(setResetTrue())
+		setTimeout(() => {
+      navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
+		}, 400)
 		dispatch(addAchievement(newAchievement))
 		dispatch(resetOccurrences())
 		dispatch(resetGoalDecrement())
-		dispatch(setResetTrue())
 		dispatch(resetWeeks())
-		setTimeout(() => {
-			navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
-		}, 200)
+
     setTimeout(() => {
       dispatch(resetCurrentWeek())
       dispatch(resetHabit())
-    }, 1000)
+    }, 1100)
 	}
 
 	// WEEK UPDATE
@@ -180,7 +181,11 @@ export default function ProgressPage({ navigation }: any) {
 							<Summary goal={goal} />
 						</Pressable>
 					</Modal>
-					<Image style={[styles.progressRock, currentWeek === "week9" ? styles.gemRock : {}]} source={getImageByName()} />
+					<Image 
+            style={[styles.progressRock, currentWeek === "week9" ? styles.gemRock : {}]} 
+            source={getImageByName()} 
+            resizeMode="contain"
+          />
 				</Pressable>
 
 				{/* WHAT NOW MODAL */}
