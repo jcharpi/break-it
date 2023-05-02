@@ -23,7 +23,7 @@ export default function BreakItLayout() {
 
 	useEffect(() => {
 		const getInitialRouteName = async () => {
-			const habitExists = habit.habitName === "" ? false : true
+			const habitExists = (habit.habitName === "" || habit.goal === 0) ? false : true
 
 			if (habitExists) {
 				setInitialRouteName("TrackHabitLayout")

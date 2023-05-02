@@ -47,10 +47,8 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 								navigation.navigate("CreateHabitLayout", {
 									screen: "EnterHabitPage",
 								})
-							}, 100)
-              setTimeout(() => {
-                dispatch(setResetTrue())
-              }, 2000)
+							}, 200)
+              dispatch(setResetTrue())
 						},
 						style: "destructive",
 					},

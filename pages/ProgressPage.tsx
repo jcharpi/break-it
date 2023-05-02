@@ -123,7 +123,7 @@ export default function ProgressPage({ navigation }: any) {
 		}, 200)
     setTimeout(() => {
       dispatch(setResetTrue())
-    }, 2000)
+    }, 500)
     dispatch(addAchievement(newAchievement))
 
 	}
