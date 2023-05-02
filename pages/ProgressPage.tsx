@@ -152,7 +152,6 @@ export default function ProgressPage({ navigation }: any) {
 			sameWeekCheck()
 		}
 	}, [weeks, currentWeek])
-  console.log(weekNumber)
 
 	return (
 		<View style={styles.progressContainer}>
