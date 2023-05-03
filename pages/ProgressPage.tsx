@@ -45,7 +45,7 @@ import {
 	setSummaryModalInvisible,
 	setSummaryModalVisible,
 } from "../reducers/modalVisibleSlice"
-import { resetOccurrences, setResetTrue } from "../reducers/addButtonSlice"
+import { resetOccurrences, selectAddButton, setResetTrue } from "../reducers/addButtonSlice"
 import { selectWeeks } from "../reducers/weekSlice"
 
 // STYLE
@@ -70,7 +70,8 @@ export default function ProgressPage({ navigation }: any) {
 	const habit = useAppSelector(selectHabit)
 	const modalVisible = useAppSelector(selectModalVisible)
 	const weeks = useAppSelector(selectWeeks)
-
+  const reset = useAppSelector(selectAddButton).reset
+  
 	// CUSTOM FUNCTIONS
 	const currWeekCheck = calculateCurrentWeek(weeks, new Date())
 	const weekNumber = currentWeek === "" ? 0 : getWeekNumber(currentWeek)
@@ -93,14 +94,6 @@ export default function ProgressPage({ navigation }: any) {
 		week9_diamond: diamond,
 	}
 
-	function getImageByName(): any {
-		if (weekNumber < 9) {
-			return images[currentWeek]
-		} else {
-			return images[`${currentWeek}_${habit.gem}`]
-		} 
-	}
-
 	// NAVBAR FUNCTIONS
 	const capitalizedHabit = habit.habitName
 		.replace(/(^|\s)([a-z])/g, function (char: string) {
@@ -116,15 +109,22 @@ export default function ProgressPage({ navigation }: any) {
 		navigation.navigate("TrovePage")
 	}
 
+  function getImageByName(): any {
+		if (weekNumber < 9) {
+			return images[currentWeek]
+		} else {
+			return images[`${currentWeek}_${habit.gem}`]
+		} 
+	}
+
 	const clearData = () => {
 		const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
-		setTimeout(() => {
-      navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
-		}, 250)
-    dispatch(setResetTrue())
     setTimeout(() => {
-      dispatch(setResetTrue())
-    }, 850)
+      navigation.navigate("CreateHabitLayout", {
+        screen: "EnterHabitPage",
+      })
+    }, 250)
+    dispatch(setResetTrue())
     dispatch(addAchievement(newAchievement))
 	}
 
@@ -182,7 +182,7 @@ export default function ProgressPage({ navigation }: any) {
 						</Pressable>
 					</Modal>
 					<Image 
-            style={[styles.progressRock, currentWeek === "week9" ? styles.gemRock : {}]} 
+            style={[styles.progressRock, currentWeek === "week9" && reset === false ? styles.gemRock : {}]} 
             source={getImageByName()} 
             resizeMode="contain"
           />

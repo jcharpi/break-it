@@ -44,7 +44,7 @@ function EnterHabitPage({ navigation }: any) {
 		  dispatch(resetOccurrences())
 		  dispatch(resetGoalDecrement())
 		  dispatch(resetWeeks())
-
+      
       dispatch(resetCurrentWeek())
       dispatch(resetHabit())
     }
