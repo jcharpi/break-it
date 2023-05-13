@@ -38,7 +38,7 @@ import styles from "../styles"
 
 function QuestionPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
-	const habit = useAppSelector(selectHabit)
+	const habit = useAppSelector(selectHabit).habit
 	const firstLoad = useAppSelector(selectFirstLoad)
 	const reset = useAppSelector(selectAddButton).reset
 	const buttonPressed =

@@ -19,7 +19,7 @@ export const achievementSlice = createSlice({
 	initialState,
 	reducers: {
 		addAchievement: (state, action: PayloadAction<Achievement>) => {
-			state.value = [...state.value, action.payload]
+			state.value = [action.payload, ...state.value]
 		},
 	},
 })

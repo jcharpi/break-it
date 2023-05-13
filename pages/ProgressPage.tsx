@@ -35,7 +35,7 @@ import {
 	setCurrentWeek,
 } from "../reducers/currentWeekSlice"
 import { selectGoalDecrement } from "../reducers/goalDecrementSlice"
-import { selectHabit } from "../reducers/habitSlice"
+import { completedHabit, selectHabit } from "../reducers/habitSlice"
 import {
 	selectModalVisible,
 	setHelpModalInvisible,
@@ -43,10 +43,7 @@ import {
 	setSummaryModalInvisible,
 	setSummaryModalVisible,
 } from "../reducers/modalVisibleSlice"
-import {
-	resetOccurrences,
-	setResetTrue,
-} from "../reducers/addButtonSlice"
+import { resetOccurrences, setResetTrue } from "../reducers/addButtonSlice"
 import { selectWeeks } from "../reducers/weekSlice"
 
 // STYLE
@@ -68,7 +65,8 @@ export default function ProgressPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
 	const currentWeek = useAppSelector(selectCurrentWeek)
 	const goalDecrement = useAppSelector(selectGoalDecrement)
-	const habit = useAppSelector(selectHabit)
+	const habit = useAppSelector(selectHabit).habit
+	const completed = useAppSelector(selectHabit).completed
 	const modalVisible = useAppSelector(selectModalVisible)
 	const weeks = useAppSelector(selectWeeks)
 
@@ -93,7 +91,6 @@ export default function ProgressPage({ navigation }: any) {
 		week9_gold: gold,
 		week9_diamond: diamond,
 	}
-  console.log(habit)
 
 	// NAVBAR FUNCTIONS
 	const capitalizedHabit = habit.habitName
@@ -113,9 +110,9 @@ export default function ProgressPage({ navigation }: any) {
 	function getImageByName(): any {
 		if (weekNumber < 9 && weekNumber > 0) {
 			return images[currentWeek]
-		} else if(weekNumber === 9) {
+		} else if (weekNumber === 9) {
 			return images[`${currentWeek}_${habit.gem}`]
-		} else if(weekNumber === 10 || weekNumber === 0) {
+		} else if (weekNumber === 10 || completed) {
 			return images[`week9_${habit.gem}`]
 		}
 	}
@@ -128,7 +125,6 @@ export default function ProgressPage({ navigation }: any) {
 		dispatch(setResetTrue())
 		dispatch(addAchievement(newAchievement))
 	}
-
 	// WEEK UPDATE
 	// using sameWeekCheck in the useEffect to compare last
 	// stored currentWeek and what currentWeek SHOULD be
@@ -149,12 +145,18 @@ export default function ProgressPage({ navigation }: any) {
 		}
 	}, [weeks, currentWeek])
 
-	useEffect(() => {
+  useEffect(() => {
 		if (currentWeek === "") {
 			navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
 		}
 	}, [])
-  
+
+  useEffect(() => {
+		if (weekNumber === 10) {
+			dispatch(completedHabit())
+		}
+	}, [weekNumber])
+
 	return (
 		<View style={styles.progressContainer}>
 			<NavBar
@@ -183,14 +185,7 @@ export default function ProgressPage({ navigation }: any) {
 						</Pressable>
 					</Modal>
 					<Image
-						style={[
-							styles.progressRock,
-							getImageByName() === silver ||
-							getImageByName() === gold ||
-							getImageByName() === diamond
-								? styles.gemRock
-								: {},
-						]}
+						style={[styles.progressRock, completed ? styles.gemRock : {}]}
 						source={getImageByName()}
 						resizeMode="contain"
 					/>

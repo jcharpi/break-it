@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
   // REDUX
-	const habit = useAppSelector(selectHabit)
+	const habit = useAppSelector(selectHabit).habit
 
 	const [initialRouteName, setInitialRouteName] = useState("")
 

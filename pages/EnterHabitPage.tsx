@@ -17,7 +17,7 @@ import styles from "../styles"
 
 function EnterHabitPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
-	const habit = useAppSelector(selectHabit)
+	const habit = useAppSelector(selectHabit).habit
   const reset = useAppSelector(selectAddButton).reset
 	// EVENT FUNCTIONS
 	const submitHabit = () => {
