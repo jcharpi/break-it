@@ -34,7 +34,7 @@ export const habitSlice = createSlice({
 		},
 		resetHabit: (state) => {
 			state.value = {
-        ...state.value,
+				gem: Gem.SILVER,
 				goal: 0,
 				habitName: "",
 			}

@@ -5,7 +5,7 @@ import { Text, TextInput, SafeAreaView } from "react-native"
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { resetHabit, selectHabit, setHabit, Habit } from "../reducers/habitSlice"
-import { resetOccurrences, selectAddButton } from "../reducers/addButtonSlice"
+import { selectAddButton } from "../reducers/addButtonSlice"
 import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
 import { resetWeeks } from "../reducers/weekSlice"
 import { resetCurrentWeek } from "../reducers/currentWeekSlice"
@@ -41,12 +41,13 @@ function EnterHabitPage({ navigation }: any) {
 
 			dispatch(setInactiveSlider())
 
-		  dispatch(resetOccurrences())
 		  dispatch(resetGoalDecrement())
 		  dispatch(resetWeeks())
-      
+
       dispatch(resetCurrentWeek())
-      dispatch(resetHabit())
+      setTimeout(() => {
+        dispatch(resetHabit())
+      }, 350)
     }
 	}, [reset])
 

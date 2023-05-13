@@ -7,10 +7,12 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { selectButtonPressed, setHelpPageButtonPressedFalse, setHelpPageButtonPressedTrue } from "../reducers/buttonPressedSlice"
 import {
-	selectCurrentWeek,
-} from "../reducers/currentWeekSlice"
+	selectButtonPressed,
+	setHelpPageButtonPressedFalse,
+	setHelpPageButtonPressedTrue,
+} from "../reducers/buttonPressedSlice"
+import { selectCurrentWeek } from "../reducers/currentWeekSlice"
 import { setHelpModalInvisible } from "../reducers/modalVisibleSlice"
 import { setResetTrue } from "../reducers/addButtonSlice"
 
@@ -26,7 +28,8 @@ interface HelpPageProps {
 function HelpPage({ navigation, modalView }: HelpPageProps) {
 	// REDUX
 	const dispatch = useAppDispatch()
-  const buttonPressed = useAppSelector(selectButtonPressed).helpPageButtonPressed
+	const buttonPressed =
+		useAppSelector(selectButtonPressed).helpPageButtonPressed
 	const currentWeek = useAppSelector(selectCurrentWeek)
 
 	function buttonHandler() {
@@ -43,12 +46,10 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 					{
 						text: "OK",
 						onPress: () => {
-							setTimeout(() => {
-								navigation.navigate("CreateHabitLayout", {
-									screen: "EnterHabitPage",
-								})
-							}, 250)
-              dispatch(setResetTrue())
+							navigation.navigate("CreateHabitLayout", {
+								screen: "EnterHabitPage",
+							})
+							dispatch(setResetTrue())
 						},
 						style: "destructive",
 					},

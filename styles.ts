@@ -237,9 +237,9 @@ export default StyleSheet.create({
 		width: 350,
 	},
   gemRock: {
-    marginVertical: 75,
-    width: 170,
-		height: 200,
+    marginVertical: 85,
+    width: 160,
+		height: 190,
   },
 
 	// TROVE PAGE

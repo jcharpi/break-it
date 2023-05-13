@@ -30,7 +30,7 @@ import {
 import { setGoalDecrement } from "../reducers/goalDecrementSlice"
 import { Gem } from "../reducers/habitSlice"
 import { Habit, selectHabit, setHabit } from "../reducers/habitSlice"
-import { selectAddButton, setResetFalse } from "../reducers/addButtonSlice"
+import { resetOccurrences, selectAddButton, setResetFalse } from "../reducers/addButtonSlice"
 import { setWeeks } from "../reducers/weekSlice"
 
 // STYLE
@@ -62,23 +62,21 @@ function QuestionPage({ navigation }: any) {
 		impactOptions.indexOf(impact) * 2
 
 	// Update gem val based on slider values
-	useEffect(() => {
-		const updatedGemHabit = (prev: Habit) => {
-			return {
-				...prev,
-				gem: gemVal < 3 ? Gem.SILVER : gemVal > 5 ? Gem.DIAMOND : Gem.GOLD,
-			}
-		}
-		dispatch(setHabit(updatedGemHabit(habit)))
-	}, [gemVal])
+  const updatedGemHabit = (prev: Habit) => {
+    return {
+      ...prev,
+      gem: gemVal < 3 ? Gem.SILVER : gemVal > 5 ? Gem.DIAMOND : Gem.GOLD,
+    }
+  }
 
 	// reset slider on reset state
 	useEffect(() => {
-		if (reset) {
+		if(reset) {
 			changeOccurrence(0)
 			changeFrequency(0)
 			changeImpact(0)
 			setGoal(0)
+      dispatch(resetOccurrences())
 		}
 	}, [reset])
 
@@ -146,6 +144,7 @@ function QuestionPage({ navigation }: any) {
 			dispatch(setGoalDecrement(goalDecrement))
 			dispatch(setInactiveSlider())
 			dispatch(setResetFalse())
+      dispatch(setHabit(updatedGemHabit(habit)))
 
       setTimeout(() => {
         navigation.navigate("TrackHabitLayout", { screen: "ProgressPage" })

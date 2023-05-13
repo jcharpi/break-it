@@ -34,9 +34,7 @@ import {
 	selectCurrentWeek,
 	setCurrentWeek,
 } from "../reducers/currentWeekSlice"
-import {
-	selectGoalDecrement,
-} from "../reducers/goalDecrementSlice"
+import { selectGoalDecrement } from "../reducers/goalDecrementSlice"
 import { selectHabit } from "../reducers/habitSlice"
 import {
 	selectModalVisible,
@@ -45,7 +43,10 @@ import {
 	setSummaryModalInvisible,
 	setSummaryModalVisible,
 } from "../reducers/modalVisibleSlice"
-import { resetOccurrences, selectAddButton, setResetTrue } from "../reducers/addButtonSlice"
+import {
+	resetOccurrences,
+	setResetTrue,
+} from "../reducers/addButtonSlice"
 import { selectWeeks } from "../reducers/weekSlice"
 
 // STYLE
@@ -59,7 +60,7 @@ import {
 } from "../backendFunctions"
 
 interface ImageObject {
-  [key: string]: string;
+	[key: string]: string
 }
 
 export default function ProgressPage({ navigation }: any) {
@@ -70,8 +71,7 @@ export default function ProgressPage({ navigation }: any) {
 	const habit = useAppSelector(selectHabit)
 	const modalVisible = useAppSelector(selectModalVisible)
 	const weeks = useAppSelector(selectWeeks)
-  const reset = useAppSelector(selectAddButton).reset
-  
+
 	// CUSTOM FUNCTIONS
 	const currWeekCheck = calculateCurrentWeek(weeks, new Date())
 	const weekNumber = currentWeek === "" ? 0 : getWeekNumber(currentWeek)
@@ -93,6 +93,7 @@ export default function ProgressPage({ navigation }: any) {
 		week9_gold: gold,
 		week9_diamond: diamond,
 	}
+  console.log(habit)
 
 	// NAVBAR FUNCTIONS
 	const capitalizedHabit = habit.habitName
@@ -109,23 +110,23 @@ export default function ProgressPage({ navigation }: any) {
 		navigation.navigate("TrovePage")
 	}
 
-  function getImageByName(): any {
-		if (weekNumber < 9) {
+	function getImageByName(): any {
+		if (weekNumber < 9 && weekNumber > 0) {
 			return images[currentWeek]
-		} else {
+		} else if (weekNumber === 9) {
 			return images[`${currentWeek}_${habit.gem}`]
-		} 
+		} else {
+			return images[`week9_${habit.gem}`]
+		}
 	}
 
 	const clearData = () => {
 		const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
-    setTimeout(() => {
-      navigation.navigate("CreateHabitLayout", {
-        screen: "EnterHabitPage",
-      })
-    }, 250)
-    dispatch(setResetTrue())
-    dispatch(addAchievement(newAchievement))
+		navigation.navigate("CreateHabitLayout", {
+			screen: "EnterHabitPage",
+		})
+		dispatch(setResetTrue())
+		dispatch(addAchievement(newAchievement))
 	}
 
 	// WEEK UPDATE
@@ -148,12 +149,12 @@ export default function ProgressPage({ navigation }: any) {
 		}
 	}, [weeks, currentWeek])
 
-  useEffect(() => {
-    if(currentWeek === "") {
-      navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
-    }
-  }, [])
-
+	useEffect(() => {
+		if (currentWeek === "") {
+			navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
+		}
+	}, [])
+  
 	return (
 		<View style={styles.progressContainer}>
 			<NavBar
@@ -181,11 +182,18 @@ export default function ProgressPage({ navigation }: any) {
 							<Summary goal={goal} />
 						</Pressable>
 					</Modal>
-					<Image 
-            style={[styles.progressRock, currentWeek === "week9" && reset === false ? styles.gemRock : {}]} 
-            source={getImageByName()} 
-            resizeMode="contain"
-          />
+					<Image
+						style={[
+							styles.progressRock,
+							getImageByName() === silver ||
+							getImageByName() === gold ||
+							getImageByName() === diamond
+								? styles.gemRock
+								: {},
+						]}
+						source={getImageByName()}
+						resizeMode="contain"
+					/>
 				</Pressable>
 
 				{/* WHAT NOW MODAL */}
