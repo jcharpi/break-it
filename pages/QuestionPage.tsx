@@ -191,7 +191,7 @@ function QuestionPage({ navigation }: any) {
 			/>
 
 			<Text style={styles.bodyText}>
-				My first limit is <Text style={styles.questionValue}>{goal}</Text> times
+				My first goal is <Text style={styles.questionValue}>{goal}</Text> times
 				a week
 			</Text>
 			<CustomSlider

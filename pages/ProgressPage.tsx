@@ -113,9 +113,9 @@ export default function ProgressPage({ navigation }: any) {
 	function getImageByName(): any {
 		if (weekNumber < 9 && weekNumber > 0) {
 			return images[currentWeek]
-		} else if (weekNumber === 9) {
+		} else if(weekNumber === 9) {
 			return images[`${currentWeek}_${habit.gem}`]
-		} else {
+		} else if(weekNumber === 10 || weekNumber === 0) {
 			return images[`week9_${habit.gem}`]
 		}
 	}

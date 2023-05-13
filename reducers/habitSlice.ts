@@ -39,10 +39,16 @@ export const habitSlice = createSlice({
 				habitName: "",
 			}
 		},
+    resetHabitName: (state) => {
+			state.value = {
+				...state.value,
+				habitName: "",
+			}
+		},
 	},
 })
 
-export const { setHabit, resetHabit } = habitSlice.actions
+export const { setHabit, resetHabit, resetHabitName } = habitSlice.actions
 
 export const selectHabit = (state: RootState) => state.habitSlice.value
 

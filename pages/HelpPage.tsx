@@ -49,7 +49,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 							navigation.navigate("CreateHabitLayout", {
 								screen: "EnterHabitPage",
 							})
-							dispatch(setResetTrue())
+              dispatch(setResetTrue())
 						},
 						style: "destructive",
 					},

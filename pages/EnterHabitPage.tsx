@@ -4,7 +4,7 @@ import { Text, TextInput, SafeAreaView } from "react-native"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { resetHabit, selectHabit, setHabit, Habit } from "../reducers/habitSlice"
+import { resetHabit, selectHabit, setHabit, Habit, resetHabitName } from "../reducers/habitSlice"
 import { selectAddButton } from "../reducers/addButtonSlice"
 import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
 import { resetWeeks } from "../reducers/weekSlice"
@@ -45,6 +45,7 @@ function EnterHabitPage({ navigation }: any) {
 		  dispatch(resetWeeks())
 
       dispatch(resetCurrentWeek())
+      dispatch(resetHabitName())
       setTimeout(() => {
         dispatch(resetHabit())
       }, 350)
