@@ -15,14 +15,15 @@ import { selectHabit } from "../reducers/habitSlice"
 const Stack = createNativeStackNavigator()
 
 export default function BreakItLayout() {
-  // REDUX
+	// REDUX
 	const habit = useAppSelector(selectHabit).habit
 
 	const [initialRouteName, setInitialRouteName] = useState("")
 
 	useEffect(() => {
 		const getInitialRouteName = async () => {
-			const habitExists = (habit.habitName === "" || habit.goal === 0) ? false : true
+			const habitExists =
+				habit.habitName === "" || habit.goal === 0 ? false : true
 
 			if (habitExists) {
 				setInitialRouteName("TrackHabitLayout")

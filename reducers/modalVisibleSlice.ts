@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
 export interface ModalVisible {
-	helpModalVisible: boolean,
+	helpModalVisible: boolean
 	summaryModalVisible: boolean
 }
 
@@ -13,7 +13,7 @@ export interface ModalVisibleState {
 const initialState: ModalVisibleState = {
 	value: {
 		helpModalVisible: false,
-		summaryModalVisible: false
+		summaryModalVisible: false,
 	},
 }
 
@@ -36,7 +36,12 @@ export const modalVisibleSlice = createSlice({
 	},
 })
 
-export const { toggleHelpModalVisible, setHelpModalInvisible, setSummaryModalVisible, setSummaryModalInvisible } = modalVisibleSlice.actions
+export const {
+	toggleHelpModalVisible,
+	setHelpModalInvisible,
+	setSummaryModalVisible,
+	setSummaryModalInvisible,
+} = modalVisibleSlice.actions
 
 export const selectModalVisible = (state: RootState) =>
 	state.modalVisibleSlice.value

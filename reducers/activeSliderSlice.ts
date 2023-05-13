@@ -24,6 +24,7 @@ export const activeSliderSlice = createSlice({
 
 export const { setActiveSlider, setInactiveSlider } = activeSliderSlice.actions
 
-export const selectActiveSlider = (state: RootState) => state.activeSliderSlice.value
+export const selectActiveSlider = (state: RootState) =>
+	state.activeSliderSlice.value
 
 export default activeSliderSlice.reducer

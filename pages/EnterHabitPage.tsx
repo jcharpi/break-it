@@ -4,12 +4,21 @@ import { Text, TextInput, SafeAreaView } from "react-native"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { resetHabit, selectHabit, setHabit, Habit, resetHabitName } from "../reducers/habitSlice"
+import {
+	resetHabit,
+	selectHabit,
+	setHabit,
+	Habit,
+	resetHabitName,
+} from "../reducers/habitSlice"
 import { selectAddButton } from "../reducers/addButtonSlice"
 import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
 import { resetWeeks } from "../reducers/weekSlice"
 import { resetCurrentWeek } from "../reducers/currentWeekSlice"
-import { setHelpModalInvisible, setSummaryModalInvisible } from "../reducers/modalVisibleSlice"
+import {
+	setHelpModalInvisible,
+	setSummaryModalInvisible,
+} from "../reducers/modalVisibleSlice"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
 
 // STYLE
@@ -18,7 +27,7 @@ import styles from "../styles"
 function EnterHabitPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
 	const habit = useAppSelector(selectHabit).habit
-  const reset = useAppSelector(selectAddButton).reset
+	const reset = useAppSelector(selectAddButton).reset
 	// EVENT FUNCTIONS
 	const submitHabit = () => {
 		navigation.navigate("QuestionPage")
@@ -34,22 +43,22 @@ function EnterHabitPage({ navigation }: any) {
 		dispatch(setHabit(updatedHabit(habit)))
 	}
 
-  useEffect(() => {
-    if(reset) {
-      dispatch(setHelpModalInvisible())
-      dispatch(setSummaryModalInvisible())
+	useEffect(() => {
+		if (reset) {
+			dispatch(setHelpModalInvisible())
+			dispatch(setSummaryModalInvisible())
 
 			dispatch(setInactiveSlider())
 
-		  dispatch(resetGoalDecrement())
-		  dispatch(resetWeeks())
+			dispatch(resetGoalDecrement())
+			dispatch(resetWeeks())
 
-      dispatch(resetCurrentWeek())
-      dispatch(resetHabitName())
-      setTimeout(() => {
-        dispatch(resetHabit())
-      }, 350)
-    }
+			dispatch(resetCurrentWeek())
+			dispatch(resetHabitName())
+			setTimeout(() => {
+				dispatch(resetHabit())
+			}, 350)
+		}
 	}, [reset])
 
 	return (

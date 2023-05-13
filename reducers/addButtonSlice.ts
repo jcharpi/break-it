@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
 
-export interface AddButtonState { 
+export interface AddButtonState {
 	value: {
-		occurrences: number,
-		reset: boolean,
+		occurrences: number
+		reset: boolean
 	}
 }
 
@@ -37,11 +37,11 @@ export const addButtonSlice = createSlice({
 	},
 })
 
-export const { 
-	addOccurrence, 
-	resetOccurrences, 
-	setOccurrences, 
-	setResetFalse, 
+export const {
+	addOccurrence,
+	resetOccurrences,
+	setOccurrences,
+	setResetFalse,
 	setResetTrue,
 } = addButtonSlice.actions
 

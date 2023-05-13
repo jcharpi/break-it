@@ -15,19 +15,19 @@ export interface Habit {
 
 export interface HabitState {
 	value: {
-    habit: Habit,
-    completed: boolean
-  }
+		habit: Habit
+		completed: boolean
+	}
 }
 
 const initialState: HabitState = {
 	value: {
-    habit: {
-      gem: Gem.SILVER,
-      goal: 0,
-      habitName: "",
-    },
-    completed: false
+		habit: {
+			gem: Gem.SILVER,
+			goal: 0,
+			habitName: "",
+		},
+		completed: false,
 	},
 }
 
@@ -35,7 +35,7 @@ export const habitSlice = createSlice({
 	name: "habit",
 	initialState,
 	reducers: {
-    completedHabit: (state) => {
+		completedHabit: (state) => {
 			state.value.completed = true
 		},
 		setHabit: (state, action: PayloadAction<Habit>) => {
@@ -47,9 +47,9 @@ export const habitSlice = createSlice({
 				goal: 0,
 				habitName: "",
 			}
-      state.value.completed = false
+			state.value.completed = false
 		},
-    resetHabitName: (state) => {
+		resetHabitName: (state) => {
 			state.value.habit = {
 				...state.value.habit,
 				habitName: "",
@@ -58,7 +58,8 @@ export const habitSlice = createSlice({
 	},
 })
 
-export const { completedHabit, setHabit, resetHabit, resetHabitName } = habitSlice.actions
+export const { completedHabit, setHabit, resetHabit, resetHabitName } =
+	habitSlice.actions
 
 export const selectHabit = (state: RootState) => state.habitSlice.value
 

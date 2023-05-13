@@ -145,13 +145,13 @@ export default function ProgressPage({ navigation }: any) {
 		}
 	}, [weeks, currentWeek])
 
-  useEffect(() => {
+	useEffect(() => {
 		if (currentWeek === "") {
 			navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
 		}
 	}, [])
 
-  useEffect(() => {
+	useEffect(() => {
 		if (weekNumber === 10) {
 			dispatch(completedHabit())
 		}
