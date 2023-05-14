@@ -17,6 +17,7 @@ export interface HabitState {
 	value: {
 		habit: Habit
 		completed: boolean
+		goalExceededCheck: boolean
 	}
 }
 
@@ -28,6 +29,7 @@ const initialState: HabitState = {
 			habitName: "",
 		},
 		completed: false,
+		goalExceededCheck: false,
 	},
 }
 
@@ -35,9 +37,6 @@ export const habitSlice = createSlice({
 	name: "habit",
 	initialState,
 	reducers: {
-		completedHabit: (state) => {
-			state.value.completed = true
-		},
 		setHabit: (state, action: PayloadAction<Habit>) => {
 			state.value.habit = action.payload
 		},
@@ -55,11 +54,26 @@ export const habitSlice = createSlice({
 				habitName: "",
 			}
 		},
+		completedHabit: (state) => {
+			state.value.completed = true
+		},
+		setGoalExceededCheckTrue: (state) => {
+			state.value.goalExceededCheck = true
+		},
+		setGoalExceededCheckFalse: (state) => {
+			state.value.goalExceededCheck = false
+		},
 	},
 })
 
-export const { completedHabit, setHabit, resetHabit, resetHabitName } =
-	habitSlice.actions
+export const {
+	setHabit,
+	resetHabit,
+	resetHabitName,
+	completedHabit,
+	setGoalExceededCheckTrue,
+	setGoalExceededCheckFalse,
+} = habitSlice.actions
 
 export const selectHabit = (state: RootState) => state.habitSlice.value
 

@@ -1,6 +1,7 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useEffect } from "react"
-import { Image, Modal, Pressable, View } from "react-native"
+import { Alert, Image, Modal, Pressable, View } from "react-native"
+import * as Haptics from "expo-haptics"
 
 // CUSTOM COMPONENTS & MODALS
 import AddButton from "../components/AddButton"
@@ -34,8 +35,8 @@ import {
 	selectCurrentWeek,
 	setCurrentWeek,
 } from "../reducers/currentWeekSlice"
-import { selectGoalDecrement } from "../reducers/goalDecrementSlice"
-import { completedHabit, selectHabit } from "../reducers/habitSlice"
+import { resetGoalDecrement, selectGoalDecrement, setGoalDecrement } from "../reducers/goalDecrementSlice"
+import { completedHabit, selectHabit, setGoalExceededCheckFalse, setGoalExceededCheckTrue, setHabit } from "../reducers/habitSlice"
 import {
 	selectModalVisible,
 	setHelpModalInvisible,
@@ -43,8 +44,8 @@ import {
 	setSummaryModalInvisible,
 	setSummaryModalVisible,
 } from "../reducers/modalVisibleSlice"
-import { resetOccurrences, setResetTrue } from "../reducers/addButtonSlice"
-import { selectWeeks } from "../reducers/weekSlice"
+import { resetOccurrences, selectAddButton, setResetTrue } from "../reducers/addButtonSlice"
+import { resetWeeks, selectWeeks, setWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
@@ -53,6 +54,8 @@ import styles from "../styles"
 import {
 	calculateCurrentWeek,
 	calculateGoal,
+	calculateWeeks,
+	getPerWeekDecrement,
 	getWeekNumber,
 } from "../backendFunctions"
 
@@ -67,7 +70,9 @@ export default function ProgressPage({ navigation }: any) {
 	const goalDecrement = useAppSelector(selectGoalDecrement)
 	const habit = useAppSelector(selectHabit).habit
 	const completed = useAppSelector(selectHabit).completed
+  const goalExceededCheck = useAppSelector(selectHabit).goalExceededCheck
 	const modalVisible = useAppSelector(selectModalVisible)
+  const occurrences = useAppSelector(selectAddButton).occurrences
 	const weeks = useAppSelector(selectWeeks)
 
 	// CUSTOM FUNCTIONS
@@ -125,6 +130,7 @@ export default function ProgressPage({ navigation }: any) {
 		dispatch(setResetTrue())
 		dispatch(addAchievement(newAchievement))
 	}
+
 	// WEEK UPDATE
 	// using sameWeekCheck in the useEffect to compare last
 	// stored currentWeek and what currentWeek SHOULD be
@@ -135,6 +141,7 @@ export default function ProgressPage({ navigation }: any) {
 				? dispatch(resetCurrentWeek())
 				: dispatch(setCurrentWeek(currWeekCheck))
 			dispatch(resetOccurrences())
+      dispatch(setGoalExceededCheckFalse())
 		}
 	}
 
@@ -146,18 +153,63 @@ export default function ProgressPage({ navigation }: any) {
 	}, [weeks, currentWeek])
 
 	useEffect(() => {
+		if (weekNumber === 10) {
+			dispatch(completedHabit())
+		}
+	}, [weekNumber])
+	
+  useEffect(() => {
+		if (occurrences > goal && occurrences - goal === 1 && !goalExceededCheck) {
+      const resetHabit = {
+        ...habit,
+        goal: goal
+      }
+
+      const calculatedWeeks = calculateWeeks(new Date())
+      const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
+      const goalDecrement = getPerWeekDecrement(goal, 8)
+
+      setTimeout(() => {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error) 
+      }, 50)
+
+			Alert.alert(
+				"Goal Exceeded",
+				"Choose to continue or reset your habit with this week's current goal as a starting point.",
+				[
+					{
+						text: "Reset",
+						style: "destructive",
+            onPress: () => {
+              dispatch(setSummaryModalInvisible())
+              dispatch(resetGoalDecrement())
+              dispatch(resetWeeks())
+              dispatch(resetOccurrences())
+              dispatch(setHabit(resetHabit))
+              dispatch(setCurrentWeek(currWeek))
+              dispatch(setWeeks(calculatedWeeks))
+              dispatch(setGoalDecrement(goalDecrement))
+            },
+					},
+					{
+						text: "Continue",
+						style: "default",
+            onPress: () => {
+              dispatch(setGoalExceededCheckTrue())
+            }
+					},
+				]
+			)
+		}
+	}, [occurrences])
+
+  useEffect(() => {
 		if (currentWeek === "") {
 			navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
 		}
 	}, [])
 
-	useEffect(() => {
-		if (weekNumber === 10) {
-			dispatch(completedHabit())
-		}
-	}, [weekNumber])
-
-	return (
+  return (
 		<View style={styles.progressContainer}>
 			<NavBar
 				handleLeftIcon={handleHelp}
