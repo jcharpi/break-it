@@ -237,7 +237,7 @@ export default StyleSheet.create({
 		width: 350,
 	},
   gemRock: {
-    marginVertical: 85,
+    marginVertical: 80,
     width: 160,
 		height: 190,
   },

@@ -57,7 +57,7 @@ function EnterHabitPage({ navigation }: any) {
 			dispatch(resetHabitName())
 			setTimeout(() => {
 				dispatch(resetHabit())
-			}, 350)
+			}, 425)
 		}
 	}, [reset])
 
