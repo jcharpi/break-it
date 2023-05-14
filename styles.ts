@@ -1,11 +1,11 @@
-import { Dimensions, StyleSheet } from "react-native"
 import { Platform, StatusBar } from "react-native"
+import EStyleSheet from "react-native-extended-stylesheet"
 
-export default StyleSheet.create({
+export default EStyleSheet.create({
 	// UNIVERSAL
 	bodyText: {
 		color: "white",
-		fontSize: 20,
+		fontSize: 19,
 		fontWeight: "500",
 		marginHorizontal: "7%",
 		shadowOffset: { width: 0, height: 3 },
@@ -17,7 +17,7 @@ export default StyleSheet.create({
 		fontWeight: "600",
 		marginHorizontal: "7%",
 		marginTop: "10%",
-    marginBottom: "6%",
+    marginBottom: "1rem",
 		shadowOffset: { width: 0, height: 3 },
 		shadowOpacity: 0.2,
 	},
@@ -71,7 +71,7 @@ export default StyleSheet.create({
 		borderRadius: 15,
 		marginHorizontal: 20,
     marginTop: 4,
-    marginBottom: Dimensions.get("screen").height > 800 ? "15%" : "9%",
+    marginBottom: "2rem",
 	},
 	thumbStyle: {
 		backgroundColor: "#989DB0",
