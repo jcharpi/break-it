@@ -1,4 +1,5 @@
 // REACT HOOKS & COMPONENTS
+import { ScrollView } from "react-native-gesture-handler"
 import { useState, memo, useEffect } from "react"
 import { SafeAreaView, Text, Alert } from "react-native"
 import { Button } from "react-native-paper"
@@ -99,14 +100,17 @@ function QuestionPage({ navigation }: any) {
 
 	function changeOccurrence(value: number) {
 		setFirstOccurrence(occurrenceOptions[value] || "weeks")
+    dispatch(setInactiveSlider())
 	}
 
 	function changeFrequency(value: number) {
 		setFrequency(frequencyOptions[value] || "monthly")
+    dispatch(setInactiveSlider())
 	}
 
 	function changeImpact(value: number) {
 		setImpact(impactOptions[value] || "slight")
+    dispatch(setInactiveSlider())
 	}
 
 	// UPDATE HABIT STATE VAR
@@ -164,46 +168,48 @@ function QuestionPage({ navigation }: any) {
 		<SafeAreaView style={styles.questionContainer}>
 			<Text style={styles.titleText}>A few questions...</Text>
 
-			<Text style={styles.bodyText}>
-				First occurrence was{" "}
-				<Text style={styles.questionValue}>{firstOccurrence}</Text> ago
-			</Text>
-			<CustomSlider
-				onValueChange={changeOccurrence}
-				maximumValue={2}
-				trackMarks={[0, 1, 2]}
-			/>
+			<ScrollView style={[{flex: 1}]} alwaysBounceVertical={false} centerContent={true}>
+				<Text style={styles.bodyText}>
+					First occurrence was{" "}
+					<Text style={styles.questionValue}>{firstOccurrence}</Text> ago
+				</Text>
+				<CustomSlider
+					onValueChange={changeOccurrence}
+					maximumValue={2}
+					trackMarks={[0, 1, 2]}
+				/>
 
-			<Text style={styles.bodyText}>
-				I engage in this habit{" "}
-				<Text style={styles.questionValue}>{frequency}</Text>
-			</Text>
-			<CustomSlider
-				onValueChange={changeFrequency}
-				maximumValue={2}
-				trackMarks={[0, 1, 2]}
-			/>
+				<Text style={styles.bodyText}>
+					I engage in this habit{" "}
+					<Text style={styles.questionValue}>{frequency}</Text>
+				</Text>
+				<CustomSlider
+					onValueChange={changeFrequency}
+					maximumValue={2}
+					trackMarks={[0, 1, 2]}
+				/>
 
-			<Text style={styles.bodyText}>
-				This habit has a <Text style={styles.questionValue}>{impact}</Text>{" "}
-				impact
-			</Text>
-			<CustomSlider
-				onValueChange={changeImpact}
-				maximumValue={2}
-				trackMarks={[0, 1, 2]}
-			/>
+				<Text style={styles.bodyText}>
+					This habit has a <Text style={styles.questionValue}>{impact}</Text>{" "}
+					impact
+				</Text>
+				<CustomSlider
+					onValueChange={changeImpact}
+					maximumValue={2}
+					trackMarks={[0, 1, 2]}
+				/>
 
-			<Text style={styles.bodyText}>
-				My first goal is <Text style={styles.questionValue}>{goal}</Text> times
-				a week
-			</Text>
-			<CustomSlider
-				onValueChange={changeGoal}
-				maximumValue={100}
-				trackMarks={[0, 100]}
-				onSlidingComplete={slidersComplete}
-			/>
+				<Text style={styles.bodyText}>
+					My first goal is <Text style={styles.questionValue}>{goal}</Text>{" "}
+					times a week
+				</Text>
+				<CustomSlider
+					onValueChange={changeGoal}
+					maximumValue={100}
+					trackMarks={[0, 100]}
+					onSlidingComplete={slidersComplete}
+				/>
+			</ScrollView>
 
 			<Button
 				mode="elevated"
@@ -218,10 +224,10 @@ function QuestionPage({ navigation }: any) {
 					buttonPressed
 						? firstLoad
 							? styles.helpButtonPressed
-							: [styles.helpButtonPressed, { marginTop: 83 }]
+							: [styles.helpButtonPressed, { marginTop: 43, marginBottom: 60 }]
 						: firstLoad
 						? styles.helpButton
-						: [styles.helpButton, { marginTop: 80 }]
+						: [styles.helpButton, { marginTop: 40, marginBottom: 60 }]
 				}
 			>
 				Begin

@@ -1,14 +1,13 @@
-import { StyleSheet } from "react-native"
+import { Dimensions, StyleSheet } from "react-native"
 import { Platform, StatusBar } from "react-native"
 
 export default StyleSheet.create({
 	// UNIVERSAL
 	bodyText: {
 		color: "white",
-		fontSize: 19,
+		fontSize: 20,
 		fontWeight: "500",
 		marginHorizontal: "7%",
-		marginTop: "11%",
 		shadowOffset: { width: 0, height: 3 },
 		shadowOpacity: 0.1,
 	},
@@ -18,6 +17,7 @@ export default StyleSheet.create({
 		fontWeight: "600",
 		marginHorizontal: "7%",
 		marginTop: "10%",
+    marginBottom: "6%",
 		shadowOffset: { width: 0, height: 3 },
 		shadowOpacity: 0.2,
 	},
@@ -70,7 +70,8 @@ export default StyleSheet.create({
 	sliderContainer: {
 		borderRadius: 15,
 		marginHorizontal: 20,
-		marginTop: 10,
+    marginTop: 4,
+    marginBottom: Dimensions.get("screen").height > 800 ? "15%" : "9%",
 	},
 	thumbStyle: {
 		backgroundColor: "#989DB0",
