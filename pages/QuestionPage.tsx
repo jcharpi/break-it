@@ -223,11 +223,11 @@ function QuestionPage({ navigation }: any) {
 				style={
 					buttonPressed
 						? firstLoad
-							? styles.helpButtonPressed
-							: [styles.helpButtonPressed, { marginTop: 43, marginBottom: 60 }]
+							? [styles.helpButtonPressed, styles.firstLoadPressed]
+							: styles.helpButtonPressed
 						: firstLoad
-						? styles.helpButton
-						: [styles.helpButton, { marginTop: 40, marginBottom: 60 }]
+						? [styles.helpButton, styles.firstLoad]
+						: styles.helpButton
 				}
 			>
 				Begin

@@ -5,7 +5,7 @@ export default EStyleSheet.create({
 	// UNIVERSAL
 	bodyText: {
 		color: "white",
-		fontSize: 19,
+		fontSize: "0.8rem",
 		fontWeight: "500",
 		marginHorizontal: "7%",
 		shadowOffset: { width: 0, height: 3 },
@@ -13,11 +13,11 @@ export default EStyleSheet.create({
 	},
 	titleText: {
 		color: "white",
-		fontSize: 29,
+		fontSize: "1.15rem",
 		fontWeight: "600",
 		marginHorizontal: "7%",
 		marginTop: "10%",
-    marginBottom: "1rem",
+    marginBottom: "1.5rem",
 		shadowOffset: { width: 0, height: 3 },
 		shadowOpacity: 0.2,
 	},
@@ -25,19 +25,23 @@ export default EStyleSheet.create({
 	// ACHIEVEMENT
 	achievementBody: {
 		color: "white",
-		fontSize: 20,
+		fontSize: "1.4rem",
 		fontWeight: "600",
-		marginVertical: 10,
+		marginVertical: "1rem",
+    textAlign: "center",
 	},
 	achievementContainer: {
-		margin: 35,
-		flexDirection: "column",
+    width: "40%",
+    marginHorizontal: "5%",
+    marginTop: "2rem",
+    flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	gemImage: {
-		width: 110,
-		height: 110,
+		width: "6rem",
+		height: "6rem",
+    justifyContent: "center"
 	},
 
 	// ADD BUTTON
@@ -46,10 +50,10 @@ export default EStyleSheet.create({
 		backgroundColor: "white",
 		borderColor: "#FFC333",
 		borderWidth: 3,
-		borderRadius: 50,
-		height: 100,
+		borderRadius: "2.25rem",
+		height: "4.5rem",
 		justifyContent: "center",
-		width: 100,
+		width: "4.5rem",
 	},
 	addButton: {
 		shadowOffset: { width: 0, height: 5 },
@@ -57,7 +61,7 @@ export default EStyleSheet.create({
 		shadowRadius: 8,
 	},
 	addButtonPressed: {
-		marginTop: 3,
+		marginTop: "0.1rem",
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.5,
 		shadowRadius: 3,
@@ -127,22 +131,22 @@ export default EStyleSheet.create({
 	summaryBody: {
 		fontSize: 22,
 		fontWeight: "400",
-		lineHeight: 45,
+		lineHeight: "1.9rem",
 	},
 	summaryContainer: {
 		backgroundColor: "white",
 		borderRadius: 15,
-		height: 190,
+		height: "8.2rem",
 		width: "90%",
 	},
 	summaryHeader: {
 		alignItems: "flex-start",
 		flexDirection: "row",
 		justifyContent: "space-between",
-		marginTop: 15,
+		marginTop: "0.7rem",
 	},
 	summaryText: {
-		fontSize: 22,
+		fontSize: "1rem",
 		marginLeft: "4%",
 	},
 	summaryTitle: {
@@ -162,14 +166,13 @@ export default EStyleSheet.create({
 	},
 	enterTextInput: {
 		backgroundColor: "white",
-		borderRadius: 15,
+		borderRadius: "0.6rem",
 		borderWidth: 2,
-		fontSize: 19,
-		height: 45,
-		marginVertical: "4%",
+		fontSize: "0.9rem",
+		height: "2.1rem",
 		marginBottom: 100,
-		paddingLeft: 10,
-		width: "80%",
+		paddingLeft: "0.5rem",
+		width: "13rem",
 	},
 
 	// QUESTION PAGE
@@ -188,20 +191,28 @@ export default EStyleSheet.create({
 		alignSelf: "center",
 		borderRadius: 15,
 		justifyContent: "center",
-		marginTop: 67,
+		marginTop: "2rem",
+    marginBottom: "3.4rem" 
 	},
-	helpButtonContainer: {
-		height: 45,
-		width: 250,
-	},
-	helpButtonPressed: {
+  helpButtonPressed: {
 		alignSelf: "center",
 		borderRadius: 15,
 		justifyContent: "center",
-		marginTop: 70,
+		marginTop: "2.15rem",
+    marginBottom: "3.25rem" 
+	},
+  firstLoad: {
+    marginBottom: "2.15rem"
+  },
+  firstLoadPressed: {
+    marginBottom: "2rem"
+  },
+	helpButtonContainer: {
+		height: "2.1rem",
+		width: "10rem",
 	},
 	helpButtonText: {
-		fontSize: 20,
+		fontSize: "0.82rem",
 		fontWeight: "600",
 	},
 	helpContainer: {
@@ -211,10 +222,13 @@ export default EStyleSheet.create({
 		width: "100%",
 	},
 	helpFlexHeader: {
-		alignItems: "flex-end",
+		alignItems: "center",
 		flexDirection: "row",
 		justifyContent: "space-between",
 	},
+  helpMargin: {
+    marginBottom: "2rem"
+  },
 
 	// PROGRESS PAGE
 	progressContainer: {
@@ -225,7 +239,7 @@ export default EStyleSheet.create({
 	progressFlexView: {
 		alignItems: "center",
 		flexDirection: "column",
-		gap: 60,
+		gap: "3.5rem",
 		marginTop: "30%",
 	},
 	progressModalContainer: {
@@ -234,13 +248,13 @@ export default EStyleSheet.create({
 		justifyContent: "center",
 	},
 	progressRock: {
-		height: 350,
-		width: 350,
+		height: "14rem",
+		width: "14rem",
 	},
   gemRock: {
-    marginVertical: 80,
-    width: 160,
-		height: 190,
+    marginVertical: "2rem",
+    width: "7.7rem",
+		height: "10rem",
   },
 
 	// TROVE PAGE
@@ -251,9 +265,9 @@ export default EStyleSheet.create({
 	},
 	troveBody: {
 		color: "white",
-		fontSize: 22,
+		fontSize: "1rem",
 		fontWeight: "600",
-		marginVertical: 25,
+		marginVertical: "1.1rem",
 		textAlign: "center",
 	},
 	troveContainer: {
@@ -265,7 +279,7 @@ export default EStyleSheet.create({
 	// CREATE HABIT LAYOUT
 	createTabBar: {
 		backgroundColor: "#586183",
-		paddingBottom: "10%",
+		paddingBottom: "1rem",
 	},
 	createTabBarContainer: {
 		justifyContent: "center",

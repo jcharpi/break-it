@@ -79,23 +79,23 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 			</View>
 
 			<View>
-				<Text style={styles.bodyText}>
+				<Text style={[styles.bodyText, styles.helpMargin]}>
 					BreakIt is designed to help you hold yourself accountable when
 					attempting to reduce or break your bad habits.
 				</Text>
 
-				<Text style={styles.bodyText}>
+				<Text style={[styles.bodyText, styles.helpMargin]}>
 					You will enter a goal which determines your initial limit for acting
 					on your bad habit.
 				</Text>
 
-				<Text style={styles.bodyText}>
+				<Text style={[styles.bodyText, styles.helpMargin]}>
 					You can tap on your rock to view your current week's progress. Your
 					goal will update each week. Here, you will see if you are on track to
 					meet your goal.
 				</Text>
 
-				<Text style={styles.bodyText}>
+				<Text style={[styles.bodyText, styles.helpMargin]}>
 					Each time you act on your habit, open up BreakIt and hit the plus!
 					This will help you correlate an event with your bad habit, allowing
 					you to be more mindful of your actions in the future.
@@ -118,11 +118,11 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 						buttonColor={"#dd1e00"}
 						textColor={"white"}
 						labelStyle={styles.helpButtonText}
-						contentStyle={styles.helpButtonContainer}
+						contentStyle={[styles.helpButtonContainer]}
 						style={
 							buttonPressed
-								? [styles.helpButtonPressed, { marginTop: 63 }]
-								: [styles.helpButton, { marginTop: 60 }]
+								? [styles.helpButtonPressed, { marginTop: 8 }]
+								: [styles.helpButton, { marginTop: 5 }]
 						}
 					>
 						Change Habit
