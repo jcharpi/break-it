@@ -22,7 +22,7 @@ export default EStyleSheet.create({
 		shadowOpacity: 0.2,
 	},
   safeArea: {
-    paddingTop: 40,
+    paddingTop: Dimensions.get("screen").height < 700 ? "8%" : "12%",
   },
 
 	// ACHIEVEMENT
@@ -78,7 +78,7 @@ export default EStyleSheet.create({
 		borderRadius: 15,
 		marginHorizontal: 20,
     marginTop: 4,
-    marginBottom: Dimensions.get("screen").height < 700 ? "1.5rem" : "2rem",
+    marginBottom: Dimensions.get("screen").height < 700 ? "1.3rem" : "2rem",
 	},
 	thumbStyle: {
 		backgroundColor: "#989DB0",
@@ -226,7 +226,7 @@ export default EStyleSheet.create({
 		justifyContent: "space-between",
 	},
   helpMargin: {
-    marginBottom: "2rem"
+    marginBottom: "9.5%"
   },
 
 	// PROGRESS PAGE

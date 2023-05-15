@@ -20,7 +20,7 @@ import { setResetTrue } from "../reducers/addButtonSlice"
 import styles from "../styles"
 
 // DETERMINES IF MODAL VIEW OR NOT
-import { HelpPageText } from './../components/HelpPageText'
+import { HelpPageText } from "./../components/HelpPageText"
 
 interface HelpPageProps {
 	navigation: any
@@ -96,7 +96,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 						buttonColor={"#dd1e00"}
 						textColor={"white"}
 						labelStyle={styles.helpButtonText}
-						contentStyle={[styles.helpButtonContainer]}
+						contentStyle={styles.helpButtonContainer}
 						style={
 							buttonPressed
 								? [styles.helpButtonPressed, { marginTop: 8 }]

@@ -14,8 +14,7 @@ export default function TrackHabitLayout() {
 			initialRouteName="ProgressPage"
 			tabBar={() => null}
 			screenOptions={{
-				lazy: true,
-				lazyPreloadDistance: 2,
+				lazy: false,
 			}}
 		>
 			<Tab.Screen name="ProgressPage" component={ProgressPage} />
