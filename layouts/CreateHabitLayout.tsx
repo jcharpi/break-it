@@ -31,8 +31,7 @@ export default function CreateHabitLayout() {
 				firstLoad
 					? {
 							tabBarIcon: ({ focused, color }) => {
-								let iconName
-								iconName = focused ? "ellipse" : "ellipse-outline"
+								const iconName = focused ? "ellipse" : "ellipse-outline"
 								color = focused ? "#DDE2F5" : "white"
 								return <Icon name={iconName} size={25} color={color} />
 							},

@@ -1,6 +1,6 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { memo } from "react"
-import { SafeAreaView, Text, View, Alert, TouchableOpacity } from "react-native"
+import { Text, View, Alert, TouchableOpacity } from "react-native"
 import { Button } from "react-native-paper"
 import * as Haptics from "expo-haptics"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
@@ -20,6 +20,8 @@ import { setResetTrue } from "../reducers/addButtonSlice"
 import styles from "../styles"
 
 // DETERMINES IF MODAL VIEW OR NOT
+import { HelpPageText } from './../components/HelpPageText'
+
 interface HelpPageProps {
 	navigation: any
 	modalView?: boolean
@@ -32,36 +34,40 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 		useAppSelector(selectButtonPressed).helpPageButtonPressed
 	const currentWeek = useAppSelector(selectCurrentWeek)
 
+	function changeHabitAlert() {
+		Alert.alert(
+			"Change Habit",
+			"All progress made on your current habit will be lost!",
+			[
+				{
+					text: "Cancel",
+					style: "cancel",
+				},
+				{
+					text: "OK",
+					onPress: () => {
+						navigation.navigate("CreateHabitLayout", {
+							screen: "EnterHabitPage",
+						})
+						dispatch(setResetTrue())
+					},
+					style: "destructive",
+				},
+			]
+		)
+	}
+
 	function buttonHandler() {
 		if (modalView) {
 			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-			Alert.alert(
-				"Change Habit",
-				"All progress made on your current habit will be lost!",
-				[
-					{
-						text: "Cancel",
-						style: "cancel",
-					},
-					{
-						text: "OK",
-						onPress: () => {
-							navigation.navigate("CreateHabitLayout", {
-								screen: "EnterHabitPage",
-							})
-							dispatch(setResetTrue())
-						},
-						style: "destructive",
-					},
-				]
-			)
+			changeHabitAlert()
 		} else {
 			navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
 		}
 	}
 
 	return (
-		<SafeAreaView style={styles.helpContainer}>
+		<View style={[styles.helpContainer, styles.safeArea]}>
 			<View style={styles.helpFlexHeader}>
 				<Text style={styles.titleText}>
 					{modalView ? "Help" : "Welcome! 👋"}
@@ -78,35 +84,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 				)}
 			</View>
 
-			<View>
-				<Text style={[styles.bodyText, styles.helpMargin]}>
-					BreakIt is designed to help you hold yourself accountable when
-					attempting to reduce or break your bad habits.
-				</Text>
-
-				<Text style={[styles.bodyText, styles.helpMargin]}>
-					You will enter a goal which determines your initial limit for acting
-					on your bad habit.
-				</Text>
-
-				<Text style={[styles.bodyText, styles.helpMargin]}>
-					You can tap on your rock to view your current week's progress. Your
-					goal will update each week. Here, you will see if you are on track to
-					meet your goal.
-				</Text>
-
-				<Text style={[styles.bodyText, styles.helpMargin]}>
-					Each time you act on your habit, open up BreakIt and hit the plus!
-					This will help you correlate an event with your bad habit, allowing
-					you to be more mindful of your actions in the future.
-				</Text>
-
-				{!modalView && (
-					<Text style={styles.bodyText}>
-						Let's get started... swipe to continue!
-					</Text>
-				)}
-			</View>
+			<HelpPageText modalView={modalView}  />
 
 			{modalView &&
 				(currentWeek !== "week9" ? (
@@ -133,7 +111,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 						page!
 					</Text>
 				))}
-		</SafeAreaView>
+		</View>
 	)
 }
 

@@ -1,5 +1,5 @@
 // REACT HOOKS & COMPONENTS
-import { SafeAreaView, View, Text, Pressable } from "react-native"
+import { View, Text, Pressable } from "react-native"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // STYLE
@@ -17,7 +17,7 @@ export default function NavBar(props: Props) {
 	function handleNothing() {}
 
 	return (
-		<SafeAreaView style={styles.navContainer}>
+		<View style={[styles.navContainer, styles.safeArea]}>
 			<View style={styles.navFlex}>
 				{props.leftIconName ? (
 					<Pressable onPress={props.handleLeftIcon ?? handleNothing}>
@@ -49,6 +49,6 @@ export default function NavBar(props: Props) {
 					)
 				}
 			</View>
-		</SafeAreaView>
+		</View>
 	)
 }

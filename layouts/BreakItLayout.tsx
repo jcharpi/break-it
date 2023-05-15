@@ -2,7 +2,9 @@
 import { useEffect, useState } from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { ActivityIndicator } from "react-native-paper"
+
+// COMPONENTS
+import LoadingPage from "../components/LoadingPage"
 
 // PAGE LAYOUTS
 import CreateHabitLayout from "../layouts/CreateHabitLayout"
@@ -21,22 +23,20 @@ export default function BreakItLayout() {
 	const [initialRouteName, setInitialRouteName] = useState("")
 
 	useEffect(() => {
-		const getInitialRouteName = async () => {
+		function getInitialRouteName() {
 			const habitExists =
 				habit.habitName === "" || habit.goal === 0 ? false : true
 
-			if (habitExists) {
-				setInitialRouteName("TrackHabitLayout")
-			} else {
-				setInitialRouteName("CreateHabitLayout")
-			}
+			habitExists
+				? setInitialRouteName("TrackHabitLayout")
+				: setInitialRouteName("CreateHabitLayout")
 		}
 
 		getInitialRouteName()
-	}, [])
+	}, [habit])
 
 	if (!initialRouteName) {
-		return <ActivityIndicator animating={true} color={"white"} />
+		return <LoadingPage />
 	}
 
 	return (

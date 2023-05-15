@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../app/store"
+import { Gem } from "./habitSlice"
 
 interface Achievement {
-	gem: "silver" | "gold" | "diamond"
+	gem: Gem
 	habitName: string
 }
 

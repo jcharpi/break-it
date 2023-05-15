@@ -1,7 +1,6 @@
 // REACT HOOKS & COMPONENTS
-import { ScrollView } from "react-native-gesture-handler"
 import { useState, memo, useEffect } from "react"
-import { SafeAreaView, Text, Alert } from "react-native"
+import { Text, Alert, ScrollView, View } from "react-native"
 import { Button } from "react-native-paper"
 import * as Haptics from "expo-haptics"
 
@@ -165,7 +164,7 @@ function QuestionPage({ navigation }: any) {
 	}
 
 	return (
-		<SafeAreaView style={styles.questionContainer}>
+		<View style={[styles.questionContainer, styles.safeArea]}>
 			<Text style={styles.titleText}>A few questions...</Text>
 
 			<ScrollView style={[{flex: 1}]} alwaysBounceVertical={false} centerContent={true}>
@@ -232,7 +231,7 @@ function QuestionPage({ navigation }: any) {
 			>
 				Begin
 			</Button>
-		</SafeAreaView>
+		</View>
 	)
 }
 

@@ -1,6 +1,6 @@
 // REACT HOOKS & COMPONENTS
 import { memo, useEffect } from "react"
-import { Text, TextInput, SafeAreaView } from "react-native"
+import { Text, TextInput, View } from "react-native"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
@@ -44,28 +44,6 @@ function EnterHabitPage({ navigation }: any) {
 		dispatch(setHabit(updatedHabit(habit)))
 	}
 
-	useEffect(() => {
-		if (reset) {
-			newHabit()
-		}
-	}, [reset])
-
-	return (
-		<SafeAreaView style={styles.enterContainer}>
-			<Text style={styles.titleText}>What is your bad habit?</Text>
-			<TextInput
-				style={styles.enterTextInput}
-				placeholder="Enter your habit"
-				clearButtonMode="while-editing"
-				maxLength={20}
-				returnKeyType="done"
-				onSubmitEditing={submitHabit}
-				onChangeText={changeHabitName}
-				value={habit.habitName}
-			/>
-		</SafeAreaView>
-	)
-
 	function newHabit() {
 		// Hide modal views
 		dispatch(setHelpModalInvisible())
@@ -77,14 +55,36 @@ function EnterHabitPage({ navigation }: any) {
 		// Reset week data => allow for new week recalculation
 		dispatch(resetGoalDecrement())
 		dispatch(resetWeeks())
-		dispatch(resetCurrentWeek())
 
 		// Hide name for cleaner look on fade to EnterHabitPage. Need timeout for habit so rock image does not change when switching screens
 		dispatch(resetHabitName())
 		setTimeout(() => {
+			dispatch(resetCurrentWeek())
 			dispatch(resetHabit())
-		}, 425)
+		}, 500)
 	}
+
+	useEffect(() => {
+		if (reset) {
+			newHabit()
+		}
+	}, [reset])
+
+	return (
+		<View style={styles.enterContainer}>
+			<Text style={styles.titleText}>What is your bad habit?</Text>
+			<TextInput
+				style={styles.enterTextInput}
+				placeholder="Enter your habit"
+				clearButtonMode="while-editing"
+				maxLength={20}
+				returnKeyType="done"
+				onSubmitEditing={submitHabit}
+				onChangeText={changeHabitName}
+				value={habit.habitName}
+			/>
+		</View>
+	)
 }
 
 export default memo(EnterHabitPage)

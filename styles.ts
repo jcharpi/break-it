@@ -21,6 +21,9 @@ export default EStyleSheet.create({
 		shadowOffset: { width: 0, height: 3 },
 		shadowOpacity: 0.2,
 	},
+  safeArea: {
+    paddingTop: 40,
+  },
 
 	// ACHIEVEMENT
 	achievementBody: {
@@ -94,7 +97,6 @@ export default EStyleSheet.create({
 	navContainer: {
 		backgroundColor: "#424A67",
 		height: "12%",
-		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
 		width: "100%",
 	},
 	navFlex: {
@@ -161,7 +163,6 @@ export default EStyleSheet.create({
 		flexDirection: "column",
 		flex: 1,
 		justifyContent: "center",
-		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
 		width: "100%",
 	},
 	enterTextInput: {
@@ -179,7 +180,6 @@ export default EStyleSheet.create({
 	questionContainer: {
 		backgroundColor: "#586183",
 		flex: 1,
-		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
 		width: "100%",
 	},
 	questionValue: {
@@ -218,7 +218,6 @@ export default EStyleSheet.create({
 	helpContainer: {
 		backgroundColor: "#586183",
 		flex: 1,
-		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
 		width: "100%",
 	},
 	helpFlexHeader: {

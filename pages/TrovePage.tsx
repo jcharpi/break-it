@@ -1,5 +1,6 @@
 // REACT COMPONENTS & HOOKS
 import { View, ScrollView, Text } from "react-native"
+import { Gem } from "../reducers/habitSlice"
 
 // CUSTOM COMPONENTS
 import Achievement from "../components/Achievement"
@@ -13,7 +14,7 @@ import { selectAchievements } from "../reducers/achievementSlice"
 import styles from "../styles"
 
 interface Achievement {
-	gem: "silver" | "gold" | "diamond"
+	gem: Gem
 	habitName: string
 }
 

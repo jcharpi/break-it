@@ -1,12 +1,18 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
 import { useEffect } from "react"
-import { Alert, Image, Modal, Pressable, View } from "react-native"
+
+import {
+	Alert,
+	Image,
+	ImageSourcePropType,
+	Pressable,
+	View,
+} from "react-native"
 import * as Haptics from "expo-haptics"
 
 // CUSTOM COMPONENTS & MODALS
 import AddButton from "../components/AddButton"
 import NavBar from "../components/NavBar"
-import Summary from "../components/Summary"
 
 // CUSTOM IMAGES
 import week1_rock from "../images/rocks/week1.png"
@@ -24,9 +30,6 @@ import silver from "../images/silver.png"
 import gold from "../images/gold.png"
 import diamond from "../images/diamond.png"
 
-// PAGES
-import HelpPage from "./HelpPage"
-
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { addAchievement } from "../reducers/achievementSlice"
@@ -35,17 +38,33 @@ import {
 	selectCurrentWeek,
 	setCurrentWeek,
 } from "../reducers/currentWeekSlice"
-import { resetGoalDecrement, selectGoalDecrement, setGoalDecrement } from "../reducers/goalDecrementSlice"
-import { completedHabit, selectHabit, setGoalExceededCheckFalse, setGoalExceededCheckTrue, setHabit } from "../reducers/habitSlice"
 import {
-	selectModalVisible,
-	setHelpModalInvisible,
+	resetGoalDecrement,
+	selectGoalDecrement,
+	setGoalDecrement,
+} from "../reducers/goalDecrementSlice"
+import {
+	completedHabit,
+	selectHabit,
+	setGoalExceededCheckFalse,
+	setGoalExceededCheckTrue,
+	setHabit,
+} from "../reducers/habitSlice"
+import {
 	toggleHelpModalVisible,
 	setSummaryModalInvisible,
 	setSummaryModalVisible,
 } from "../reducers/modalVisibleSlice"
-import { resetOccurrences, selectAddButton, setResetTrue } from "../reducers/addButtonSlice"
+import {
+	resetOccurrences,
+	selectAddButton,
+	setResetTrue,
+} from "../reducers/addButtonSlice"
 import { resetWeeks, selectWeeks, setWeeks } from "../reducers/weekSlice"
+
+// PAGES
+import { WhatNowModal } from "./../components/WhatNowModal"
+import { SummaryModal } from "./../components/SummaryModal"
 
 // STYLE
 import styles from "../styles"
@@ -59,10 +78,6 @@ import {
 	getWeekNumber,
 } from "../backendFunctions"
 
-interface ImageObject {
-	[key: string]: string
-}
-
 export default function ProgressPage({ navigation }: any) {
 	// REDUX
 	const dispatch = useAppDispatch()
@@ -70,9 +85,8 @@ export default function ProgressPage({ navigation }: any) {
 	const goalDecrement = useAppSelector(selectGoalDecrement)
 	const habit = useAppSelector(selectHabit).habit
 	const completed = useAppSelector(selectHabit).completed
-  const goalExceededCheck = useAppSelector(selectHabit).goalExceededCheck
-	const modalVisible = useAppSelector(selectModalVisible)
-  const occurrences = useAppSelector(selectAddButton).occurrences
+	const goalExceededCheck = useAppSelector(selectHabit).goalExceededCheck
+	const occurrences = useAppSelector(selectAddButton).occurrences
 	const weeks = useAppSelector(selectWeeks)
 
 	// CUSTOM FUNCTIONS
@@ -80,7 +94,7 @@ export default function ProgressPage({ navigation }: any) {
 	const weekNumber = currentWeek === "" ? 0 : getWeekNumber(currentWeek)
 	const goal = calculateGoal(habit.goal, goalDecrement, weekNumber)
 
-	const images: ImageObject = {
+	const images: Record<string, ImageSourcePropType> = {
 		week0: week1_rock,
 		week1: week2_rock,
 		week2: week3_rock,
@@ -112,7 +126,7 @@ export default function ProgressPage({ navigation }: any) {
 		navigation.navigate("TrovePage")
 	}
 
-	function getImageByName(): any {
+	function getImageByName(): ImageSourcePropType {
 		if (weekNumber < 9 && weekNumber > 0) {
 			return images[currentWeek]
 		} else if (weekNumber === 9) {
@@ -120,9 +134,12 @@ export default function ProgressPage({ navigation }: any) {
 		} else if (weekNumber === 10 || completed) {
 			return images[`week9_${habit.gem}`]
 		}
+
+		return images["week0"]
 	}
 
-	const clearData = () => {
+	// Prepare new habit to be created, add completed habit to TrovePage
+	function clearData() {
 		const newAchievement = { gem: habit.gem, habitName: capitalizedHabit }
 		navigation.navigate("CreateHabitLayout", {
 			screen: "EnterHabitPage",
@@ -131,85 +148,92 @@ export default function ProgressPage({ navigation }: any) {
 		dispatch(addAchievement(newAchievement))
 	}
 
-	// WEEK UPDATE
-	// using sameWeekCheck in the useEffect to compare last
-	// stored currentWeek and what currentWeek SHOULD be
-	const sameWeekCheck = () => {
+	function resetCurrentHabit() {
+		// Set up new habit based on current habit
+		const resetHabit = {
+			...habit,
+			goal: goal,
+		}
+		const calculatedWeeks = calculateWeeks(new Date())
+		const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
+		const goalDecrement = getPerWeekDecrement(goal, 8)
+
+		setTimeout(() => {
+			Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+		}, 50)
+
+		Alert.alert(
+			"Goal Exceeded",
+			"Choose to continue or reset your habit with this week's current goal as a starting point.",
+			[
+				{
+					text: "Reset",
+					style: "destructive",
+					onPress: () => {
+						// hide modal
+						dispatch(setSummaryModalInvisible())
+
+						// reset weeks
+						dispatch(resetGoalDecrement())
+						dispatch(resetWeeks())
+						dispatch(resetOccurrences())
+
+						// use current week to reset habit
+						dispatch(setHabit(resetHabit))
+						dispatch(setCurrentWeek(currWeek))
+						dispatch(setWeeks(calculatedWeeks))
+						dispatch(setGoalDecrement(goalDecrement))
+					},
+				},
+				{
+					text: "Continue",
+					style: "default",
+					onPress: () => {
+						dispatch(setGoalExceededCheckTrue())
+					},
+				},
+			]
+		)
+	}
+
+	function sameWeekCheck() {
 		const result = currWeekCheck === "" ? true : currentWeek === currWeekCheck
+
+		// If current week is not what it should be => update it to be desired week
 		if (!result) {
 			currWeekCheck === ""
 				? dispatch(resetCurrentWeek())
 				: dispatch(setCurrentWeek(currWeekCheck))
 			dispatch(resetOccurrences())
-      dispatch(setGoalExceededCheckFalse())
+			dispatch(setGoalExceededCheckFalse())
 		}
 	}
 
+	// Check if week needs to be updated on app reload
 	useEffect(() => {
-		// Waits for state values to update from AsyncStorage
 		if (weeks !== undefined && currentWeek !== undefined) {
 			sameWeekCheck()
 		}
 	}, [weeks, currentWeek])
 
 	useEffect(() => {
+		// change ProgressPage, HelpPage, & SummaryPage to reflect finished habit
 		if (weekNumber === 10) {
 			dispatch(completedHabit())
 		}
-	}, [weekNumber])
-	
-  useEffect(() => {
+
+		// reset current habit to week1
 		if (occurrences > goal && occurrences - goal === 1 && !goalExceededCheck) {
-      const resetHabit = {
-        ...habit,
-        goal: goal
-      }
-
-      const calculatedWeeks = calculateWeeks(new Date())
-      const currWeek = calculateCurrentWeek(calculatedWeeks, new Date())
-      const goalDecrement = getPerWeekDecrement(goal, 8)
-
-      setTimeout(() => {
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error) 
-      }, 50)
-
-			Alert.alert(
-				"Goal Exceeded",
-				"Choose to continue or reset your habit with this week's current goal as a starting point.",
-				[
-					{
-						text: "Reset",
-						style: "destructive",
-            onPress: () => {
-              dispatch(setSummaryModalInvisible())
-              dispatch(resetGoalDecrement())
-              dispatch(resetWeeks())
-              dispatch(resetOccurrences())
-              dispatch(setHabit(resetHabit))
-              dispatch(setCurrentWeek(currWeek))
-              dispatch(setWeeks(calculatedWeeks))
-              dispatch(setGoalDecrement(goalDecrement))
-            },
-					},
-					{
-						text: "Continue",
-						style: "default",
-            onPress: () => {
-              dispatch(setGoalExceededCheckTrue())
-            }
-					},
-				]
-			)
+			resetCurrentHabit()
 		}
-	}, [occurrences])
 
-  useEffect(() => {
+		// If user reloads app while creating a habit, reset their progress
 		if (currentWeek === "") {
 			navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
 		}
-	}, [])
+	}, [weekNumber, occurrences])
 
-  return (
+	return (
 		<View style={styles.progressContainer}>
 			<NavBar
 				handleLeftIcon={handleHelp}
@@ -221,21 +245,7 @@ export default function ProgressPage({ navigation }: any) {
 
 			<View style={styles.progressFlexView}>
 				<Pressable onPress={() => dispatch(setSummaryModalVisible())}>
-					{/* SUMMARY OVERLAY */}
-					<Modal
-						animationType="slide"
-						transparent={true}
-						visible={modalVisible.summaryModalVisible}
-						onRequestClose={() => dispatch(setSummaryModalInvisible())}
-						presentationStyle="overFullScreen"
-					>
-						<Pressable
-							onPress={() => dispatch(setSummaryModalInvisible())}
-							style={styles.progressModalContainer}
-						>
-							<Summary goal={goal} />
-						</Pressable>
-					</Modal>
+					<SummaryModal goal={goal} />
 					<Image
 						style={[styles.progressRock, completed ? styles.gemRock : {}]}
 						source={getImageByName()}
@@ -243,16 +253,7 @@ export default function ProgressPage({ navigation }: any) {
 					/>
 				</Pressable>
 
-				{/* WHAT NOW MODAL */}
-				<Modal
-					animationType="slide"
-					visible={modalVisible.helpModalVisible}
-					onRequestClose={() => dispatch(setHelpModalInvisible())}
-					presentationStyle="pageSheet"
-					statusBarTranslucent={true}
-				>
-					<HelpPage navigation={navigation} modalView={true} />
-				</Modal>
+				<WhatNowModal navigation={navigation} />
 
 				<AddButton clearData={clearData} />
 			</View>
