@@ -1,6 +1,7 @@
 // REACT HOOKS & COMPONENTS
 import { memo } from "react"
 import { Image, Text, View } from "react-native"
+import { Gem } from "../reducers/habitSlice"
 
 // CUSTOM IMAGES
 import silver from "../images/silver.png"
@@ -11,18 +12,18 @@ import diamond from "../images/diamond.png"
 import styles from "../styles"
 
 interface Props {
-	gem: string
+	gem: Gem
 	habitName: string
 }
 
 function Achievement(props: Props) {
 	function getGemImage() {
 		switch (props.gem) {
-			case "silver":
+			case Gem.SILVER:
 				return silver
-			case "gold":
+			case Gem.GOLD:
 				return gold
-			case "diamond":
+			case Gem.DIAMOND:
 				return diamond
 			default:
 				return silver

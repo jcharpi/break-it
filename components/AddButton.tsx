@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectCurrentWeek } from "../reducers/currentWeekSlice"
-import { addOccurrence, selectAddButton } from "../reducers/addButtonSlice"
+import { addOccurrence } from "../reducers/addButtonSlice"
 import { setAddButtonPressedTrue, setAddButtonPressedFalse, selectButtonPressed } from "../reducers/buttonPressedSlice"
 
 // STYLE

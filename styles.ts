@@ -1,4 +1,4 @@
-import { Platform, StatusBar } from "react-native"
+import { Dimensions, Platform, StatusBar } from "react-native"
 import EStyleSheet from "react-native-extended-stylesheet"
 
 export default EStyleSheet.create({
@@ -75,7 +75,7 @@ export default EStyleSheet.create({
 		borderRadius: 15,
 		marginHorizontal: 20,
     marginTop: 4,
-    marginBottom: "2rem",
+    marginBottom: Dimensions.get("screen").height < 700 ? "1.5rem" : "2rem",
 	},
 	thumbStyle: {
 		backgroundColor: "#989DB0",

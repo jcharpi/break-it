@@ -13,8 +13,8 @@ import { PersistGate } from "redux-persist/integration/react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const height = Dimensions.get('window').height
-const rem = height > 700 ? 24 : 19
-
+const rem = height > 830 ? 24 : height > 700 ? 22 : 19
+console.log(height)
 EStyleSheet.build({
   $rem: rem
 })

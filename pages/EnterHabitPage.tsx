@@ -28,9 +28,9 @@ function EnterHabitPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
 	const habit = useAppSelector(selectHabit).habit
 	const reset = useAppSelector(selectAddButton).reset
-  
+
 	// EVENT FUNCTIONS
-	const submitHabit = () => {
+	function submitHabit() {
 		navigation.navigate("QuestionPage")
 	}
 
@@ -46,19 +46,7 @@ function EnterHabitPage({ navigation }: any) {
 
 	useEffect(() => {
 		if (reset) {
-			dispatch(setHelpModalInvisible())
-			dispatch(setSummaryModalInvisible())
-
-			dispatch(setInactiveSlider())
-
-			dispatch(resetGoalDecrement())
-			dispatch(resetWeeks())
-
-			dispatch(resetCurrentWeek())
-			dispatch(resetHabitName())
-			setTimeout(() => {
-				dispatch(resetHabit())
-			}, 425)
+			newHabit()
 		}
 	}, [reset])
 
@@ -77,6 +65,26 @@ function EnterHabitPage({ navigation }: any) {
 			/>
 		</SafeAreaView>
 	)
+
+	function newHabit() {
+		// Hide modal views
+		dispatch(setHelpModalInvisible())
+		dispatch(setSummaryModalInvisible())
+
+		// Allow swiping gestures on question page
+		dispatch(setInactiveSlider())
+
+		// Reset week data => allow for new week recalculation
+		dispatch(resetGoalDecrement())
+		dispatch(resetWeeks())
+		dispatch(resetCurrentWeek())
+
+		// Hide name for cleaner look on fade to EnterHabitPage. Need timeout for habit so rock image does not change when switching screens
+		dispatch(resetHabitName())
+		setTimeout(() => {
+			dispatch(resetHabit())
+		}, 425)
+	}
 }
 
 export default memo(EnterHabitPage)
