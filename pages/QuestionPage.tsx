@@ -21,7 +21,6 @@ import {
 	setQuestionPageButtonPressedFalse,
 	setQuestionPageButtonPressedTrue,
 } from "../reducers/buttonPressedSlice"
-import { setCurrentWeek } from "../reducers/currentWeekSlice"
 import { setInactiveSlider } from "../reducers/activeSliderSlice"
 import {
 	selectFirstLoad,
@@ -35,7 +34,7 @@ import {
 	selectAddButton,
 	setResetFalse,
 } from "../reducers/addButtonSlice"
-import { setWeeks } from "../reducers/weekSlice"
+import { setCurrentWeek, setWeeks } from "../reducers/weekSlice"
 
 // STYLE
 import styles from "../styles"
@@ -99,17 +98,17 @@ function QuestionPage({ navigation }: any) {
 
 	function changeOccurrence(value: number) {
 		setFirstOccurrence(occurrenceOptions[value] || "weeks")
-    dispatch(setInactiveSlider())
+		dispatch(setInactiveSlider())
 	}
 
 	function changeFrequency(value: number) {
 		setFrequency(frequencyOptions[value] || "monthly")
-    dispatch(setInactiveSlider())
+		dispatch(setInactiveSlider())
 	}
 
 	function changeImpact(value: number) {
 		setImpact(impactOptions[value] || "slight")
-    dispatch(setInactiveSlider())
+		dispatch(setInactiveSlider())
 	}
 
 	// UPDATE HABIT STATE VAR
@@ -125,12 +124,7 @@ function QuestionPage({ navigation }: any) {
 		dispatch(setInactiveSlider())
 	}
 
-	// SET FIRST GOAL
-	function changeGoal(value: number) {
-		setGoal(value)
-	}
-
-	function buttonHandler() {
+	function beginButtonHandler() {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
 
 		const calculatedWeeks = calculateWeeks(new Date())
@@ -167,7 +161,11 @@ function QuestionPage({ navigation }: any) {
 		<View style={[styles.questionContainer, styles.safeArea]}>
 			<Text style={styles.titleText}>A few questions...</Text>
 
-			<ScrollView style={[{flex: 1}]} alwaysBounceVertical={false} centerContent={true}>
+			<ScrollView
+				style={[{ flex: 1 }]}
+				alwaysBounceVertical={false}
+				centerContent={true}
+			>
 				<Text style={styles.bodyText}>
 					First occurrence was{" "}
 					<Text style={styles.questionValue}>{firstOccurrence}</Text> ago
@@ -202,8 +200,9 @@ function QuestionPage({ navigation }: any) {
 					My first goal is <Text style={styles.questionValue}>{goal}</Text>{" "}
 					times a week
 				</Text>
+        
 				<CustomSlider
-					onValueChange={changeGoal}
+					onValueChange={setGoal}
 					maximumValue={100}
 					trackMarks={[0, 100]}
 					onSlidingComplete={slidersComplete}
@@ -214,7 +213,7 @@ function QuestionPage({ navigation }: any) {
 				mode="elevated"
 				onPressIn={() => dispatch(setQuestionPageButtonPressedTrue())}
 				onPressOut={() => dispatch(setQuestionPageButtonPressedFalse())}
-				onPress={buttonHandler}
+				onPress={beginButtonHandler}
 				buttonColor={"white"}
 				textColor={"#586183"}
 				labelStyle={styles.helpButtonText}

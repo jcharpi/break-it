@@ -13,8 +13,7 @@ import {
 } from "../reducers/habitSlice"
 import { selectAddButton } from "../reducers/addButtonSlice"
 import { resetGoalDecrement } from "../reducers/goalDecrementSlice"
-import { resetWeeks } from "../reducers/weekSlice"
-import { resetCurrentWeek } from "../reducers/currentWeekSlice"
+import { resetWeeks, resetCurrentWeek } from "../reducers/weekSlice"
 import {
 	setHelpModalInvisible,
 	setSummaryModalInvisible,

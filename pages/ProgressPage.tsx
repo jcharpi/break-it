@@ -34,11 +34,6 @@ import diamond from "../images/diamond.png"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { addAchievement } from "../reducers/achievementSlice"
 import {
-	resetCurrentWeek,
-	selectCurrentWeek,
-	setCurrentWeek,
-} from "../reducers/currentWeekSlice"
-import {
 	resetGoalDecrement,
 	selectGoalDecrement,
 	setGoalDecrement,
@@ -60,7 +55,13 @@ import {
 	selectAddButton,
 	setResetTrue,
 } from "../reducers/addButtonSlice"
-import { resetWeeks, selectWeeks, setWeeks } from "../reducers/weekSlice"
+import {
+	resetWeeks,
+	selectWeeks,
+	setWeeks,
+	resetCurrentWeek,
+	setCurrentWeek,
+} from "../reducers/weekSlice"
 
 // PAGES
 import { WhatNowModal } from "./../components/WhatNowModal"
@@ -81,13 +82,13 @@ import {
 export default function ProgressPage({ navigation }: any) {
 	// REDUX
 	const dispatch = useAppDispatch()
-	const currentWeek = useAppSelector(selectCurrentWeek)
+	const currentWeek = useAppSelector(selectWeeks).currentWeek
 	const goalDecrement = useAppSelector(selectGoalDecrement)
 	const habit = useAppSelector(selectHabit).habit
 	const completed = useAppSelector(selectHabit).completed
 	const goalExceededCheck = useAppSelector(selectHabit).goalExceededCheck
 	const occurrences = useAppSelector(selectAddButton).occurrences
-	const weeks = useAppSelector(selectWeeks)
+	const weeks = useAppSelector(selectWeeks).weeks
 
 	// CUSTOM FUNCTIONS
 	const currWeekCheck = calculateCurrentWeek(weeks, new Date())
@@ -222,7 +223,7 @@ export default function ProgressPage({ navigation }: any) {
 			dispatch(completedHabit())
 		}
 
-		// reset current habit to week1
+		// habit reset alert if user breaks their current goal (once per week)
 		if (occurrences > goal && occurrences - goal === 1 && !goalExceededCheck) {
 			resetCurrentHabit()
 		}

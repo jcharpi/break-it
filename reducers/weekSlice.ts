@@ -6,11 +6,17 @@ export type Weeks = {
 }
 
 export interface WeekState {
-	value: Weeks
+	value: {
+    weeks: Weeks,
+    currentWeek: string
+  }
 }
 
 const initialState: WeekState = {
-	value: {},
+	value: {
+    weeks: {},
+    currentWeek: ""
+  },
 }
 
 export const weekSlice = createSlice({
@@ -18,15 +24,21 @@ export const weekSlice = createSlice({
 	initialState,
 	reducers: {
 		setWeeks: (state, action: PayloadAction<Weeks>) => {
-			state.value = action.payload
+			state.value.weeks = action.payload
 		},
 		resetWeeks: (state) => {
-			state.value = {}
+			state.value.weeks = {}
+		},
+    resetCurrentWeek: (state) => {
+			state.value.currentWeek = ""
+		},
+		setCurrentWeek: (state, action: PayloadAction<string>) => {
+			state.value.currentWeek = action.payload
 		},
 	},
 })
 
-export const { resetWeeks, setWeeks } = weekSlice.actions
+export const { resetWeeks, setWeeks, resetCurrentWeek, setCurrentWeek } = weekSlice.actions
 
 export const selectWeeks = (state: RootState) => state.weekSlice.value
 

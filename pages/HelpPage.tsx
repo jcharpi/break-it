@@ -12,7 +12,7 @@ import {
 	setHelpPageButtonPressedFalse,
 	setHelpPageButtonPressedTrue,
 } from "../reducers/buttonPressedSlice"
-import { selectCurrentWeek } from "../reducers/currentWeekSlice"
+import { selectWeeks } from "../reducers/weekSlice"
 import { setHelpModalInvisible } from "../reducers/modalVisibleSlice"
 import { setResetTrue } from "../reducers/addButtonSlice"
 
@@ -32,7 +32,7 @@ function HelpPage({ navigation, modalView }: HelpPageProps) {
 	const dispatch = useAppDispatch()
 	const buttonPressed =
 		useAppSelector(selectButtonPressed).helpPageButtonPressed
-	const currentWeek = useAppSelector(selectCurrentWeek)
+	const currentWeek = useAppSelector(selectWeeks).currentWeek
 
 	function changeHabitAlert() {
 		Alert.alert(

@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { selectCurrentWeek } from "../reducers/currentWeekSlice"
+import { selectWeeks } from "../reducers/weekSlice"
 import { addOccurrence } from "../reducers/addButtonSlice"
 import { setAddButtonPressedTrue, setAddButtonPressedFalse, selectButtonPressed } from "../reducers/buttonPressedSlice"
 
@@ -20,7 +20,7 @@ export default function AddButton(props: Props) {
 	// REDUX
 	const dispatch = useAppDispatch()
 	const buttonPressed = useAppSelector(selectButtonPressed).addButtonPressed
-	const currentWeek = useAppSelector(selectCurrentWeek)
+	const currentWeek = useAppSelector(selectWeeks).currentWeek
 
 	function pressIn() {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)

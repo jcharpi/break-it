@@ -8,7 +8,7 @@ import { getWeekNumber } from "../backendFunctions"
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { selectAddButton } from "../reducers/addButtonSlice"
-import { selectCurrentWeek } from "../reducers/currentWeekSlice"
+import { selectWeeks } from "../reducers/weekSlice"
 import { setSummaryModalInvisible } from "../reducers/modalVisibleSlice"
 
 // STYLE
@@ -22,7 +22,7 @@ export default function Summary(props: Props) {
 	// REDUX
 	const dispatch = useAppDispatch()
 	const occurrences = useAppSelector(selectAddButton).occurrences
-	const currentWeek = useAppSelector(selectCurrentWeek)
+	const currentWeek = useAppSelector(selectWeeks).currentWeek
 
 	const weekNumber = getWeekNumber(currentWeek)
 
