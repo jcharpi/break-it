@@ -3,6 +3,7 @@ import { useState, memo, useEffect } from "react"
 import { Text, Alert, View } from "react-native"
 import { Button } from "react-native-paper"
 import * as Haptics from "expo-haptics"
+import * as Battery from "expo-battery"
 
 // COMPONENTS
 import { SliderBody } from "./../components/SliderBody"
@@ -40,21 +41,21 @@ import { setCurrentWeek, setWeeks } from "../reducers/weekSlice"
 import styles from "../styles"
 
 export enum Occurrences {
-  WEEKS = "weeks",
-  MONTHS = "months",
-  YEARS = "years"
+	WEEKS = "weeks",
+	MONTHS = "months",
+	YEARS = "years",
 }
 
 export enum Frequency {
-  MONTHLY = "monthly",
-  WEEKLY = "weekly",
-  DAILY = "daily"
+	MONTHLY = "monthly",
+	WEEKLY = "weekly",
+	DAILY = "daily",
 }
 
 export enum Impact {
-  SLIGHT = "slight",
-  NOTICEABLE = "noticeable",
-  SIGNIFICANT = "significant"
+	SLIGHT = "slight",
+	NOTICEABLE = "noticeable",
+	SIGNIFICANT = "significant",
 }
 
 function QuestionPage({ navigation }: any) {
@@ -70,7 +71,13 @@ function QuestionPage({ navigation }: any) {
 	const [firstOccurrence, setFirstOccurrence] = useState(Occurrences.WEEKS)
 	const [frequency, setFrequency] = useState(Frequency.MONTHLY)
 	const [impact, setImpact] = useState(Impact.SLIGHT)
-
+  
+  // Low power check because low power mode seems to lag sliders
+  const [lowPower, setLowPower] = useState(false)
+  const checkLowPowerModeStatus = async () => {
+    const lowPowerState = await Battery.isLowPowerModeEnabledAsync();
+    setLowPower(lowPowerState);
+  };
 	// CALCULATED GEM
 	const gemVal =
 		Object.values(Occurrences).indexOf(firstOccurrence) +
@@ -105,11 +112,17 @@ function QuestionPage({ navigation }: any) {
 		sliderFeedback()
 	}, [firstOccurrence, frequency, impact])
 
+  useEffect (() => {
+    checkLowPowerModeStatus()
+  }, [])
+
 	useEffect(() => {
-		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    if (!lowPower) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    }
 	}, [goal])
 
-  function changeOccurrence(value: number) {
+	function changeOccurrence(value: number) {
 		setFirstOccurrence(Object.values(Occurrences)[value] || Occurrences.WEEKS)
 		dispatch(setInactiveSlider())
 	}
