@@ -78,6 +78,7 @@ function EnterHabitPage({ navigation }: any) {
 				clearButtonMode="while-editing"
 				maxLength={20}
 				returnKeyType="done"
+        disableFullscreenUI={true}
 				onSubmitEditing={submitHabit}
 				onChangeText={changeHabitName}
 				value={habit.habitName}

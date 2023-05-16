@@ -10,7 +10,7 @@ const Tab = createMaterialTopTabNavigator()
 export default function TrackHabitLayout() {
 	return (
 		<Tab.Navigator
-			backBehavior="initialRoute"
+			backBehavior="none"
 			initialRouteName="ProgressPage"
 			tabBar={() => null}
 			screenOptions={{

@@ -20,10 +20,9 @@ EStyleSheet.build({
 })
 
 export default function App() {
-  AsyncStorage.clear()
 	const theme = useTheme()
 	theme.colors.secondaryContainer = "transparent"
-
+  
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
