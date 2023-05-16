@@ -1,11 +1,11 @@
 // REACT HOOKS & COMPONENTS
 import { useState, memo, useEffect } from "react"
-import { Text, Alert, ScrollView, View } from "react-native"
+import { Text, Alert, View } from "react-native"
 import { Button } from "react-native-paper"
 import * as Haptics from "expo-haptics"
 
-// CUSTOM COMPONENTS
-import CustomSlider from "../components/CustomSlider"
+// COMPONENTS
+import { SliderBody } from "./../components/SliderBody"
 
 // BACKEND FUNCTIONS
 import {
@@ -39,6 +39,24 @@ import { setCurrentWeek, setWeeks } from "../reducers/weekSlice"
 // STYLE
 import styles from "../styles"
 
+export enum Occurrences {
+  WEEKS = "weeks",
+  MONTHS = "months",
+  YEARS = "years"
+}
+
+export enum Frequency {
+  MONTHLY = "monthly",
+  WEEKLY = "weekly",
+  DAILY = "daily"
+}
+
+export enum Impact {
+  SLIGHT = "slight",
+  NOTICEABLE = "noticeable",
+  SIGNIFICANT = "significant"
+}
+
 function QuestionPage({ navigation }: any) {
 	const dispatch = useAppDispatch()
 	const habit = useAppSelector(selectHabit).habit
@@ -49,20 +67,15 @@ function QuestionPage({ navigation }: any) {
 
 	// SLIDER STATES
 	const [goal, setGoal] = useState(0)
-	const [firstOccurrence, setFirstOccurrence] = useState("weeks")
-	const [frequency, setFrequency] = useState("monthly")
-	const [impact, setImpact] = useState("slight")
-
-	// SLIDER OPTIONS
-	const occurrenceOptions = ["weeks", "months", "years"]
-	const frequencyOptions = ["monthly", "weekly", "daily"]
-	const impactOptions = ["slight", "noticable", "significant"]
+	const [firstOccurrence, setFirstOccurrence] = useState(Occurrences.WEEKS)
+	const [frequency, setFrequency] = useState(Frequency.MONTHLY)
+	const [impact, setImpact] = useState(Impact.SLIGHT)
 
 	// CALCULATED GEM
 	const gemVal =
-		occurrenceOptions.indexOf(firstOccurrence) +
-		frequencyOptions.indexOf(frequency) +
-		impactOptions.indexOf(impact) * 2
+		Object.values(Occurrences).indexOf(firstOccurrence) +
+		Object.values(Frequency).indexOf(frequency) +
+		Object.values(Impact).indexOf(impact) * 2
 
 	// Update gem val based on slider values
 	const updatedGemHabit = (prev: Habit) => {
@@ -96,18 +109,18 @@ function QuestionPage({ navigation }: any) {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
 	}, [goal])
 
-	function changeOccurrence(value: number) {
-		setFirstOccurrence(occurrenceOptions[value] || "weeks")
+  function changeOccurrence(value: number) {
+		setFirstOccurrence(Object.values(Occurrences)[value] || Occurrences.WEEKS)
 		dispatch(setInactiveSlider())
 	}
 
 	function changeFrequency(value: number) {
-		setFrequency(frequencyOptions[value] || "monthly")
+		setFrequency(Object.values(Frequency)[value] || Frequency.MONTHLY)
 		dispatch(setInactiveSlider())
 	}
 
 	function changeImpact(value: number) {
-		setImpact(impactOptions[value] || "slight")
+		setImpact(Object.values(Impact)[value] || Impact.SLIGHT)
 		dispatch(setInactiveSlider())
 	}
 
@@ -161,53 +174,17 @@ function QuestionPage({ navigation }: any) {
 		<View style={[styles.questionContainer, styles.safeArea]}>
 			<Text style={styles.titleText}>A few questions...</Text>
 
-			<ScrollView
-				style={[{ flex: 1 }]}
-				alwaysBounceVertical={false}
-				centerContent={true}
-			>
-				<Text style={styles.bodyText}>
-					First occurrence was{" "}
-					<Text style={styles.questionValue}>{firstOccurrence}</Text> ago
-				</Text>
-				<CustomSlider
-					onValueChange={changeOccurrence}
-					maximumValue={2}
-					trackMarks={[0, 1, 2]}
-				/>
-
-				<Text style={styles.bodyText}>
-					I engage in this habit{" "}
-					<Text style={styles.questionValue}>{frequency}</Text>
-				</Text>
-				<CustomSlider
-					onValueChange={changeFrequency}
-					maximumValue={2}
-					trackMarks={[0, 1, 2]}
-				/>
-
-				<Text style={styles.bodyText}>
-					This habit has a <Text style={styles.questionValue}>{impact}</Text>{" "}
-					impact
-				</Text>
-				<CustomSlider
-					onValueChange={changeImpact}
-					maximumValue={2}
-					trackMarks={[0, 1, 2]}
-				/>
-
-				<Text style={styles.bodyText}>
-					My first goal is <Text style={styles.questionValue}>{goal}</Text>{" "}
-					times a week
-				</Text>
-        
-				<CustomSlider
-					onValueChange={setGoal}
-					maximumValue={100}
-					trackMarks={[0, 100]}
-					onSlidingComplete={slidersComplete}
-				/>
-			</ScrollView>
+			<SliderBody
+				firstOccurrence={firstOccurrence}
+				changeOccurrence={changeOccurrence}
+				frequency={frequency}
+				changeFrequency={changeFrequency}
+				impact={impact}
+				changeImpact={changeImpact}
+				goal={goal}
+				setGoal={setGoal}
+				slidersComplete={slidersComplete}
+			/>
 
 			<Button
 				mode="elevated"
