@@ -1,8 +1,9 @@
 // REACT HOOKS, COMPONENTS, & LIBRARIES
-import { useEffect } from "react"
-
+import { useCallback, useEffect } from "react"
+import { useFocusEffect } from "@react-navigation/native"
 import {
 	Alert,
+	BackHandler,
 	Image,
 	ImageSourcePropType,
 	Pressable,
@@ -233,6 +234,20 @@ export default function ProgressPage({ navigation }: any) {
 			navigation.navigate("CreateHabitLayout", { screen: "EnterHabitPage" })
 		}
 	}, [weekNumber, occurrences])
+
+  // handle android back button
+	useFocusEffect(
+		useCallback(() => {
+			const onBackPress = () => {
+				return true
+			}
+
+			BackHandler.addEventListener("hardwareBackPress", onBackPress)
+
+			return () =>
+				BackHandler.removeEventListener("hardwareBackPress", onBackPress)
+		}, [])
+	)
 
 	return (
 		<View style={styles.progressContainer}>

@@ -251,9 +251,9 @@ export default EStyleSheet.create({
 		width: "14rem",
 	},
   gemRock: {
-    marginVertical: "2rem",
-    width: "7.7rem",
-		height: "10rem",
+    marginVertical: "3rem",
+    width: "6rem",
+		height: "8rem",
   },
 
 	// TROVE PAGE

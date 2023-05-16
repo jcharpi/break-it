@@ -25,7 +25,7 @@ export default function CreateHabitLayout() {
 		<Tab.Navigator
 			initialRouteName="HelpPage"
 			tabBar={firstLoad ? undefined : () => null}
-			backBehavior="none"
+			backBehavior="firstRoute"
 			tabBarPosition="bottom"
 			screenOptions={
 				firstLoad

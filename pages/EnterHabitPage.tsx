@@ -1,6 +1,7 @@
 // REACT HOOKS & COMPONENTS
-import { memo, useEffect } from "react"
-import { Text, TextInput, View } from "react-native"
+import { memo, useCallback, useEffect } from "react"
+import { BackHandler, Text, TextInput, View } from "react-native"
+import { useFocusEffect } from "@react-navigation/native"
 
 // REDUX
 import { useAppDispatch, useAppSelector } from "../app/hooks"
@@ -68,6 +69,20 @@ function EnterHabitPage({ navigation }: any) {
 			newHabit()
 		}
 	}, [reset])
+
+  // handle android back button
+	useFocusEffect(
+		useCallback(() => {
+			const onBackPress = () => {
+				return true
+			}
+
+			BackHandler.addEventListener("hardwareBackPress", onBackPress)
+
+			return () =>
+				BackHandler.removeEventListener("hardwareBackPress", onBackPress)
+		}, [])
+	)
 
 	return (
 		<View style={styles.enterContainer}>
