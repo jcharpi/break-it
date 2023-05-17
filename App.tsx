@@ -10,8 +10,6 @@ import BreakItLayout from "./layouts/BreakItLayout"
 import { persistor, store } from "./app/store"
 import { PersistGate } from "redux-persist/integration/react"
 
-import AsyncStorage from "@react-native-async-storage/async-storage"
-
 const height = Dimensions.get("screen").height
 const rem = height > 830 ? 24 : height > 700 ? 21 : 19
 
