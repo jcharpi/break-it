@@ -3,7 +3,6 @@ import { useState, memo, useEffect } from "react"
 import { Text, Alert, View } from "react-native"
 import { Button } from "react-native-paper"
 import * as Haptics from "expo-haptics"
-import * as Battery from "expo-battery"
 
 // COMPONENTS
 import { SliderBody } from "./../components/SliderBody"
@@ -72,12 +71,6 @@ function QuestionPage({ navigation }: any) {
 	const [frequency, setFrequency] = useState(Frequency.MONTHLY)
 	const [impact, setImpact] = useState(Impact.SLIGHT)
   
-  // Low power check because low power mode seems to lag sliders
-  const [lowPower, setLowPower] = useState(false)
-  const checkLowPowerModeStatus = async () => {
-    const lowPowerState = await Battery.isLowPowerModeEnabledAsync();
-    setLowPower(lowPowerState);
-  };
 	// CALCULATED GEM
 	const gemVal =
 		Object.values(Occurrences).indexOf(firstOccurrence) +
@@ -112,14 +105,8 @@ function QuestionPage({ navigation }: any) {
 		sliderFeedback()
 	}, [firstOccurrence, frequency, impact])
 
-  useEffect (() => {
-    checkLowPowerModeStatus()
-  }, [])
-
 	useEffect(() => {
-    if (!lowPower) {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-    }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
 	}, [goal])
 
 	function changeOccurrence(value: number) {

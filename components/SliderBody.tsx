@@ -58,8 +58,7 @@ export function SliderBody(props: Props) {
 			/>
 
 			<Text style={styles.bodyText}>
-				My first goal is <Text style={styles.questionValue}>{props.goal}</Text>{" "}
-				times a week
+				My first goal is <Text style={styles.questionValue}>{props.goal}</Text> {props.goal === 1 ? "time" : "times"} a week
 			</Text>
 
 			<CustomSlider
