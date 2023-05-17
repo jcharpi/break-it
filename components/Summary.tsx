@@ -55,7 +55,7 @@ export default function Summary(props: Props) {
 			) : (
 				<View>
 					<Text style={[styles.summaryBody, styles.summaryText]}>
-						Goal: {props.goal} occurrences
+						Goal: {props.goal} {props.goal === 1 ? "occurrence" : "occurrences"}
 					</Text>
 					<Text style={[styles.summaryBody, styles.summaryText]}>
 						Current:{" "}
@@ -66,8 +66,7 @@ export default function Summary(props: Props) {
 							}}
 						>
 							{occurrences}
-						</Text>{" "}
-						occurrences
+						</Text> {occurrences === 1 ? "occurrence" : "occurrences"}
 					</Text>
 
 					<Text style={[styles.summaryBody, styles.summaryText]}>
