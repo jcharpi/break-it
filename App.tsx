@@ -10,6 +10,7 @@ import BreakItLayout from "./layouts/BreakItLayout"
 // REDUX
 import { persistor, store } from "./app/store"
 import { PersistGate } from "redux-persist/integration/react"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 SplashScreen.preventAutoHideAsync()
 setTimeout(SplashScreen.hideAsync, 650)
